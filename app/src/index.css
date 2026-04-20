@@ -1,0 +1,154 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Energy Storyteller Color System - Solar-Inspired Dark Theme */
+    --background: 220 15% 8%; /* Deep charcoal #0d1117 */
+    --foreground: 40 20% 96%; /* Warm off-white #f5f0e8 */
+    --card: 220 15% 11%;
+    --card-foreground: 40 20% 96%;
+    --popover: 220 15% 8%;
+    --popover-foreground: 40 20% 96%;
+    --primary: 35 70% 55%; /* Solar gold #d4a03a */
+    --primary-foreground: 220 15% 8%;
+    --secondary: 220 12% 18%;
+    --secondary-foreground: 40 20% 96%;
+    --muted: 220 10% 22%;
+    --muted-foreground: 40 10% 60%;
+    --accent: 25 75% 50%; /* Warm amber #d4782a */
+    --accent-foreground: 220 15% 8%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 40 20% 70% / 0.15;
+    --input: 220 12% 18%;
+    --ring: 35 70% 55%;
+    --radius: 0.5rem;
+    
+    /* Custom properties - Energy Storyteller Palette */
+    --energy-dark: #0d1117;
+    --energy-mid: #161b22;
+    --energy-light: #21262d;
+    --solar-gold: #d4a03a;
+    --warm-amber: #d4782a;
+    --cream: #f5f0e8;
+    --pure-white: #ffffff;
+    --soft-gray: #7a7068;
+  }
+
+  .light-section {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 10%;
+    --card: 0 0% 98%;
+    --card-foreground: 0 0% 10%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
+    --border: 0 0% 0% / 0.08;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    scroll-behavior: auto;
+  }
+  
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Manrope', sans-serif;
+  }
+  
+  .font-serif {
+    font-family: 'Playfair Display', serif;
+  }
+  
+  .font-sans {
+    font-family: 'Manrope', sans-serif;
+  }
+  
+  .font-body {
+    font-family: 'DM Sans', sans-serif;
+  }
+}
+
+@layer components {
+  /* Viewfinder overlay effect */
+  .viewfinder {
+    position: relative;
+  }
+  
+  .viewfinder::before,
+  .viewfinder::after {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    pointer-events: none;
+    z-index: 10;
+    transition: all 0.3s ease;
+  }
+  
+  .viewfinder::before {
+    top: 16px;
+    left: 16px;
+    border-top: 2px solid white;
+    border-left: 2px solid white;
+  }
+  
+  .viewfinder::after {
+    bottom: 16px;
+    right: 16px;
+    border-bottom: 2px solid white;
+    border-right: 2px solid white;
+  }
+  
+  .viewfinder-corners {
+    position: relative;
+  }
+  
+  .viewfinder-corners .corner-tr,
+  .viewfinder-corners .corner-bl {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    pointer-events: none;
+    z-index: 10;
+  }
+  
+  .viewfinder-corners .corner-tr {
+    top: 16px;
+    right: 16px;
+    border-top: 2px solid white;
+    border-right: 2px solid white;
+  }
+  
+  .viewfinder-corners .corner-bl {
+    bottom: 16px;
+    left: 16px;
+    border-bottom: 2px solid white;
+    border-left: 2px solid white;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .tracking-tight {
+    letter-spacing: -0.025em;
+  }
+  
+  .tracking-tighter {
+    letter-spacing: -0.05em;
+  }
+}
