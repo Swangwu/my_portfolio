@@ -1,149 +1,154 @@
-import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { heroConfig } from '../config';
+import { useEffect, useState, useRef, useCallback } from 'react';
+import { cn } from '@/lib/utils';
+import { heroConfig } from '@/config';
 
-gsap.registerPlugin(ScrollTrigger);
+const boxSize = 450;
+const halfBox = boxSize / 2;
 
 export function Hero() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const textRef = useRef<HTMLDivElement>(null);
-  const modelRef = useRef<HTMLDivElement>(null);
-  const overlayTextRef = useRef<HTMLDivElement>(null);
+  if (!heroConfig.name && heroConfig.roles.length === 0) return null;
 
-  if (!heroConfig.backgroundText && !heroConfig.heroImage && heroConfig.navLinks.length === 0) return null;
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Store ScrollTrigger instances for cleanup
-      const triggers: ScrollTrigger[] = [];
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, []);
 
-      // Parallax effect for main text
-      const textTrigger = ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: 'top top',
-        end: 'bottom top',
-        scrub: 1,
-        onUpdate: (self) => {
-          if (textRef.current) {
-            gsap.set(textRef.current, { yPercent: self.progress * 50 });
-          }
-        },
-      });
-      triggers.push(textTrigger);
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
+    const section = e.currentTarget;
+    const rect = section.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
 
-      // Parallax effect for model (slower movement = appears closer)
-      const modelTrigger = ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: 'top top',
-        end: 'bottom top',
-        scrub: 1,
-        onUpdate: (self) => {
-          if (modelRef.current) {
-            gsap.set(modelRef.current, { yPercent: self.progress * 20 });
-          }
-        },
-      });
-      triggers.push(modelTrigger);
-
-      // Fade out overlay text faster
-      const overlayTrigger = ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: 'top top',
-        end: '30% top',
-        scrub: 1,
-        onUpdate: (self) => {
-          if (overlayTextRef.current) {
-            gsap.set(overlayTextRef.current, { opacity: 1 - self.progress });
-          }
-        },
-      });
-      triggers.push(overlayTrigger);
-
-      // Cleanup function
-      return () => {
-        triggers.forEach((trigger) => trigger.kill());
-      };
-    }, sectionRef);
-
-    return () => ctx.revert();
+    // Use CSS custom properties for GPU-accelerated transforms
+    section.style.setProperty('--mouse-x', `${x - halfBox}px`);
+    section.style.setProperty('--mouse-y', `${y - halfBox}px`);
   }, []);
 
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-forest-dark"
+      id="hero"
+      className="relative w-full min-h-screen overflow-hidden bg-neutral-900 cursor-none"
+      onMouseMove={handleMouseMove}
+      style={{ '--mouse-x': 'calc(42vw - 200px)', '--mouse-y': 'calc(28vh - 200px)' } as React.CSSProperties}
     >
-      {/* Layer 1: Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-forest-dark via-forest-dark to-forest-mid opacity-90" />
-
-      {/* Subtle texture overlay */}
+      {/* Background Image with Blur */}
       <div
-        className="absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-        }}
-      />
-
-      {/* Layer 2: Big Text */}
-      <div
-        ref={textRef}
-        className="absolute inset-0 flex items-center justify-center z-10 will-change-transform"
+        className={cn(
+          'absolute inset-0 transition-opacity duration-[1800ms]',
+          isLoaded && imageLoaded ? 'opacity-100' : 'opacity-0'
+        )}
       >
-        <h1 className="text-[12vw] md:text-[14vw] lg:text-[16vw] font-sans font-extrabold text-white tracking-tighter leading-none select-none whitespace-nowrap">
-          {heroConfig.backgroundText}
-        </h1>
+        <img
+          src={heroConfig.backgroundImage}
+          alt="Hero Background"
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ filter: 'blur(15px) brightness(0.7)' }}
+          onLoad={() => setImageLoaded(true)}
+        />
       </div>
 
-      {/* Layer 3: Hero Model Image (Cutout) */}
-      {heroConfig.heroImage && (
-        <div
-          ref={modelRef}
-          className="absolute inset-0 flex items-end justify-center z-20 will-change-transform"
-        >
-          <div className="relative w-[50vw] md:w-[35vw] lg:w-[28vw] max-w-[500px]">
-            <img
-              src={heroConfig.heroImage}
-              alt={heroConfig.heroImageAlt}
-              className="w-full h-auto object-contain"
-              loading="eager"
-            />
-            {/* Gradient fade at bottom for smooth transition */}
-            <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-forest-dark to-transparent" />
-          </div>
-        </div>
-      )}
-
-      {/* Layer 4: Overlay Text */}
-      {heroConfig.overlayText && (
-        <div
-          ref={overlayTextRef}
-          className="absolute bottom-[15%] right-[8%] md:right-[12%] z-30 will-change-transform"
-        >
-          <p className="font-serif italic text-xl md:text-2xl lg:text-3xl text-white/90 tracking-wide">
-            {heroConfig.overlayText}
-          </p>
-        </div>
-      )}
-
-      {/* Navigation hint */}
-      <nav className="absolute top-0 left-0 right-0 z-40 px-6 md:px-12 py-6 flex items-center justify-between">
-        <div className="text-white font-sans font-bold text-lg tracking-tight">
-          {heroConfig.brandName}
-        </div>
-        {heroConfig.navLinks.length > 0 && (
-          <div className="hidden md:flex items-center gap-8 text-white/80 text-sm font-body">
-            {heroConfig.navLinks.map((link) => (
-              <a key={link.label} href={link.href} className="hover:text-white transition-colors duration-300">{link.label}</a>
-            ))}
-          </div>
+      {/* Sharp Image Container - uses CSS variables for position */}
+      <div
+        className={cn(
+          'absolute top-0 left-0 overflow-hidden pointer-events-none z-20',
+          isLoaded && imageLoaded ? 'opacity-100' : 'opacity-0'
         )}
-        <button className="md:hidden text-white">
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        </button>
-      </nav>
+        style={{
+          width: boxSize,
+          height: boxSize,
+          transform: 'translate3d(var(--mouse-x), var(--mouse-y), 0)',
+          willChange: 'transform',
+        }}
+      >
+        {/* Sharp image fills the entire section, offset to align with background */}
+        <div
+          className="absolute inset-0"
+          style={{
+            transform: 'translate3d(calc(var(--mouse-x) * -1), calc(var(--mouse-y) * -1), 0)',
+            width: '100vw',
+            height: '100vh',
+            willChange: 'transform',
+          }}
+        >
+          <img
+            src={heroConfig.backgroundImage}
+            alt="Hero Sharp"
+            className="w-full h-full object-cover"
+          />
+        </div>
+      </div>
+
+      {/* Square border frame */}
+      <div
+        className={cn(
+          'absolute top-0 left-0 pointer-events-none z-20',
+          isLoaded && imageLoaded ? 'opacity-100' : 'opacity-0'
+        )}
+        style={{
+          width: boxSize,
+          height: boxSize,
+          border: '1px solid rgba(255,255,255,0.4)',
+          transform: 'translate3d(var(--mouse-x), var(--mouse-y), 0)',
+          willChange: 'transform',
+        }}
+      >
+        {/* Crosshair */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="w-4 h-px bg-white/60" />
+          <div className="absolute w-px h-4 bg-white/60" />
+        </div>
+      </div>
+
+      {/* Role labels on sides */}
+      {heroConfig.roles[0] && (
+        <div
+          className={cn(
+            'absolute left-8 lg:left-16 top-1/2 -translate-y-1/2 z-30 transition-all duration-[1200ms] ease-out-quart',
+            isLoaded ? 'opacity-100' : 'opacity-0'
+          )}
+          style={{ transitionDelay: '800ms' }}
+        >
+          <span className="text-xs font-geist-mono uppercase tracking-[0.3em] text-white/70">
+            {heroConfig.roles[0]}
+          </span>
+        </div>
+      )}
+      {heroConfig.roles[1] && (
+        <div
+          className={cn(
+            'absolute right-8 lg:right-16 top-1/2 -translate-y-1/2 z-30 transition-all duration-[1200ms] ease-out-quart',
+            isLoaded ? 'opacity-100' : 'opacity-0'
+          )}
+          style={{ transitionDelay: '900ms' }}
+        >
+          <span className="text-xs font-geist-mono uppercase tracking-[0.3em] text-white/70">
+            {heroConfig.roles[1]}
+          </span>
+        </div>
+      )}
+
+      {/* Content Container */}
+      <div className="relative z-30 flex flex-col items-center justify-end min-h-screen px-6 lg:px-12 pointer-events-none">
+        {/* Main Heading - large and impactful */}
+        <div
+          className={cn(
+            'text-center transition-all duration-[1200ms] ease-out-quart pb-8 md:pb-12',
+            isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          )}
+          style={{ transitionDelay: '600ms' }}
+        >
+          <h1 className="text-[clamp(3rem,12vw,12rem)] font-black text-white tracking-[-0.04em] leading-[0.85]">
+            {heroConfig.name}
+          </h1>
+        </div>
+      </div>
     </section>
   );
 }

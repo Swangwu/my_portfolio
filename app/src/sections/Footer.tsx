@@ -1,191 +1,161 @@
-import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Instagram, Twitter, Linkedin, Mail } from 'lucide-react';
-import type { LucideIcon } from 'lucide-react';
-import { footerConfig } from '../config';
+import { type MouseEvent } from 'react';
+import { cn } from '@/lib/utils';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import { ArrowUpRight } from 'lucide-react';
+import { footerConfig } from '@/config';
+import * as LucideIcons from 'lucide-react';
+import { type ElementType } from 'react';
 
-gsap.registerPlugin(ScrollTrigger);
-
-const iconMap: Record<string, LucideIcon> = {
-  Instagram,
-  Twitter,
-  Linkedin,
-  Mail,
-};
+function getIcon(iconName: string): ElementType {
+  const icons = LucideIcons as unknown as Record<string, ElementType>;
+  return icons[iconName] || LucideIcons.Circle;
+}
 
 export function Footer() {
-  const footerRef = useRef<HTMLElement>(null);
-  const logoRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
+  if (!footerConfig.logo && footerConfig.columns.length === 0 && footerConfig.socialLinks.length === 0) return null;
 
-  if (!footerConfig.logoText && !footerConfig.email && footerConfig.navLinks.length === 0) return null;
+  const { ref, isVisible } = useScrollAnimation({ threshold: 0.1 });
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Logo — scale up + fade
-      ScrollTrigger.create({
-        trigger: logoRef.current,
-        start: 'top 88%',
-        onEnter: () => {
-          gsap.fromTo(
-            logoRef.current,
-            { y: 80, opacity: 0, scale: 0.9 },
-            { y: 0, opacity: 1, scale: 1, duration: 1.2, ease: 'power3.out' }
-          );
-        },
-        once: true,
-      });
-
-      // Content — fade up
-      ScrollTrigger.create({
-        trigger: contentRef.current,
-        start: 'top 88%',
-        onEnter: () => {
-          gsap.fromTo(
-            contentRef.current,
-            { y: 40, opacity: 0 },
-            { y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay: 0.3 }
-          );
-        },
-        once: true,
-      });
-    }, footerRef);
-
-    return () => ctx.revert();
-  }, []);
+  const handleNavClick = (e: MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith('#')) {
+      e.preventDefault();
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
 
   return (
-    <footer
-      ref={footerRef}
-      id="contact"
-      className="relative w-full bg-white pt-24 md:pt-32 pb-8 overflow-hidden"
-    >
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        {/* Massive Logo */}
-        {footerConfig.logoText && (
-          <div ref={logoRef} className="opacity-0 mb-16 md:mb-24">
-            <svg
-              viewBox="0 0 600 100"
-              className="w-full h-auto max-h-[25vh]"
-              preserveAspectRatio="xMidYMid meet"
-            >
-              <text
-                x="50%"
-                y="50%"
-                dominantBaseline="middle"
-                textAnchor="middle"
-                className="fill-softblack font-sans font-extrabold"
-                style={{
-                  fontSize: '90px',
-                  letterSpacing: '-0.03em',
-                }}
-              >
-                {footerConfig.logoText}
-              </text>
-            </svg>
-          </div>
-        )}
-
-        {/* Footer Content */}
-        <div ref={contentRef} className="opacity-0">
-          <div className="grid md:grid-cols-3 gap-12 md:gap-8 mb-16">
-            {/* Contact Info */}
-            <div>
-              {footerConfig.contactLabel && (
-                <p className="text-softblack/50 text-sm font-body uppercase tracking-widest mb-4">
-                  {footerConfig.contactLabel}
-                </p>
-              )}
-              {footerConfig.email && (
-                <a
-                  href={`mailto:${footerConfig.email}`}
-                  className="text-xl md:text-2xl font-sans font-semibold text-softblack hover:text-softblack/70 transition-colors duration-300"
-                >
-                  {footerConfig.email}
-                </a>
-              )}
-              {footerConfig.locationText && (
-                <p className="mt-4 text-softblack/60 font-body text-sm whitespace-pre-line">
-                  {footerConfig.locationText}
-                </p>
-              )}
-            </div>
-
-            {/* Navigation */}
-            {footerConfig.navLinks.length > 0 && (
-              <div>
-                {footerConfig.navigationLabel && (
-                  <p className="text-softblack/50 text-sm font-body uppercase tracking-widest mb-4">
-                    {footerConfig.navigationLabel}
-                  </p>
-                )}
-                <nav className="space-y-3">
-                  {footerConfig.navLinks.map((link) => (
-                    <a
-                      key={link.label}
-                      href={link.href}
-                      className="block text-softblack/80 hover:text-softblack font-body transition-colors duration-300"
-                    >
-                      {link.label}
-                    </a>
-                  ))}
-                </nav>
-              </div>
+    <footer ref={ref} className="w-full bg-exvia-black text-white py-16 lg:py-24">
+      <div className="container-large px-6 lg:px-12">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-8">
+          {/* Brand Column */}
+          <div
+            className={cn(
+              'lg:col-span-4 space-y-6 transition-all duration-800 ease-out-quart',
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+            )}
+          >
+            {footerConfig.logo && (
+              <a href="#" className="inline-block">
+                <span className="text-2xl font-semibold tracking-tight">{footerConfig.logo}</span>
+              </a>
+            )}
+            {footerConfig.description && (
+              <p className="text-sm text-white/60 max-w-xs leading-relaxed">
+                {footerConfig.description}
+              </p>
             )}
 
             {/* Social Links */}
-            <div>
-              {footerConfig.socialLabel && (
-                <p className="text-softblack/50 text-sm font-body uppercase tracking-widest mb-4">
-                  {footerConfig.socialLabel}
-                </p>
-              )}
-              {footerConfig.socialLinks.length > 0 && (
-                <div className="flex items-center gap-4">
-                  {footerConfig.socialLinks.map((social) => {
-                    const Icon = iconMap[social.iconName] || Mail;
-                    return (
-                      <a
-                        key={social.label}
-                        href={social.href}
-                        aria-label={social.label}
-                        className="w-10 h-10 rounded-full bg-offwhite flex items-center justify-center text-softblack/70 hover:bg-forest-dark hover:text-white transition-all duration-300"
-                      >
-                        <Icon className="w-5 h-5" strokeWidth={1.5} />
-                      </a>
-                    );
-                  })}
-                </div>
-              )}
-              {footerConfig.tagline && (
-                <p className="mt-6 text-softblack/40 font-body text-sm whitespace-pre-line">
-                  {footerConfig.tagline}
-                </p>
-              )}
-            </div>
-          </div>
-
-          {/* Bottom Bar */}
-          <div className="pt-8 border-t border-softblack/10 flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-softblack/40 font-body text-sm">
-              {footerConfig.copyright || `\u00A9 ${new Date().getFullYear()} All rights reserved.`}
-            </p>
-            {footerConfig.bottomLinks.length > 0 && (
-              <div className="flex items-center gap-6 text-softblack/40 font-body text-sm">
-                {footerConfig.bottomLinks.map((link) => (
-                  <a key={link.label} href={link.href} className="hover:text-softblack transition-colors duration-300">
-                    {link.label}
-                  </a>
-                ))}
+            {footerConfig.socialLinks.length > 0 && (
+              <div className="flex gap-3 pt-2">
+                {footerConfig.socialLinks.map((social) => {
+                  const Icon = getIcon(social.iconName);
+                  return (
+                    <a
+                      key={social.label}
+                      href={social.href}
+                      className="w-10 h-10 border border-white/20 rounded-full flex items-center justify-center hover:bg-white hover:text-exvia-black transition-all duration-300"
+                      aria-label={social.label}
+                    >
+                      <Icon className="w-4 h-4" />
+                    </a>
+                  );
+                })}
               </div>
             )}
           </div>
-        </div>
-      </div>
 
-      {/* Decorative gradient */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-offwhite to-transparent pointer-events-none" />
+          {/* Links Columns */}
+          {footerConfig.columns.map((column, colIndex) => (
+            <div
+              key={column.title}
+              className={cn(
+                'lg:col-span-2 transition-all duration-800 ease-out-quart',
+                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+              )}
+              style={{ transitionDelay: `${(colIndex + 1) * 100}ms` }}
+            >
+              <h4 className="text-xs font-geist-mono uppercase tracking-widest text-white/40 mb-4">
+                {column.title}
+              </h4>
+              <ul className="space-y-3">
+                {column.links.map((link) => (
+                  <li key={link.label}>
+                    <a
+                      href={link.href}
+                      onClick={(e) => handleNavClick(e, link.href)}
+                      className="text-sm text-white/70 hover:text-white transition-colors inline-flex items-center gap-1 group"
+                    >
+                      {link.label}
+                      <ArrowUpRight className="w-3 h-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+
+          {/* Newsletter Column */}
+          {footerConfig.newsletterHeading && (
+            <div
+              className={cn(
+                'lg:col-span-2 transition-all duration-800 ease-out-quart',
+                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+              )}
+              style={{ transitionDelay: '400ms' }}
+            >
+              <h4 className="text-xs font-geist-mono uppercase tracking-widest text-white/40 mb-4">
+                {footerConfig.newsletterHeading}
+              </h4>
+              {footerConfig.newsletterDescription && (
+                <p className="text-sm text-white/60 mb-4">
+                  {footerConfig.newsletterDescription}
+                </p>
+              )}
+              <form className="space-y-3" onSubmit={(e) => e.preventDefault()}>
+                <input
+                  type="email"
+                  placeholder={footerConfig.newsletterPlaceholder || "your@email.com"}
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-sm text-white placeholder:text-white/40 focus:outline-none focus:border-white/30 transition-colors"
+                />
+                {footerConfig.newsletterButtonText && (
+                  <button
+                    type="submit"
+                    className="w-full px-4 py-3 bg-white text-exvia-black text-sm font-medium rounded-lg hover:bg-white/90 transition-colors"
+                  >
+                    {footerConfig.newsletterButtonText}
+                  </button>
+                )}
+              </form>
+            </div>
+          )}
+        </div>
+
+        {/* Bottom Bar */}
+        {(footerConfig.copyright || footerConfig.credit) && (
+          <div
+            className={cn(
+              'mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 transition-all duration-800 ease-out-quart',
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+            )}
+            style={{ transitionDelay: '500ms' }}
+          >
+            {footerConfig.copyright && (
+              <p className="text-xs text-white/40">
+                {footerConfig.copyright}
+              </p>
+            )}
+            {footerConfig.credit && (
+              <p className="text-xs text-white/40">
+                {footerConfig.credit}
+              </p>
+            )}
+          </div>
+        )}
+      </div>
     </footer>
   );
 }

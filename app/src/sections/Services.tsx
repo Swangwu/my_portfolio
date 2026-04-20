@@ -1,142 +1,128 @@
-import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Camera, Diamond, Users, Sparkles } from 'lucide-react';
-import type { LucideIcon } from 'lucide-react';
-import { servicesConfig } from '../config';
+import { useState, type ElementType } from 'react';
+import { cn } from '@/lib/utils';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import { useServiceParallax } from '@/hooks/useMouseParallax';
+import { servicesConfig } from '@/config';
+import * as LucideIcons from 'lucide-react';
 
-gsap.registerPlugin(ScrollTrigger);
+function getIcon(iconName: string): ElementType {
+  const icons = LucideIcons as unknown as Record<string, ElementType>;
+  return icons[iconName] || LucideIcons.Circle;
+}
 
-const iconMap: Record<string, LucideIcon> = {
-  Camera,
-  Diamond,
-  Users,
-  Sparkles,
-};
+interface ServiceCardProps {
+  service: { iconName: string; title: string; description: string; image: string };
+  index: number;
+}
 
-export function Services() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const headingRef = useRef<HTMLDivElement>(null);
-  const gridRef = useRef<HTMLDivElement>(null);
-
-  if (!servicesConfig.titleLine1 && servicesConfig.services.length === 0) return null;
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Heading — slide up
-      ScrollTrigger.create({
-        trigger: headingRef.current,
-        start: 'top 85%',
-        onEnter: () => {
-          gsap.fromTo(
-            headingRef.current,
-            { y: 60, opacity: 0 },
-            { y: 0, opacity: 1, duration: 1, ease: 'power3.out' }
-          );
-        },
-        once: true,
-      });
-
-      // Service cards — staggered slide up
-      const cards = gridRef.current?.querySelectorAll('.service-card');
-      if (cards) {
-        ScrollTrigger.create({
-          trigger: gridRef.current,
-          start: 'top 78%',
-          onEnter: () => {
-            gsap.fromTo(
-              cards,
-              { y: 60, opacity: 0 },
-              {
-                y: 0,
-                opacity: 1,
-                duration: 0.9,
-                ease: 'power3.out',
-                stagger: 0.12,
-              }
-            );
-          },
-          once: true,
-        });
-      }
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
+function ServiceCard({ service, index }: ServiceCardProps) {
+  const [isHovered, setIsHovered] = useState(false);
+  const { containerRef, getTransform } = useServiceParallax();
+  const Icon = getIcon(service.iconName);
 
   return (
-    <section
-      ref={sectionRef}
-      id="services"
-      className="relative w-full py-24 md:py-32 bg-forest-dark"
+    <div
+      ref={containerRef}
+      className={cn(
+        'relative p-8 lg:p-10 border-t border-exvia-border transition-colors duration-300 cursor-pointer',
+        'hover:bg-exvia-subtle/30'
+      )}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-start">
-          {/* Left Column - Heading */}
-          <div ref={headingRef} className="opacity-0">
-            {servicesConfig.subtitle && (
-              <p className="text-white/50 text-sm font-body uppercase tracking-widest mb-4">
-                {servicesConfig.subtitle}
-              </p>
-            )}
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-sans font-bold text-white tracking-tight leading-tight">
-              {servicesConfig.titleLine1}
-              <br />
-              <span className="font-serif italic font-normal text-white/80">
-                {servicesConfig.titleLine2Italic}
-              </span>
-            </h2>
-            {servicesConfig.description && (
-              <p className="mt-6 text-white/60 font-body text-base md:text-lg max-w-md leading-relaxed">
-                {servicesConfig.description}
-              </p>
-            )}
+      <div className="flex flex-col lg:flex-row lg:items-start gap-6">
+        {/* Icon */}
+        <div className="flex-shrink-0">
+          <div className="w-12 h-12 flex items-center justify-center border border-exvia-border rounded-lg bg-white">
+            <Icon className="w-5 h-5 text-exvia-black" />
           </div>
+        </div>
 
-          {/* Right Column - Services Grid */}
-          <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-white/10">
-            {servicesConfig.services.map((service, index) => {
-              const Icon = iconMap[service.iconName] || Camera;
-              return (
-                <div
-                  key={index}
-                  className="service-card group bg-forest-dark p-6 md:p-8 opacity-0 transition-all duration-500 hover:bg-forest-mid cursor-pointer"
-                >
-                  <div className="mb-4">
-                    <Icon className="w-8 h-8 text-white/70 group-hover:text-white transition-colors duration-300" strokeWidth={1.5} />
-                  </div>
-                  <h3 className="text-lg md:text-xl font-sans font-semibold text-white mb-3 group-hover:translate-x-1 transition-transform duration-300">
-                    {service.title}
-                  </h3>
-                  <p className="text-sm text-white/50 font-body leading-relaxed group-hover:text-white/70 transition-colors duration-300">
-                    {service.description}
-                  </p>
+        {/* Content */}
+        <div className="flex-1 space-y-3">
+          <h3 className="text-h5 font-semibold text-exvia-black">{service.title}</h3>
+          <p className="text-sm text-exvia-black/60 leading-relaxed max-w-md">
+            {service.description}
+          </p>
+        </div>
 
-                  {/* Arrow indicator */}
-                  <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <svg
-                      className="w-5 h-5 text-white/60"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={1.5}
-                        d="M17 8l4 4m0 0l-4 4m4-4H3"
-                      />
-                    </svg>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+        {/* Index Number */}
+        <div className="hidden lg:block text-xs font-geist-mono text-exvia-black/30">
+          0{index + 1}
         </div>
       </div>
 
-      {/* Decorative element */}
-      <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+      {/* Hover Image */}
+      <div
+        className={cn(
+          'absolute right-8 top-1/2 -translate-y-1/2 w-48 h-32 lg:w-64 lg:h-40 overflow-hidden rounded-lg shadow-xl pointer-events-none z-10',
+          'transition-opacity duration-300',
+          isHovered ? 'opacity-100' : 'opacity-0'
+        )}
+        style={getTransform(50, 6)}
+      >
+        <img
+          src={service.image}
+          alt={service.title}
+          className="w-full h-full object-cover"
+        />
+      </div>
+    </div>
+  );
+}
+
+export function Services() {
+  if (!servicesConfig.heading && servicesConfig.services.length === 0) return null;
+
+  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation({ threshold: 0.3 });
+  const { ref: servicesRef, isVisible: servicesVisible } = useScrollAnimation({ threshold: 0.1 });
+
+  return (
+    <section id="services" className="w-full py-24 lg:py-32 bg-white">
+      <div className="container-large px-6 lg:px-12">
+        {/* Header */}
+        <div ref={headerRef} className="max-w-2xl mb-16">
+          {servicesConfig.label && (
+            <div
+              className={cn(
+                'transition-all duration-800 ease-out-quart',
+                headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              )}
+            >
+              <span className="text-xs font-geist-mono uppercase tracking-widest text-exvia-black/50">
+                {servicesConfig.label}
+              </span>
+            </div>
+          )}
+
+          {servicesConfig.heading && (
+            <h2
+              className={cn(
+                'text-h2 font-semibold text-exvia-black mt-4 transition-all duration-800 ease-out-quart',
+                headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+              )}
+              style={{ transitionDelay: '100ms' }}
+            >
+              {servicesConfig.heading}
+            </h2>
+          )}
+        </div>
+
+        {/* Services Grid */}
+        {servicesConfig.services.length > 0 && (
+          <div
+            ref={servicesRef}
+            className={cn(
+              'border-b border-exvia-border transition-all duration-800 ease-out-quart',
+              servicesVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            )}
+          >
+            {servicesConfig.services.map((service, index) => (
+              <ServiceCard key={service.title} service={service} index={index} />
+            ))}
+          </div>
+        )}
+      </div>
     </section>
   );
 }

@@ -1,59 +1,39 @@
-import { useEffect } from 'react';
-import { useLenis } from './hooks/useLenis';
-import { Hero } from './sections/Hero';
-import { IntroGrid } from './sections/IntroGrid';
-import { Services } from './sections/Services';
-import { WhyChooseMe } from './sections/WhyChooseMe';
-import { FeaturedProjects } from './sections/FeaturedProjects';
-import { Testimonials } from './sections/Testimonials';
-import { FAQ } from './sections/FAQ';
-import { Footer } from './sections/Footer';
-import { siteConfig } from './config';
-import './App.css';
+import { } from 'react';
+import { Navigation } from '@/components/Navigation';
+import { PageOverlay } from '@/components/PageOverlay';
+import { Hero } from '@/sections/Hero';
+import { About } from '@/sections/About';
+import { Services } from '@/sections/Services';
+import { Portfolio } from '@/sections/Portfolio';
+import { Testimonials } from '@/sections/Testimonials';
+import { CTA } from '@/sections/CTA';
+import { Footer } from '@/sections/Footer';
+import { usePageLoad } from '@/hooks/usePageLoad';
 
 function App() {
-  // Initialize Lenis smooth scroll
-  useLenis();
-
-  useEffect(() => {
-    if (siteConfig.siteTitle) {
-      document.title = siteConfig.siteTitle;
-    }
-    if (siteConfig.siteDescription) {
-      const meta = document.querySelector('meta[name="description"]');
-      if (meta) meta.setAttribute('content', siteConfig.siteDescription);
-    }
-    if (siteConfig.language) {
-      document.documentElement.lang = siteConfig.language;
-    }
-  }, []);
+  const { showOverlay } = usePageLoad(500);
 
   return (
-    <main className="relative w-full overflow-x-hidden">
-      {/* Hero Section - Parallax Layering */}
-      <Hero />
-
-      {/* Intro & Masonry Grid - White Section */}
-      <IntroGrid />
-
-      {/* Services - Dark Section */}
-      <Services />
-
-      {/* Why Choose Me & Stats - White Section */}
-      <WhyChooseMe />
-
-      {/* Featured Projects - Dark Section */}
-      <FeaturedProjects />
-
-      {/* Testimonials Carousel - White Section */}
-      <Testimonials />
-
-      {/* FAQ Accordion - Dark Section */}
-      <FAQ />
-
-      {/* Footer - White Section with Massive Typography */}
+    <div className="min-h-screen bg-white">
+      {/* Page Load Overlay */}
+      <PageOverlay isVisible={showOverlay} />
+      
+      {/* Navigation */}
+      <Navigation />
+      
+      {/* Main Content */}
+      <main>
+        <Hero />
+        <About />
+        <Services />
+        <Portfolio />
+        <Testimonials />
+        <CTA />
+      </main>
+      
+      {/* Footer */}
       <Footer />
-    </main>
+    </div>
   );
 }
 

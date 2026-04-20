@@ -1,384 +1,322 @@
-// Site Configuration
-// Folayimika Molade - The Energy Storyteller Portfolio
-
+// Site configuration
 export interface SiteConfig {
   language: string;
-  siteTitle: string;
-  siteDescription: string;
+  title: string;
+  description: string;
 }
 
 export const siteConfig: SiteConfig = {
   language: "en",
-  siteTitle: "Folayimika Molade | The Energy Storyteller",
-  siteDescription: "Energy Communications, Policy & Narrative Strategy Specialist working at the intersection of clean energy, governance, and storytelling in Africa.",
+  title: "Stephanie Nwangwu | Data Scientist & Energy Engineer",
+  description: "Portfolio of Stephanie Nwangwu - Data Scientist specializing in energy analysis, machine learning, and business intelligence.",
 };
 
-// Hero Section
+// Navigation configuration
+export interface NavLink {
+  label: string;
+  href: string;
+}
+
+export interface NavigationConfig {
+  logo: string;
+  links: NavLink[];
+  contactLabel: string;
+  contactHref: string;
+}
+
+export const navigationConfig: NavigationConfig = {
+  logo: "Stephanie Nwangwu",
+  links: [
+    { label: "About", href: "#about" },
+    { label: "Services", href: "#services" },
+    { label: "Projects", href: "#portfolio" },
+    { label: "Contact", href: "#cta" },
+  ],
+  contactLabel: "Get in Touch",
+  contactHref: "mailto:stephanienwangwu@gmail.com",
+};
+
+// Hero section configuration
 export interface HeroConfig {
-  backgroundText: string;
-  heroImage: string;
-  heroImageAlt: string;
-  overlayText: string;
-  brandName: string;
-  navLinks: { label: string; href: string }[];
+  name: string;
+  roles: string[];
+  backgroundImage: string;
 }
 
 export const heroConfig: HeroConfig = {
-  backgroundText: "ENERGY",
-  heroImage: "/hero-portrait.png",
-  heroImageAlt: "Folayimika Molade - The Energy Storyteller",
-  overlayText: "The Energy Storyteller",
-  brandName: "FM",
-  navLinks: [
-    { label: "About", href: "#about" },
-    { label: "Work", href: "#work" },
-    { label: "Services", href: "#services" },
-    { label: "Impact", href: "#impact" },
-    { label: "Contact", href: "#contact" },
-  ],
+  name: "Stephanie Nwangwu",
+  roles: ["Data Scientist", "Energy Engineer", "ML Engineer", "Researcher"],
+  backgroundImage: "/images/hero-photo.jpg",
 };
 
-// Intro Grid Section
-export interface PortfolioImage {
+// About section configuration
+export interface AboutStat {
+  value: string;
+  label: string;
+}
+
+export interface AboutImage {
   src: string;
   alt: string;
 }
 
-export interface IntroGridConfig {
-  titleLine1: string;
-  titleLine2: string;
+export interface AboutConfig {
+  label: string;
   description: string;
-  portfolioImages: PortfolioImage[];
-  accentText: string;
+  experienceValue: string;
+  experienceLabel: string;
+  stats: AboutStat[];
+  images: AboutImage[];
 }
 
-export const introGridConfig: IntroGridConfig = {
-  titleLine1: "Crafting Narratives",
-  titleLine2: "That Power Change",
-  description: "I work at the intersection of clean energy, governance, and storytelling in Africa. With a proven track record of reaching over 500,000 people and delivering 200%+ engagement growth, I translate complex energy and policy concepts into compelling narratives that drive impact and inspire action.",
-  portfolioImages: [
-    { src: "/portfolio-solar-rural.jpg", alt: "Solar mini-grid installation in rural African community" },
-    { src: "/portfolio-agriculture.jpg", alt: "Solar-powered agricultural irrigation system" },
-    { src: "/portfolio-documentary.jpg", alt: "Documentary filming in rural community" },
-    { src: "/portfolio-industrial.jpg", alt: "Industrial solar installation" },
-    { src: "/portfolio-podcast.jpg", alt: "Podcast studio for energy storytelling" },
+export const aboutConfig: AboutConfig = {
+  label: "About Me",
+  description: "I am a passionate data scientist and energy engineer with expertise in transforming complex data into actionable insights. My work spans energy audit analysis, machine learning classification, recommendation systems, and academic research. I specialize in using data to solve real-world problems, particularly in the renewable energy sector and business intelligence.",
+  experienceValue: "3",
+  experienceLabel: "Years of\nData Experience",
+  stats: [
+    { value: "10+", label: "Projects\nCompleted" },
+    { value: "3+", label: "Research\nPublications" },
+    { value: "100%", label: "Commitment to\nExcellence" },
   ],
-  accentText: "Selected Works — 2024",
-};
-
-// Featured Projects Section
-export interface Project {
-  id: number;
-  title: string;
-  category: string;
-  year: string;
-  image: string;
-  description: string;
-}
-
-export interface FeaturedProjectsConfig {
-  subtitle: string;
-  titleRegular: string;
-  titleItalic: string;
-  viewAllText: string;
-  viewAllHref: string;
-  viewProjectText: string;
-  projects: Project[];
-}
-
-export const featuredProjectsConfig: FeaturedProjectsConfig = {
-  subtitle: "Featured Work",
-  titleRegular: "Signature",
-  titleItalic: "Projects",
-  viewAllText: "View All Projects",
-  viewAllHref: "#work",
-  viewProjectText: "View Project",
-  projects: [
-    {
-      id: 1,
-      title: "Mini-Grid Impact Documentary",
-      category: "Documentary",
-      year: "2024",
-      image: "/project-minigrid.jpg",
-      description: "Traveled to rural communities across Nigeria to document solar mini-grid projects through video and photography. Captured authentic stories of transformation, reaching 500,000+ audience and showcasing how clean energy impacts livelihoods.",
-    },
-    {
-      id: 2,
-      title: "NRIEF Editorial & Documentary",
-      category: "Event Coverage",
-      year: "2024",
-      image: "/project-nrief.jpg",
-      description: "Produced comprehensive content for the National Renewable Energy Investment Forum, reaching 5,000+ stakeholders. Created photo essays, video highlights, and written narratives that translated technical energy topics into accessible stories.",
-    },
-    {
-      id: 3,
-      title: "InfraCredit × Ceesolar Partnership",
-      category: "Strategic Communications",
-      year: "2024",
-      image: "/project-infracredit.jpg",
-      description: "Led communications strategy for the solar financing partnership between InfraCredit and Ceesolar. Developed messaging framework, press materials, and media outreach ensuring visibility across key energy and finance publications.",
-    },
-    {
-      id: 4,
-      title: "Multi-Sector Solar Storytelling",
-      category: "Brand Campaign",
-      year: "2023",
-      image: "/portfolio-agriculture.jpg",
-      description: "Documented solar applications across agriculture (Dobi Agrico, Aryan Farm) and industrial sectors (Brandco warehouse). Created sector-specific narratives demonstrating versatility and impact of renewable energy solutions.",
-    },
+  images: [
+    { src: "/images/portfolio-dashboard.jpg", alt: "Data Visualization Dashboard" },
+    { src: "/images/portfolio-energy.jpg", alt: "Solar Energy Project" },
+    { src: "/images/portfolio-ml.jpg", alt: "Machine Learning Code" },
+    { src: "/images/about-work.jpg", alt: "Research Work" },
   ],
 };
 
-// Services Section
+// Services section configuration
 export interface ServiceItem {
   iconName: string;
   title: string;
   description: string;
+  image: string;
 }
 
 export interface ServicesConfig {
-  subtitle: string;
-  titleLine1: string;
-  titleLine2Italic: string;
-  description: string;
+  label: string;
+  heading: string;
   services: ServiceItem[];
 }
 
 export const servicesConfig: ServicesConfig = {
-  subtitle: "What I Offer",
-  titleLine1: "Services That",
-  titleLine2Italic: "Drive Impact",
-  description: "From strategic communications to documentary production, I offer a comprehensive suite of services designed to amplify your message and connect with audiences across Africa's energy sector.",
+  label: "What I Do",
+  heading: "Services & Expertise",
   services: [
     {
-      iconName: "Sparkles",
-      title: "Strategic Communication",
-      description: "Develop comprehensive communication frameworks that align with your business objectives. From messaging strategy to stakeholder engagement, I help organizations articulate their vision and drive meaningful conversations.",
+      iconName: "BarChart3",
+      title: "Data Analysis & Visualization",
+      description: "Transform raw data into compelling visual stories using Power BI, Python, and advanced analytics techniques. From EDA to interactive dashboards.",
+      image: "/images/portfolio-dashboard.jpg",
     },
     {
-      iconName: "Camera",
-      title: "Documentary & Videography",
-      description: "Produce compelling video content that captures the human stories behind energy projects. From concept to final edit, I create documentaries that resonate with audiences and showcase real-world impact.",
+      iconName: "Zap",
+      title: "Energy Analysis & Audit",
+      description: "Comprehensive energy audits, load demand analysis, and time-series studies to optimize energy consumption and justify renewable energy transitions.",
+      image: "/images/portfolio-energy.jpg",
     },
     {
-      iconName: "Users",
-      title: "Brand & Narrative Strategy",
-      description: "Build authentic brand narratives that differentiate your organization in the competitive energy landscape. Develop storytelling frameworks that connect technical expertise with human emotion.",
+      iconName: "Brain",
+      title: "Machine Learning Solutions",
+      description: "Build predictive models using Random Forest, classification algorithms, and recommendation systems to drive business decisions and customer insights.",
+      image: "/images/portfolio-ml.jpg",
     },
     {
-      iconName: "Diamond",
-      title: "Policy Communication",
-      description: "Translate complex policy and regulatory concepts into accessible narratives. Bridge the gap between technical experts and general audiences, making energy policy understandable and engaging.",
+      iconName: "BookOpen",
+      title: "Research & Academic Writing",
+      description: "Conduct in-depth research on energy systems, publish findings, and create educational content. Expert in academic citation management and technical writing.",
+      image: "/images/portfolio-research.jpg",
     },
   ],
 };
 
-// Why Choose Me Section
-export interface StatItem {
-  value: number;
-  suffix: string;
-  label: string;
-}
-
-export interface FeatureCard {
-  image: string;
-  imageAlt: string;
+// Portfolio section configuration
+export interface ProjectItem {
   title: string;
+  category: string;
+  year: string;
+  image: string;
+  featured?: boolean;
+  link?: string;
+}
+
+export interface PortfolioCTA {
+  label: string;
+  heading: string;
+  linkText: string;
+  linkHref: string;
+}
+
+export interface PortfolioConfig {
+  label: string;
+  heading: string;
   description: string;
+  projects: ProjectItem[];
+  cta: PortfolioCTA;
+  viewAllLabel: string;
 }
 
-export interface WhyChooseMeConfig {
-  subtitle: string;
-  titleRegular: string;
-  titleItalic: string;
-  statsLabel: string;
-  stats: StatItem[];
-  featureCards: FeatureCard[];
-  wideImage: string;
-  wideImageAlt: string;
-  wideTitle: string;
-  wideDescription: string;
-}
-
-export const whyChooseMeConfig: WhyChooseMeConfig = {
-  subtitle: "By The Numbers",
-  titleRegular: "Impact That",
-  titleItalic: "Speaks",
-  statsLabel: "Key Metrics",
-  stats: [
-    { value: 500, suffix: "K+", label: "People Reached" },
-    { value: 200, suffix: "%+", label: "Engagement Growth" },
-    { value: 170, suffix: "K+", label: "LinkedIn Impressions" },
-    { value: 4, suffix: "+", label: "Mini-Grid Communities" },
-  ],
-  featureCards: [
+export const portfolioConfig: PortfolioConfig = {
+  label: "My Work",
+  heading: "Featured Projects",
+  description: "A selection of my data science and energy analysis projects. Each project represents a unique challenge solved through data-driven insights and technical expertise. Click on any project to view the full work.",
+  projects: [
     {
-      image: "/feature-storytelling.jpg",
-      imageAlt: "Storytelling and creative direction",
-      title: "Storytelling Excellence",
-      description: "Award-winning narrative craft that transforms technical content into compelling human stories.",
+      title: "Energy Audit & Load Demand Analysis",
+      category: "Power BI | Time-Series Analysis",
+      year: "2024",
+      image: "/images/portfolio-energy.jpg",
+      featured: true,
+      link: "https://drive.google.com/file/d/1FzRtf5duDWe6wOng3AYbQiO_Gp0wV4Er/view",
     },
     {
-      image: "/feature-strategy.jpg",
-      imageAlt: "Strategic communication planning",
-      title: "Strategic Vision",
-      description: "Deep understanding of Africa's energy landscape combined with cutting-edge communication strategies.",
+      title: "Customer Conversion Prediction",
+      category: "Machine Learning | Classification",
+      year: "2024",
+      image: "/images/portfolio-ml.jpg",
+      link: "https://docs.google.com/presentation/d/1SiFnSJfc6v5BX20LcZqD-Gcw3VQStn12/edit",
+    },
+    {
+      title: "Amazon Product Recommendation",
+      category: "Recommendation Systems | Python",
+      year: "2024",
+      image: "/images/service-data.jpg",
+      link: "/projects/amazon-recommendation.html",
+    },
+    {
+      title: "Food Hub Data Analysis",
+      category: "EDA | Business Intelligence",
+      year: "2024",
+      image: "/images/portfolio-food.jpg",
+      link: "/projects/food-hub-analysis.html",
+    },
+    {
+      title: "Stand-Alone Energy Systems Research",
+      category: "Academic Research | Nigeria",
+      year: "2024",
+      image: "/images/portfolio-research.jpg",
+      link: "https://iopscience.iop.org/article/10.1088/1755-1315/1322/1/012010",
     },
   ],
-  wideImage: "/wide-landscape.jpg",
-  wideImageAlt: "African landscape with solar energy future",
-  wideTitle: "Powering Africa's Energy Narrative",
-  wideDescription: "Every story told is a step toward a sustainable future. Let's tell yours.",
+  cta: {
+    label: "Let's Work Together",
+    heading: "Have a project in mind?",
+    linkText: "Get in Touch",
+    linkHref: "mailto:stephanienwangwu@gmail.com",
+  },
+  viewAllLabel: "View All Projects",
 };
 
-// Testimonials Section
-export interface Testimonial {
-  id: number;
-  name: string;
-  role: string;
-  image: string;
+// Testimonials section configuration
+export interface TestimonialItem {
   quote: string;
+  author: string;
+  role: string;
+  company: string;
+  image: string;
+  rating: number;
 }
 
 export interface TestimonialsConfig {
-  subtitle: string;
-  titleRegular: string;
-  titleItalic: string;
-  testimonials: Testimonial[];
+  label: string;
+  heading: string;
+  testimonials: TestimonialItem[];
 }
 
 export const testimonialsConfig: TestimonialsConfig = {
-  subtitle: "Client Stories",
-  titleRegular: "What They",
-  titleItalic: "Say",
-  testimonials: [
-    {
-      id: 1,
-      name: "Sarah Okafor",
-      role: "CEO, Ceesolar Energy",
-      image: "/testimonial-1.jpg",
-      quote: "Folayimika transformed our brand presence completely. His storytelling approach helped us connect with communities and stakeholders in ways we never imagined. The 200% engagement growth speaks for itself.",
-    },
-    {
-      id: 2,
-      name: "Amara Nwosu",
-      role: "Communications Director, ISPR Hub",
-      image: "/testimonial-2.jpg",
-      quote: "Working with Folayimika was a game-changer for our policy communications. He has an exceptional ability to translate complex energy concepts into narratives that resonate with diverse audiences.",
-    },
-    {
-      id: 3,
-      name: "Dr. Emmanuel Adeyemi",
-      role: "Program Director, NRIEF",
-      image: "/testimonial-3.jpg",
-      quote: "The documentary work Folayimika produced for our forum was outstanding. He captured the essence of our mission and delivered content that exceeded our expectations in both quality and impact.",
-    },
-  ],
+  label: "",
+  heading: "",
+  testimonials: [],
 };
 
-// FAQ Section
-export interface FAQItem {
-  id: string;
-  question: string;
-  answer: string;
+// CTA section configuration
+export interface CTAConfig {
+  tags: string[];
+  heading: string;
+  description: string;
+  buttonText: string;
+  buttonHref: string;
+  email: string;
+  backgroundImage: string;
 }
 
-export interface FAQConfig {
-  subtitle: string;
-  titleRegular: string;
-  titleItalic: string;
-  ctaText: string;
-  ctaButtonText: string;
-  ctaHref: string;
-  faqs: FAQItem[];
-}
-
-export const faqConfig: FAQConfig = {
-  subtitle: "Common Questions",
-  titleRegular: "Frequently",
-  titleItalic: "Asked",
-  ctaText: "Still have questions?",
-  ctaButtonText: "Get in Touch",
-  ctaHref: "#contact",
-  faqs: [
-    {
-      id: "faq-1",
-      question: "What industries do you specialize in?",
-      answer: "I specialize in the energy sector, particularly renewable energy, clean tech, and sustainable development. My experience spans solar power, mini-grids, agricultural energy solutions, and industrial applications. I also work with policy organizations and SDG-focused initiatives across Africa.",
-    },
-    {
-      id: "faq-2",
-      question: "What types of projects do you take on?",
-      answer: "I handle a range of projects including brand strategy, documentary production, event coverage, podcast production, and strategic communications. Whether you need a comprehensive campaign or specific content pieces, I tailor my approach to meet your objectives.",
-    },
-    {
-      id: "faq-3",
-      question: "How do you measure success?",
-      answer: "Success metrics vary by project but typically include engagement rates, reach and impressions, audience sentiment, and business outcomes. For example, my work with Ceesolar achieved 200%+ engagement growth and 170K+ LinkedIn impressions in just 7 months.",
-    },
-    {
-      id: "faq-4",
-      question: "What is your creative process?",
-      answer: "My process begins with deep discovery—understanding your goals, audience, and unique value proposition. From there, I develop a strategic narrative framework, create content that aligns with your brand voice, and continuously optimize based on performance data and feedback.",
-    },
-    {
-      id: "faq-5",
-      question: "Do you work with international clients?",
-      answer: "Absolutely. While my focus is on Africa's energy sector, I work with international organizations, NGOs, and companies looking to establish or strengthen their presence in African markets. I bring local insights combined with global communication standards.",
-    },
-  ],
+export const ctaConfig: CTAConfig = {
+  tags: ["Data Analyst", "Energy Engineer", "ML Engineer", "Researcher"],
+  heading: "Let's Build Something Amazing Together",
+  description: "Whether you need data analysis, energy audits, machine learning solutions, or research collaboration, I'm here to help turn your data into insights.",
+  buttonText: "Send me an Email",
+  buttonHref: "mailto:stephanienwangwu@gmail.com",
+  email: "stephanienwangwu@gmail.com",
+  backgroundImage: "/images/portfolio-dashboard.jpg",
 };
 
-// Footer Section
+// Footer section configuration
+export interface FooterLinkColumn {
+  title: string;
+  links: { label: string; href: string }[];
+}
+
 export interface SocialLink {
   iconName: string;
   href: string;
   label: string;
 }
 
-export interface FooterLink {
-  label: string;
-  href: string;
-}
-
 export interface FooterConfig {
-  logoText: string;
-  contactLabel: string;
-  email: string;
-  locationText: string;
-  navigationLabel: string;
-  navLinks: FooterLink[];
-  socialLabel: string;
+  logo: string;
+  description: string;
+  columns: FooterLinkColumn[];
   socialLinks: SocialLink[];
-  tagline: string;
+  newsletterHeading: string;
+  newsletterDescription: string;
+  newsletterButtonText: string;
+  newsletterPlaceholder: string;
   copyright: string;
-  bottomLinks: FooterLink[];
+  credit: string;
 }
 
 export const footerConfig: FooterConfig = {
-  logoText: "FOLAYIMIKA",
-  contactLabel: "Get in Touch",
-  email: "folayimikamolade742@gmail.com",
-  locationText: "Abuja, F.C.T\nNigeria",
-  navigationLabel: "Navigation",
-  navLinks: [
-    { label: "About", href: "#about" },
-    { label: "Work", href: "#work" },
-    { label: "Services", href: "#services" },
-    { label: "Impact", href: "#impact" },
-    { label: "Contact", href: "#contact" },
+  logo: "Stephanie Nwangwu",
+  description: "Data Scientist and Energy Engineer passionate about transforming complex data into actionable insights for a sustainable future.",
+  columns: [
+    {
+      title: "Navigation",
+      links: [
+        { label: "About", href: "#about" },
+        { label: "Services", href: "#services" },
+        { label: "Projects", href: "#portfolio" },
+        { label: "Contact", href: "#cta" },
+      ],
+    },
+    {
+      title: "Services",
+      links: [
+        { label: "Data Analysis", href: "#services" },
+        { label: "Energy Audit", href: "#services" },
+        { label: "Machine Learning", href: "#services" },
+        { label: "Research", href: "#services" },
+      ],
+    },
+    {
+      title: "Contact",
+      links: [
+        { label: "stephanienwangwu@gmail.com", href: "mailto:stephanienwangwu@gmail.com" },
+        { label: "+234 916 184 6266", href: "tel:+2349161846266" },
+        { label: "LinkedIn", href: "https://www.linkedin.com/in/stephanie-nwangwu" },
+      ],
+    },
   ],
-  socialLabel: "Follow Along",
   socialLinks: [
-    { iconName: "Linkedin", href: "https://www.linkedin.com/in/folayimika-molade-5a6066266", label: "LinkedIn" },
-    { iconName: "Twitter", href: "#", label: "Twitter" },
-    { iconName: "Instagram", href: "#", label: "Instagram" },
-    { iconName: "Mail", href: "mailto:folayimikamolade742@gmail.com", label: "Email" },
+    { iconName: "Linkedin", href: "https://www.linkedin.com/in/stephanie-nwangwu", label: "LinkedIn" },
+    { iconName: "Github", href: "#", label: "GitHub" },
+    { iconName: "Mail", href: "mailto:stephanienwangwu@gmail.com", label: "Email" },
   ],
-  tagline: "The Energy Storyteller\nPowering Narratives That Matter",
-  copyright: "© 2025 Folayimika Molade. All rights reserved.",
-  bottomLinks: [
-    { label: "Privacy Policy", href: "#" },
-    { label: "Terms of Service", href: "#" },
-  ],
+  newsletterHeading: "Stay Updated",
+  newsletterDescription: "Subscribe to receive updates on my latest projects and research.",
+  newsletterButtonText: "Subscribe",
+  newsletterPlaceholder: "Enter your email",
+  copyright: "© 2024 Stephanie Nwangwu. All rights reserved.",
+  credit: "Built with passion and data",
 };

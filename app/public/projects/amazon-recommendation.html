@@ -1,0 +1,4441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jupyter Notebook — generated with runcell</title>
+    <meta name="description" content="Exported with runcell — convert .ipynb notebooks to HTML or PDF anytime at runcell.dev." />
+    <meta name="generator" content="runcell" />
+    <style>
+        :root {
+            --jp-code-font-family: 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+            --jp-content-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            --jp-cell-prompt-width: 64px;
+            --jp-input-prompt-color: #307fc1;
+            --jp-output-prompt-color: #bf5b3d;
+            --jp-cell-input-bg: #f7f7f7;
+            --jp-layout-color0: #ffffff;
+            --jp-layout-color1: #f7f7f7;
+            --jp-border-color1: #e0e0e0;
+            --jp-content-font-color0: #000000;
+            --jp-content-font-color1: #333333;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--jp-content-font-family);
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--jp-content-font-color0);
+            background-color: var(--jp-layout-color0);
+            margin: 0;
+            padding: 0;
+        }
+
+        .notebook-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Cell structure */
+        .cell {
+            display: flex;
+            flex-direction: row;
+            margin-bottom: 12px;
+            position: relative;
+        }
+
+        .cell-prompt {
+            min-width: var(--jp-cell-prompt-width);
+            width: var(--jp-cell-prompt-width);
+            font-family: var(--jp-code-font-family);
+            font-size: 12px;
+            padding: 10px 8px 10px 0;
+            text-align: right;
+            flex-shrink: 0;
+            user-select: none;
+        }
+
+        .cell-content {
+            flex: 1;
+            min-width: 0;
+            overflow: hidden;
+        }
+
+        /* Input prompt styling - Jupyter blue */
+        .input-prompt {
+            color: var(--jp-input-prompt-color);
+            font-weight: bold;
+        }
+
+        /* Output prompt styling - Jupyter red/orange */
+        .output-prompt {
+            color: var(--jp-output-prompt-color);
+            font-weight: bold;
+        }
+
+        /* Code cell input area */
+        .input-area {
+            background-color: var(--jp-cell-input-bg);
+            border: 1px solid var(--jp-border-color1);
+            border-radius: 2px;
+            padding: 8px 12px;
+            overflow-x: auto;
+        }
+
+        .input-area pre {
+            margin: 0;
+            font-family: var(--jp-code-font-family);
+            font-size: 13px;
+            line-height: 1.4;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        /* Output area */
+        .output-area {
+            margin-top: 0;
+        }
+
+        .output-wrapper {
+            display: flex;
+            flex-direction: row;
+            margin-top: 4px;
+        }
+
+        .output-content {
+            flex: 1;
+            min-width: 0;
+            padding: 8px 0;
+        }
+
+        .output-content pre {
+            margin: 0;
+            font-family: var(--jp-code-font-family);
+            font-size: 13px;
+            line-height: 1.4;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        /* Stream output (stdout/stderr) */
+        .output-stream {
+            font-family: var(--jp-code-font-family);
+            font-size: 13px;
+            line-height: 1.4;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .output-stderr {
+            background-color: #fdd;
+            padding: 8px 12px;
+            border-radius: 2px;
+        }
+
+        /* Execute result / display data */
+        .output-result {
+            padding: 4px 0;
+        }
+
+        .output-result pre {
+            margin: 0;
+            font-family: var(--jp-code-font-family);
+            font-size: 13px;
+        }
+
+        /* Image output */
+        .output-image {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* HTML output (DataFrames, etc.) */
+        .output-html {
+            overflow-x: auto;
+        }
+
+        .output-html table {
+            border-collapse: collapse;
+            font-size: 13px;
+            font-family: var(--jp-content-font-family);
+        }
+
+        .output-html table th,
+        .output-html table td {
+            border: 1px solid #ddd;
+            padding: 6px 10px;
+            text-align: left;
+        }
+
+        .output-html table th {
+            background-color: #f5f5f5;
+            font-weight: 600;
+        }
+
+        .output-html table tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+
+        /* Error output */
+        .output-error {
+            background-color: #fff0f0;
+            padding: 8px 12px;
+            border-radius: 2px;
+            font-family: var(--jp-code-font-family);
+            font-size: 13px;
+            white-space: pre-wrap;
+        }
+
+        /* Markdown cell styling */
+        .markdown-cell {
+            padding: 10px 0;
+        }
+
+        .markdown-cell h1 {
+            font-size: 2em;
+            font-weight: 600;
+            margin: 0.67em 0;
+            padding-bottom: 0.3em;
+            border-bottom: 1px solid var(--jp-border-color1);
+        }
+
+        .markdown-cell h2 {
+            font-size: 1.5em;
+            font-weight: 600;
+            margin: 0.83em 0;
+            padding-bottom: 0.3em;
+            border-bottom: 1px solid var(--jp-border-color1);
+        }
+
+        .markdown-cell h3 {
+            font-size: 1.25em;
+            font-weight: 600;
+            margin: 1em 0;
+        }
+
+        .markdown-cell h4 {
+            font-size: 1em;
+            font-weight: 600;
+            margin: 1.33em 0;
+        }
+
+        .markdown-cell h5 {
+            font-size: 0.875em;
+            font-weight: 600;
+            margin: 1.67em 0;
+        }
+
+        .markdown-cell h6 {
+            font-size: 0.85em;
+            font-weight: 600;
+            margin: 2.33em 0;
+            color: #6a737d;
+        }
+
+        .markdown-cell p {
+            margin: 0 0 16px 0;
+            line-height: 1.6;
+        }
+
+        .markdown-cell code {
+            font-family: var(--jp-code-font-family);
+            font-size: 85%;
+            background-color: rgba(27, 31, 35, 0.05);
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+        }
+
+        .markdown-cell pre {
+            background-color: var(--jp-cell-input-bg);
+            border: 1px solid var(--jp-border-color1);
+            border-radius: 3px;
+            padding: 16px;
+            overflow-x: auto;
+            font-size: 85%;
+            line-height: 1.45;
+        }
+
+        .markdown-cell pre code {
+            background-color: transparent;
+            padding: 0;
+            border-radius: 0;
+            font-size: 100%;
+        }
+
+        .markdown-cell blockquote {
+            margin: 0 0 16px 0;
+            padding: 0 1em;
+            color: #6a737d;
+            border-left: 4px solid #dfe2e5;
+        }
+
+        .markdown-cell ul,
+        .markdown-cell ol {
+            margin: 0 0 16px 0;
+            padding-left: 2em;
+        }
+
+        .markdown-cell li {
+            margin: 0.25em 0;
+        }
+
+        .markdown-cell a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+
+        .markdown-cell a:hover {
+            text-decoration: underline;
+        }
+
+        .markdown-cell hr {
+            border: 0;
+            border-top: 1px solid var(--jp-border-color1);
+            margin: 24px 0;
+        }
+
+        .markdown-cell img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .markdown-cell table {
+            border-collapse: collapse;
+            margin: 0 0 16px 0;
+        }
+
+        .markdown-cell table th,
+        .markdown-cell table td {
+            border: 1px solid #dfe2e5;
+            padding: 6px 13px;
+        }
+
+        .markdown-cell table th {
+            font-weight: 600;
+            background-color: #f6f8fa;
+        }
+
+        .markdown-cell table tr:nth-child(2n) {
+            background-color: #f6f8fa;
+        }
+
+        /* Raw cell styling */
+        .raw-cell {
+            background-color: var(--jp-layout-color1);
+            border: 1px solid var(--jp-border-color1);
+            border-radius: 2px;
+            padding: 8px 12px;
+            font-family: var(--jp-code-font-family);
+            font-size: 13px;
+            white-space: pre-wrap;
+        }
+
+        /* Empty prompt placeholder */
+        .prompt-empty {
+            color: transparent;
+        }
+
+        .export-footer {
+            margin-top: 32px;
+            padding-top: 16px;
+            border-top: 1px solid var(--jp-border-color1);
+            color: #555;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .export-footer a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+
+        .export-footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="notebook-container">
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><h1><strong>Project: Amazon Product Recommendation System</strong></h1><br><br><h1><strong>Marks: 40</strong></h1><br><br><br>Welcome to the project on Recommendation Systems. We will work with the Amazon product reviews dataset for this project. The dataset contains ratings of different electronic products. It does not include information about the products or reviews to avoid bias while building the model.<br><br>--------------<br><h2><strong>Context:</strong></h2><br>--------------<br><br>Today, information is growing exponentially with volume, velocity and variety throughout the globe. This has lead to information overload, and too many choices for the consumer of any business. It represents a real dilemma for these consumers and they often turn to denial. Recommender Systems are one of the best tools that help recommending products to consumers while they are browsing online. Providing personalized recommendations which is most relevant for the user is what's most likely to keep them engaged and help business.<br><br>E-commerce websites like Amazon, Walmart, Target and Etsy use different recommendation models to provide personalized suggestions to different users. These companies spend millions of dollars to come up with algorithmic techniques that can provide personalized recommendations to their users.<br><br>Amazon, for example, is well-known for its accurate selection of recommendations in its online site. Amazon's recommendation system is capable of intelligently analyzing and predicting customers' shopping preferences in order to offer them a list of recommended products. Amazon's recommendation algorithm is therefore a key element in using AI to improve the personalization of its website. For example, one of the baseline recommendation models that Amazon uses is item-to-item collaborative filtering, which scales to massive data sets and produces high-quality recommendations in real-time.<br><br>----------------<br><h2><strong>Objective:</strong></h2><br>----------------<br><br>You are a Data Science Manager at Amazon, and have been given the task of building a recommendation system to recommend products to customers based on their previous ratings for other products. You have a collection of labeled data of Amazon reviews of products. The goal is to extract meaningful insights from the data and build a recommendation system that helps in recommending products to online consumers.<br><br>-----------------------------<br><h2><strong>Dataset:</strong></h2><br>-----------------------------<br><br>The Amazon dataset contains the following attributes:<br><br>- <strong>userId:</strong> Every user identified with a unique id<br>- <strong>productId:</strong> Every product identified with a unique id<br>- <strong>Rating:</strong> The rating of the corresponding product by the corresponding user<br>- <strong>timestamp:</strong> Time of the rating. We <strong>will not use this column</strong> to solve the current problem</div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><strong>Note:</strong> The code has some user defined functions that will be usefull while making recommendations and measure model performance, you can use these functions or can create your own functions.</div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell">Sometimes, the installation of the surprise library, which is used to build recommendation systems, faces issues in Jupyter. To avoid any issues, it is advised to use <strong>Google Colab</strong> for this project.<br><br>Let's start by mounting the Google drive on Colab.</div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre>from google.colab import drive
+drive.mount('/content/drive')</pre></div>
+                <div class="output-area">
+                    <div class="output-wrapper">
+                        <div class="cell-prompt output-prompt"></div>
+                        <div class="output-content">
+                            <div class="output-stream">Drive already mounted at /content/drive; to attempt to forcibly remount, call drive.mount("/content/drive", force_remount=True).
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><strong>Installing surprise library</strong></div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre>!pip install surprise</pre></div>
+                <div class="output-area">
+                    <div class="output-wrapper">
+                        <div class="cell-prompt output-prompt"></div>
+                        <div class="output-content">
+                            <div class="output-stream">Requirement already satisfied: surprise in /usr/local/lib/python3.10/dist-packages (0.1)
+Requirement already satisfied: scikit-surprise in /usr/local/lib/python3.10/dist-packages (from surprise) (1.1.4)
+Requirement already satisfied: joblib&gt;=1.2.0 in /usr/local/lib/python3.10/dist-packages (from scikit-surprise-&gt;surprise) (1.4.2)
+Requirement already satisfied: numpy&gt;=1.19.5 in /usr/local/lib/python3.10/dist-packages (from scikit-surprise-&gt;surprise) (1.26.4)
+Requirement already satisfied: scipy&gt;=1.6.0 in /usr/local/lib/python3.10/dist-packages (from scikit-surprise-&gt;surprise) (1.13.1)
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><h2><strong>Importing the necessary libraries and overview of the dataset</strong></h2></div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre># to ignore warnings given at the output
+import warnings
+warnings.filterwarnings('ignore')
+
+# basic libraries of python for dataframe and numeric computations.
+import numpy as np
+import pandas as pd
+
+#library for data visualization
+import matplotlib.pyplot as plt
+
+#advanced library for visualization
+import seaborn as sns
+
+#a dictionary output that prevents a key error from occuring
+from collections import defaultdict
+
+#a performance metric that would be used
+from sklearn.metrics import mean_squared_error</pre></div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><h3><strong>Loading the data</strong></h3><br>- Import the Dataset<br>- Add column names ['user_id', 'prod_id', 'rating', 'timestamp']<br>- Drop the column timestamp<br>- Copy the data to another DataFrame called <strong>df</strong></div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre>amazon_dt = pd.read_csv('/content/drive/MyDrive/Excel files /ratings_Electronics.csv', header = None) #importing the dataset
+amazon_dt.columns = ['user_id', 'prod_id','rating','timestamp'] #adding columnnames
+amazon_dt = amazon_dt.drop('timestamp', axis= 1 ) # to drop timestamp
+df = amazon_dt.copy() # copying the data to another dataframe
+</pre></div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><strong>As this dataset is very large and has 7,824,482 observations, it is not computationally possible to build a model using this. Moreover, many users have only rated a few products and also some products are rated by very few users. Hence, we can reduce the dataset by considering certain logical assumptions.</strong><br><br>Here, we will be taking users who have given at least 50 ratings, and the products that have at least 5 ratings, as when we shop online we prefer to have some number of ratings of a product.</div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre># Get the column containing the users
+users = df.user_id
+
+# Create a dictionary from users to their number of ratings
+ratings_count = dict()
+
+for user in users:
+
+    # If we already have the user, just add 1 to their rating count
+    if user in ratings_count:
+        ratings_count[user] += 1
+
+    # Otherwise, set their rating count to 1
+    else:
+        ratings_count[user] = 1</pre></div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre># We want our users to have at least 50 ratings to be considered
+RATINGS_CUTOFF = 50
+
+remove_users = []
+
+for user, num_ratings in ratings_count.items():
+    if num_ratings &lt; RATINGS_CUTOFF:
+        remove_users.append(user)
+
+df = df.loc[ ~ df.user_id.isin(remove_users)]</pre></div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre># Get the column containing the products
+prods = df.prod_id
+
+# Create a dictionary from products to their number of ratings
+ratings_count = dict()
+
+for prod in prods:
+
+    # If we already have the product, just add 1 to its rating count
+    if prod in ratings_count:
+        ratings_count[prod] += 1
+
+    # Otherwise, set their rating count to 1
+    else:
+        ratings_count[prod] = 1</pre></div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre># We want our item to have at least 5 ratings to be considered
+RATINGS_CUTOFF = 5
+
+remove_users = []
+
+for user, num_ratings in ratings_count.items():
+    if num_ratings &lt; RATINGS_CUTOFF:
+        remove_users.append(user)
+
+df_final = df.loc[~ df.prod_id.isin(remove_users)]</pre></div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre># Print a few rows of the imported dataset
+df_final.tail()</pre></div>
+                <div class="output-area">
+                    <div class="output-wrapper">
+                        <div class="cell-prompt output-prompt"></div>
+                        <div class="output-content">
+                            <div class="output-html">
+  <div id="df-51a00738-b7da-40d5-b10f-6143756648e7" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>user_id</th>
+      <th>prod_id</th>
+      <th>rating</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>7824423</th>
+      <td>A34BZM6S9L7QI4</td>
+      <td>B00LGQ6HL8</td>
+      <td>5.0</td>
+    </tr>
+    <tr>
+      <th>7824424</th>
+      <td>A1G650TTTHEAL5</td>
+      <td>B00LGQ6HL8</td>
+      <td>5.0</td>
+    </tr>
+    <tr>
+      <th>7824425</th>
+      <td>A25C2M3QF9G7OQ</td>
+      <td>B00LGQ6HL8</td>
+      <td>5.0</td>
+    </tr>
+    <tr>
+      <th>7824426</th>
+      <td>A1E1LEVQ9VQNK</td>
+      <td>B00LGQ6HL8</td>
+      <td>5.0</td>
+    </tr>
+    <tr>
+      <th>7824427</th>
+      <td>A2NYK9KWFMJV4Y</td>
+      <td>B00LGQ6HL8</td>
+      <td>5.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-51a00738-b7da-40d5-b10f-6143756648e7')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-51a00738-b7da-40d5-b10f-6143756648e7 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-51a00738-b7da-40d5-b10f-6143756648e7');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+<div id="df-f56b6761-c547-4ac8-a23d-e5f34adb6cf5">
+  <button class="colab-df-quickchart" onclick="quickchart('df-f56b6761-c547-4ac8-a23d-e5f34adb6cf5')"
+            title="Suggest charts"
+            style="display:none;">
+
+<svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+     width="24px">
+    <g>
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+    </g>
+</svg>
+  </button>
+
+<style>
+  .colab-df-quickchart {
+      --bg-color: #E8F0FE;
+      --fill-color: #1967D2;
+      --hover-bg-color: #E2EBFA;
+      --hover-fill-color: #174EA6;
+      --disabled-fill-color: #AAA;
+      --disabled-bg-color: #DDD;
+  }
+
+  [theme=dark] .colab-df-quickchart {
+      --bg-color: #3B4455;
+      --fill-color: #D2E3FC;
+      --hover-bg-color: #434B5C;
+      --hover-fill-color: #FFFFFF;
+      --disabled-bg-color: #3B4455;
+      --disabled-fill-color: #666;
+  }
+
+  .colab-df-quickchart {
+    background-color: var(--bg-color);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    fill: var(--fill-color);
+    height: 32px;
+    padding: 0;
+    width: 32px;
+  }
+
+  .colab-df-quickchart:hover {
+    background-color: var(--hover-bg-color);
+    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    fill: var(--button-hover-fill-color);
+  }
+
+  .colab-df-quickchart-complete:disabled,
+  .colab-df-quickchart-complete:disabled:hover {
+    background-color: var(--disabled-bg-color);
+    fill: var(--disabled-fill-color);
+    box-shadow: none;
+  }
+
+  .colab-df-spinner {
+    border: 2px solid var(--fill-color);
+    border-color: transparent;
+    border-bottom-color: var(--fill-color);
+    animation:
+      spin 1s steps(1) infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+      border-left-color: var(--fill-color);
+    }
+    20% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    30% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+      border-right-color: var(--fill-color);
+    }
+    40% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    60% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+    }
+    80% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-bottom-color: var(--fill-color);
+    }
+    90% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+    }
+  }
+</style>
+
+  <script>
+    async function quickchart(key) {
+      const quickchartButtonEl =
+        document.querySelector('#' + key + ' button');
+      quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
+      quickchartButtonEl.classList.add('colab-df-spinner');
+      try {
+        const charts = await google.colab.kernel.invokeFunction(
+            'suggestCharts', [key], {});
+      } catch (error) {
+        console.error('Error during call to suggestCharts:', error);
+      }
+      quickchartButtonEl.classList.remove('colab-df-spinner');
+      quickchartButtonEl.classList.add('colab-df-quickchart-complete');
+    }
+    (() => {
+      let quickchartButtonEl =
+        document.querySelector('#df-f56b6761-c547-4ac8-a23d-e5f34adb6cf5 button');
+      quickchartButtonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+    })();
+  </script>
+</div>
+
+    </div>
+  </div>
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><h2><strong>Exploratory Data Analysis</strong></h2></div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><h3><strong>Shape of the data</strong></h3></div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre>df_final.shape</pre></div>
+                <div class="output-area">
+                    <div class="output-wrapper">
+                        <div class="cell-prompt output-prompt"></div>
+                        <div class="output-content">
+                            <div class="output-result"><pre>(65290, 3)</pre></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell">Our data set has over 65,290 rows and 3 columns</div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><h3><strong>Check the number of rows and columns and provide observations.</strong></h3></div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre># Check the number of rows and columns and provide observations
+rows, columns = df_final.shape
+print("Number of rows ", rows)
+print("Number of columns ", columns)</pre></div>
+                <div class="output-area">
+                    <div class="output-wrapper">
+                        <div class="cell-prompt output-prompt"></div>
+                        <div class="output-content">
+                            <div class="output-stream">Number of rows  65290
+Number of columns  3
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><strong>Write your observations here:______</strong><br>The data that had 1 million plus rows has now been reduced to 65,290 rows based on some criterias we set. This data can now be able to used to train the model.</div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><h3><strong>Data types</strong></h3></div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre># Check Data types and provide observations
+df_final.info()</pre></div>
+                <div class="output-area">
+                    <div class="output-wrapper">
+                        <div class="cell-prompt output-prompt"></div>
+                        <div class="output-content">
+                            <div class="output-stream">&lt;class 'pandas.core.frame.DataFrame'&gt;
+Index: 65290 entries, 1310 to 7824427
+Data columns (total 3 columns):
+ #   Column   Non-Null Count  Dtype  
+---  ------   --------------  -----  
+ 0   user_id  65290 non-null  object 
+ 1   prod_id  65290 non-null  object 
+ 2   rating   65290 non-null  float64
+dtypes: float64(1), object(2)
+memory usage: 2.0+ MB
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><strong>Write your observations here:______</strong><br><br>The user_id has an object data type and consists of 65,290 observations,  this means that the data consists of a mix of strings and text<br><br>The prod_id has an object data type with 65,290 observations, this means that the data consists of a mix of strings and text<br><br>The rating has a float data type with 65,290 observations,  this represents<br>65,290 numbers with decimial points.</div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><h3><strong>Checking for missing values</strong></h3></div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre># Check for missing values present and provide observations
+df_final.isnull().sum()</pre></div>
+                <div class="output-area">
+                    <div class="output-wrapper">
+                        <div class="cell-prompt output-prompt"></div>
+                        <div class="output-content">
+                            <div class="output-html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>user_id</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>prod_id</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>rating</th>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div><br><label><b>dtype:</b> int64</label></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><strong>Write your observations here:______</strong><br><br>Amongst all the columns, user_id, prod_id, rating there is no missing value. The shape of the dataset 65,290 accurately represents each of the individual columns.</div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><h3><strong>Summary Statistics</strong></h3></div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre># Summary statistics of 'rating' variable and provide observations
+df_final['rating'].describe()</pre></div>
+                <div class="output-area">
+                    <div class="output-wrapper">
+                        <div class="cell-prompt output-prompt"></div>
+                        <div class="output-content">
+                            <div class="output-html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>rating</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>65290.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>4.294808</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>0.988915</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>4.000000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>5.000000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>5.000000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>5.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div><br><label><b>dtype:</b> float64</label></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><strong>Write your observations here:______</strong><br><br>The rating represents 65,290 customers  with these following attributes:<br>1.   With a mean of 4.294, on an average users tend to give relativey high ratings to products.<br>2.   A standard deviation of 0.988 means that while they are many ratings close to the mean, there is a fair distribution of ratings lower or higher than the mean.<br>3.  The lowest rating a user can give is 1<br>4.  The highest rating a user can give is 5<br>5.  A quarter of the ratings are 4 or lower<br>6.  50th percentile of 5 indicates that half of the rating are lower than 5 and the other half are 5 or higher.<br>7.  75th percentile means that 75% of the ratings are 5 or lower.<br><br>Overall since the 50th and 75th percentile are the same, this indicates that users like to give ratings that are concentrated towards 5.</div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><h3><strong>Checking the rating distribution</strong></h3></div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre># Create the bar plot and provide observations
+plt.figure(figsize=(10,5))
+df_final['rating'].value_counts(1).plot(kind= 'bar')
+plt.show()</pre></div>
+                <div class="output-area">
+                    <div class="output-wrapper">
+                        <div class="cell-prompt output-prompt"></div>
+                        <div class="output-content">
+                            <img class="output-image" src="data:image/png;base64,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
+" alt="Output" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><strong>Write your observations here: Users majorly gave ratings of 5.0 amongst all the other ratings given</strong></div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><h3><strong>Checking the number of unique users and items in the dataset</strong></h3></div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre># Number of total rows in the data and number of unique user id and product id in the data
+
+rows, columns = df_final.shape
+print ("Number of rows &amp; columns in the dataset:", rows, columns)
+#Number of unique user ID's
+num_unique_users = df_final['user_id'].nunique()
+print("Number of unique users in the dataset:", num_unique_users)
+
+#Number of unique product ID's
+num_unique_products= df_final['prod_id'].nunique()
+print("Number of unique products in the dataset:", num_unique_products)</pre></div>
+                <div class="output-area">
+                    <div class="output-wrapper">
+                        <div class="cell-prompt output-prompt"></div>
+                        <div class="output-content">
+                            <div class="output-stream">Number of rows &amp; columns in the dataset: 65290 3
+Number of unique users in the dataset: 1540
+Number of unique products in the dataset: 5689
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><strong>Write your observations here: They are 1540 records of product ratings from 1540 different individuals and 5689  different products </strong></div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><h3><strong>Users with the most number of ratings</strong></h3></div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre># Top 10 users based on the number of ratings
+
+df_final['user_id'].value_counts().head(10)</pre></div>
+                <div class="output-area">
+                    <div class="output-wrapper">
+                        <div class="cell-prompt output-prompt"></div>
+                        <div class="output-content">
+                            <div class="output-html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>count</th>
+    </tr>
+    <tr>
+      <th>user_id</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>ADLVFFE4VBT8</th>
+      <td>295</td>
+    </tr>
+    <tr>
+      <th>A3OXHLG6DIBRW8</th>
+      <td>230</td>
+    </tr>
+    <tr>
+      <th>A1ODOGXEYECQQ8</th>
+      <td>217</td>
+    </tr>
+    <tr>
+      <th>A36K2N527TXXJN</th>
+      <td>212</td>
+    </tr>
+    <tr>
+      <th>A25C2M3QF9G7OQ</th>
+      <td>203</td>
+    </tr>
+    <tr>
+      <th>A680RUE1FDO8B</th>
+      <td>196</td>
+    </tr>
+    <tr>
+      <th>A1UQBFCERIP7VJ</th>
+      <td>193</td>
+    </tr>
+    <tr>
+      <th>A22CW0ZHY3NJH8</th>
+      <td>193</td>
+    </tr>
+    <tr>
+      <th>AWPODHOB4GFWL</th>
+      <td>184</td>
+    </tr>
+    <tr>
+      <th>AGVWTYW0ULXHT</th>
+      <td>179</td>
+    </tr>
+  </tbody>
+</table>
+</div><br><label><b>dtype:</b> int64</label></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><strong>Write your observations here:The user with user_id A1ODOGXEYECQQ8 has 217 ratings, this is the highest amount of ratins in our dataset followed by user with user_id A3OXHLG6DIBRW8</strong></div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><strong>Now that we have explored and prepared the data, let's build the first recommendation system.</strong></div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><h2><strong>Model 1: Rank Based Recommendation System</strong></h2></div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre># Calculate the average rating for each product
+average_rating = df_final.groupby('prod_id')['rating'].mean()
+
+# Calculate the count of ratings for each product
+count_rating = df_final.groupby('prod_id')['rating'].count()
+
+# Create a dataframe with calculated average and count of ratings
+final_rating = pd.DataFrame({'avg_rating': average_rating, 'rating_count': count_rating})
+
+# Sort the dataframe by average of ratings in the descending order
+final_rating.sort_values('avg_rating', ascending= False).head()
+
+# See the first five records of the "final_rating" dataset
+final_rating.head()</pre></div>
+                <div class="output-area">
+                    <div class="output-wrapper">
+                        <div class="cell-prompt output-prompt"></div>
+                        <div class="output-content">
+                            <div class="output-html">
+  <div id="df-3474dd0e-2883-42fd-a4af-6e94a615e37f" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>avg_rating</th>
+      <th>rating_count</th>
+    </tr>
+    <tr>
+      <th>prod_id</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1400501466</th>
+      <td>3.333333</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>1400532655</th>
+      <td>3.833333</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>1400599997</th>
+      <td>4.000000</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>9983891212</th>
+      <td>4.875000</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>B00000DM9W</th>
+      <td>5.000000</td>
+      <td>5</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-3474dd0e-2883-42fd-a4af-6e94a615e37f')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-3474dd0e-2883-42fd-a4af-6e94a615e37f button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-3474dd0e-2883-42fd-a4af-6e94a615e37f');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+<div id="df-b25094d7-bb76-47c0-9b78-33291ab79707">
+  <button class="colab-df-quickchart" onclick="quickchart('df-b25094d7-bb76-47c0-9b78-33291ab79707')"
+            title="Suggest charts"
+            style="display:none;">
+
+<svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+     width="24px">
+    <g>
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+    </g>
+</svg>
+  </button>
+
+<style>
+  .colab-df-quickchart {
+      --bg-color: #E8F0FE;
+      --fill-color: #1967D2;
+      --hover-bg-color: #E2EBFA;
+      --hover-fill-color: #174EA6;
+      --disabled-fill-color: #AAA;
+      --disabled-bg-color: #DDD;
+  }
+
+  [theme=dark] .colab-df-quickchart {
+      --bg-color: #3B4455;
+      --fill-color: #D2E3FC;
+      --hover-bg-color: #434B5C;
+      --hover-fill-color: #FFFFFF;
+      --disabled-bg-color: #3B4455;
+      --disabled-fill-color: #666;
+  }
+
+  .colab-df-quickchart {
+    background-color: var(--bg-color);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    fill: var(--fill-color);
+    height: 32px;
+    padding: 0;
+    width: 32px;
+  }
+
+  .colab-df-quickchart:hover {
+    background-color: var(--hover-bg-color);
+    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    fill: var(--button-hover-fill-color);
+  }
+
+  .colab-df-quickchart-complete:disabled,
+  .colab-df-quickchart-complete:disabled:hover {
+    background-color: var(--disabled-bg-color);
+    fill: var(--disabled-fill-color);
+    box-shadow: none;
+  }
+
+  .colab-df-spinner {
+    border: 2px solid var(--fill-color);
+    border-color: transparent;
+    border-bottom-color: var(--fill-color);
+    animation:
+      spin 1s steps(1) infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+      border-left-color: var(--fill-color);
+    }
+    20% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    30% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+      border-right-color: var(--fill-color);
+    }
+    40% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    60% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+    }
+    80% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-bottom-color: var(--fill-color);
+    }
+    90% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+    }
+  }
+</style>
+
+  <script>
+    async function quickchart(key) {
+      const quickchartButtonEl =
+        document.querySelector('#' + key + ' button');
+      quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
+      quickchartButtonEl.classList.add('colab-df-spinner');
+      try {
+        const charts = await google.colab.kernel.invokeFunction(
+            'suggestCharts', [key], {});
+      } catch (error) {
+        console.error('Error during call to suggestCharts:', error);
+      }
+      quickchartButtonEl.classList.remove('colab-df-spinner');
+      quickchartButtonEl.classList.add('colab-df-quickchart-complete');
+    }
+    (() => {
+      let quickchartButtonEl =
+        document.querySelector('#df-b25094d7-bb76-47c0-9b78-33291ab79707 button');
+      quickchartButtonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+    })();
+  </script>
+</div>
+
+    </div>
+  </div>
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre># Defining a function to get the top n products based on the highest average rating and minimum interactions
+def top_n_products(final_rating, n, min_interactions):
+
+    # Finding products with minimum number of interactions
+    products_mininteraction  = final_rating[final_rating['rating_count'] &gt;= min_interactions]
+    # Sorting values with respect to average rating
+    final_rating_sorted = products_mininteraction.sort_values('avg_rating', ascending = False)
+    # Return the top n products
+    return final_rating_sorted.head(n)
+
+top_products = top_n_products(final_rating, n=5,min_interactions =10)
+print(top_products)</pre></div>
+                <div class="output-area">
+                    <div class="output-wrapper">
+                        <div class="cell-prompt output-prompt"></div>
+                        <div class="output-content">
+                            <div class="output-stream">            avg_rating  rating_count
+prod_id                             
+B00L3YHF6O         5.0            14
+B00HG1L334         5.0            16
+B001TH7GUA         5.0            17
+B00C20KWP4         5.0            10
+B004Y1AYAC         5.0            11
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell">Observation: These are the top products with a rating of 5.0 and products with the least reviews being 10</div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><h3><strong>Recommending top 5 products with 50 minimum interactions based on popularity</strong></h3></div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre>top_products = top_n_products(final_rating, n=5, min_interactions =50)
+print(top_products)</pre></div>
+                <div class="output-area">
+                    <div class="output-wrapper">
+                        <div class="cell-prompt output-prompt"></div>
+                        <div class="output-content">
+                            <div class="output-stream">            avg_rating  rating_count
+prod_id                             
+B001TH7GUU    4.871795            78
+B003ES5ZUU    4.864130           184
+B0019EHU8G    4.855556            90
+B006W8U2MU    4.824561            57
+B000QUUFRW    4.809524            84
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><h3><strong>Recommending top 5 products with 100 minimum interactions based on popularity</strong></h3></div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre>top_products = top_n_products(final_rating, n =5, min_interactions =100)
+print(top_products)</pre></div>
+                <div class="output-area">
+                    <div class="output-wrapper">
+                        <div class="cell-prompt output-prompt"></div>
+                        <div class="output-content">
+                            <div class="output-stream">            avg_rating  rating_count
+prod_id                             
+B003ES5ZUU    4.864130           184
+B000N99BBC    4.772455           167
+B002WE6D44    4.770000           100
+B007WTAJTO    4.701220           164
+B002V88HFE    4.698113           106
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell">We have recommended the <strong>top 5</strong> products by using the popularity recommendation system. Now, let's build a recommendation system using <strong>collaborative filtering.</strong></div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><h2><strong>Model 2: Collaborative Filtering Recommendation System</strong></h2></div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><h3><strong>Building a baseline user-user similarity based recommendation system</strong></h3></div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell">- Below, we are building <strong>similarity-based recommendation systems</strong> using <code>cosine</code> similarity and using <strong>KNN to find similar users</strong> which are the nearest neighbor to the given user.  <br>- We will be using a new library, called <code>surprise</code>, to build the remaining models. Let's first import the necessary classes and functions from this library.</div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre># To compute the accuracy of models
+from surprise import accuracy
+
+# Class is used to parse a file containing ratings, data should be in structure - user ; item ; rating
+from surprise.reader import Reader
+
+# Class for loading datasets
+from surprise.dataset import Dataset
+
+# For tuning model hyperparameters
+from surprise.model_selection import GridSearchCV
+
+# For splitting the rating data in train and test datasets
+from surprise.model_selection import train_test_split
+
+# For implementing similarity-based recommendation system
+from surprise.prediction_algorithms.knns import KNNBasic
+
+# For implementing matrix factorization based recommendation system
+from surprise.prediction_algorithms.matrix_factorization import SVD
+
+# for implementing K-Fold cross-validation
+from surprise.model_selection import KFold
+
+# For implementing clustering-based recommendation system
+from surprise import CoClustering</pre></div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><strong>Before building the recommendation systems, let's  go over some basic terminologies we are going to use:</strong></div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><strong>Relevant item:</strong> An item (product in this case) that is actually <strong>rated higher than the threshold rating</strong> is relevant, if the <strong>actual rating is below the threshold then it is a non-relevant item</strong>.  <br><br><strong>Recommended item:</strong> An item that's <strong>predicted rating is higher than the threshold is a recommended item</strong>, if the <strong>predicted rating is below the threshold then that product will not be recommended to the user</strong>.  <br></div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><strong>False Negative (FN):</strong> It is the <strong>frequency of relevant items that are not recommended to the user</strong>. If the relevant items are not recommended to the user, then the user might not buy the product/item. This would result in the <strong>loss of opportunity for the service provider</strong>, which they would like to minimize.<br><br><strong>False Positive (FP):</strong> It is the <strong>frequency of recommended items that are actually not relevant</strong>. In this case, the recommendation system is not doing a good job of finding and recommending the relevant items to the user. This would result in <strong>loss of resources for the service provider</strong>, which they would also like to minimize.</div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><strong>Recall:</strong> It is the <strong>fraction of actually relevant items that are recommended to the user</strong>, i.e., if out of 10 relevant products, 6 are recommended to the user then recall is 0.60. Higher the value of recall better is the model. It is one of the metrics to do the performance assessment of classification models.<br><br><strong>Precision:</strong> It is the <strong>fraction of recommended items that are relevant actually</strong>, i.e., if out of 10 recommended items, 6 are found relevant by the user then precision is 0.60. The higher the value of precision better is the model. It is one of the metrics to do the performance assessment of classification models.</div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><strong>While making a recommendation system, it becomes customary to look at the performance of the model. In terms of how many recommendations are relevant and vice-versa, below are some most used performance metrics used in the assessment of recommendation systems.</strong></div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><h3><strong>Precision@k, Recall@ k, and F1-score@k</strong></h3></div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><strong>Precision@k</strong> - It is the <strong>fraction of recommended items that are relevant in <code>top k</code> predictions</strong>. The value of k is the number of recommendations to be provided to the user. One can choose a variable number of recommendations to be given to a unique user.  <br><br><br><strong>Recall@k</strong> - It is the <strong>fraction of relevant items that are recommended to the user in <code>top k</code> predictions</strong>.<br><br><strong>F1-score@k</strong> - It is the <strong>harmonic mean of Precision@k and Recall@k</strong>. When <strong>precision@k and recall@k both seem to be important</strong> then it is useful to use this metric because it is representative of both of them.</div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><h3><strong>Some useful functions</strong></h3></div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell">- Below function takes the <strong>recommendation model</strong> as input and gives the <strong>precision@k, recall@k, and F1-score@k</strong> for that model.  <br>- To compute <strong>precision and recall</strong>, <strong>top k</strong> predictions are taken under consideration for each user.<br>- We will use the precision and recall to compute the F1-score.</div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre>def precision_recall_at_k(model, k = 10, threshold = 3.5):
+    """Return precision and recall at k metrics for each user"""
+
+    # First map the predictions to each user
+    user_est_true = defaultdict(list)
+
+    # Making predictions on the test data
+    predictions = model.test(testset)
+
+    for uid, _, true_r, est, _ in predictions:
+        user_est_true[uid].append((est, true_r))
+
+    precisions = dict()
+    recalls = dict()
+    for uid, user_ratings in user_est_true.items():
+
+        # Sort user ratings by estimated value
+        user_ratings.sort(key = lambda x: x[0], reverse = True)
+
+        # Number of relevant items
+        n_rel = sum((true_r &gt;= threshold) for (_, true_r) in user_ratings)
+
+        # Number of recommended items in top k
+        n_rec_k = sum((est &gt;= threshold) for (est, _) in user_ratings[:k])
+
+        # Number of relevant and recommended items in top k
+        n_rel_and_rec_k = sum(((true_r &gt;= threshold) and (est &gt;= threshold))
+                              for (est, true_r) in user_ratings[:k])
+
+        # Precision@K: Proportion of recommended items that are relevant
+        # When n_rec_k is 0, Precision is undefined. Therefore, we are setting Precision to 0 when n_rec_k is 0
+
+        precisions[uid] = n_rel_and_rec_k / n_rec_k if n_rec_k != 0 else 0
+
+        # Recall@K: Proportion of relevant items that are recommended
+        # When n_rel is 0, Recall is undefined. Therefore, we are setting Recall to 0 when n_rel is 0
+
+        recalls[uid] = n_rel_and_rec_k / n_rel if n_rel != 0 else 0
+
+    # Mean of all the predicted precisions are calculated.
+    precision = round((sum(prec for prec in precisions.values()) / len(precisions)), 3)
+
+    # Mean of all the predicted recalls are calculated.
+    recall = round((sum(rec for rec in recalls.values()) / len(recalls)), 3)
+
+    accuracy.rmse(predictions)
+
+    print('Precision: ', precision) # Command to print the overall precision
+
+    print('Recall: ', recall) # Command to print the overall recall
+
+    print('F_1 score: ', round((2*precision*recall)/(precision+recall), 3)) # Formula to compute the F-1 score</pre></div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><strong>Hints:</strong><br><br>- To compute <strong>precision and recall</strong>, a <strong>threshold of 3.5 and k value of 10 can be considered for the recommended and relevant ratings</strong>.<br>- Think about the performance metric to choose.</div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell">Below we are loading the <strong><code>rating</code> dataset</strong>, which is a <strong>pandas DataFrame</strong>, into a <strong>different format called <code>surprise.dataset.DatasetAutoFolds</code></strong>, which is required by this library. To do this, we will be <strong>using the classes <code>Reader</code> and <code>Dataset</code>.</strong></div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre>from surprise import Reader, Dataset
+from surprise.model_selection import train_test_split
+
+# Instantiating Reader scale with expected rating scale
+reader = Reader(rating_scale = (1, 5))
+
+# Loading the rating dataset
+rating= Dataset.load_from_df(df_final[['user_id', 'prod_id', 'rating']], reader)
+
+# Splitting the data into train and test datasets
+trainset, testset = train_test_split(rating, test_size= 0.2, random_state =1) #20% is for testing and 80% is for training the dataset</pre></div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell">Now, we are <strong>ready to build the first baseline similarity-based recommendation system</strong> using the cosine similarity.</div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><h3><strong>Building the user-user Similarity-based Recommendation System</strong></h3></div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre># Declaring the similarity options
+sim_options= {'name':'cosine',
+              'user_based': True}
+
+# Initialize the KNNBasic model using sim_options declared, Verbose = False, and setting random_state = 1
+sim_user_user_baseline= KNNBasic(sim_options= sim_options, verbose = False, random_state=1)
+
+# Fit the model on the training data
+sim_user_user_baseline.fit(trainset)
+
+# Let us compute precision@k, recall@k, and f_1 score using the precision_recall_at_k function defined above
+precision_recall_at_k(sim_user_user_baseline)
+</pre></div>
+                <div class="output-area">
+                    <div class="output-wrapper">
+                        <div class="cell-prompt output-prompt"></div>
+                        <div class="output-content">
+                            <div class="output-stream">RMSE: 1.0260
+Precision:  0.844
+Recall:  0.862
+F_1 score:  0.853
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><strong>Write your observations here</strong>:<br><br><br><br>*   An RMSE of 1.0260 checks how far the overall predicted ratings are from the actual ratings<br>*   A precision score of 0.844 talks about how out of all the <strong>recommended products</strong> only <strong>84% are relevant</strong> to the user<br>*   A recall score of 0.86 talks about how out of all the <strong>relevant products</strong> only <strong>86% are recommended</strong> to the user.<br>*   F1 score of the baseline model is 0.853 and this mean that out of all the products that were relevant to the user, the system recommended 85.3 % of them and out of all the products that were recommended by the system, 85.3 % were actually relevant.</div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell">Let's now <strong>predict rating for a user with <code>userId=A3LDPF5FMB782Z</code> and <code>productId=1400501466</code></strong> as shown below. Here the user has already interacted or watched the product with productId '1400501466' and given a rating of 5.</div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre># Predicting rating for a sample user with an interacted product
+sim_user_user_baseline.predict('A3LDPF5FMB782Z', '1400501466').est</pre></div>
+                <div class="output-area">
+                    <div class="output-wrapper">
+                        <div class="cell-prompt output-prompt"></div>
+                        <div class="output-content">
+                            <div class="output-result"><pre>3.3333333333333335</pre></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><strong>Write your observations here</strong>: The actual rating for this user-item pair is 5 but the predicted rating by the user-user similarity model is 3.33, this means that the model is miscalculating the rating.</div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell">Below is the <strong>list of users who have not seen the product with product id "1400501466"</strong>.</div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre>#Find unique user_id where prod_id is not equal to "1400501466"
+
+# Get all unique user_ids
+all_users = df_final['user_id'].unique()
+
+# Get user_ids who have rated the product
+users_rated_product = df_final.loc[df_final['prod_id'] == '1400501466', 'user_id'].unique()
+
+# Find users who have not rated the product
+users_not_rated_product = np.setdiff1d(all_users, users_rated_product)
+
+# Print the users who have not rated the product
+print("Users who have not seen product 1400501466:")
+for user in users_not_rated_product:
+    print(user)</pre></div>
+                <div class="output-area">
+                    <div class="output-wrapper">
+                        <div class="cell-prompt output-prompt"></div>
+                        <div class="output-content">
+                            <div class="output-stream">Users who have not seen product 1400501466:
+A100UD67AHFODS
+A100WO06OQR8BQ
+A105S56ODHGJEK
+A105TOJ6LTVMBG
+A10AFVU66A79Y1
+A10H24TDLK2VDP
+A10NMELR4KX0J6
+A10O7THJ2O20AG
+A10PEXB6XAQ5XF
+A10X9ME6R66JDX
+A10Y058K7B96C6
+A10ZBR6O8S8OCY
+A10ZFE6YE0UHW8
+A110PC8C5Y7MQD
+A110VKXAVLAYKY
+A111WCUF5KA2I6
+A1143YEAZYMYHJ
+A11D1KHM7DVOQK
+A11ED8O95W2103
+A11EXFO14WEJM1
+A11EYMH9UV9XG7
+A11FX8HL2ANK6T
+A11I1I9QLMAM1A
+A11IXJ8M1JO296
+A11KQADBYE0UZL
+A11KZ906QD08C5
+A11LNPG39A2ZV4
+A11OTLEDSW8ZXD
+A11P105WVK5240
+A11R5VW7IM6ISQ
+A11T807LX2EF00
+A11ULAZ4B5ZXC8
+A11YIHB6IW352W
+A11YOTONCPRQ9S
+A124WZCUIH2T7W
+A12ANFNOSMW5VD
+A12DLJESJKM1OQ
+A12DQZKRKTNF5E
+A12EVK82QUTSA6
+A12LH2100CKQO
+A12O5SEIF162P8
+A12R3YGEHW7D8G
+A132ETQPMHQ585
+A13BX9O5UDBILC
+A13EQE9EY2ET93
+A13QOK3SKIT9QL
+A13WOT3RSXKRD5
+A13WREJ05GMRA6
+A141OPVE376YFI
+A141R97FHSSUQ0
+A1435P5AMCPB3X
+A145B8OHVNNFAJ
+A145LBW8ZHF0TW
+A149RNR5RH19YY
+A14I1F2H7NOYDC
+A14JBDSWKPKTZA
+A14MZJTZAQS6CV
+A14NA0W8ESGDSI
+A14X244VGHWPSX
+A14Z6D3IRJ23F7
+A1522TN5FVJL0Y
+A15CL28ALB7MTZ
+A15G70V9OBTOVO
+A15J71JLC29KPW
+A15J9K7O10A3M6
+A15Q2L6DYRTFIU
+A15QYHQH80W30L
+A15T9G38F589KM
+A15TABNGK6L4N3
+A15U64VGUV6RBF
+A15XI2BEGGFEOW
+A16C19G0I2DE8S
+A16CVJUQOB6GIB
+A16HXVNPU5TCGE
+A16J281SJ9QXIQ
+A16QODENBJVUI1
+A16RI68PS6T5CA
+A16RL0RMRF974O
+A16SRDVPBXN69C
+A16WP8NTPYB0ZM
+A178M2AHNWQZB0
+A17BUUBOU0598B
+A17HMM1M7T9PJ1
+A17NVM7IAPF2NS
+A17O9AHKHK66AI
+A17RFKCYS69M3Y
+A17UNMURMLX0ZE
+A17V9XL4CWTQ6G
+A17W0GMB0YY83M
+A17Z0LVY96TO53
+A185O1MX1RP964
+A186697K4XKXQL
+A18A5VSD0IPN14
+A18EA7MNLXP9H5
+A18FLOC8YQY0P8
+A18GJ9MYYO6GCQ
+A18HE80910BTZI
+A18L9A64XNGVGU
+A18NDN2CIG2TKR
+A18OTCHQ6MXD6X
+A18S2VGUH9SCV5
+A18U49406IPPIJ
+A18YMFFJW974QS
+A1901NTE8LFJF6
+A194Y47BF3CUTJ
+A195EZSQDW3E21
+A196JN53PG0C7R
+A197T2N6RU7K56
+A1987V5OCO6QHS
+A198CCH4NNLI2E
+A19EKT8H85AKO5
+A19FRW264WZTGP
+A19HKRB4LU5YR
+A19HT7YC1UW3D6
+A19NP8YYADOOSF
+A19RGDJPNZ7NZ
+A19RW25Q6206I3
+A19UTUEBWKIZFT
+A19W47CXJJP1MI
+A19X4BF861LQST
+A19XMHRB3G4DIR
+A19XPAWSWDRI3B
+A1A306IAZ3TM1
+A1A535TCGNMVPI
+A1AH8033GWKBY7
+A1AKW788238PWQ
+A1AQ8JT2A3UWMY
+A1ASWDAEDTTY5I
+A1ATVMMJZP3Q4X
+A1AWL9JASMG904
+A1AZQCVCDBQP6
+A1B0NL8UWAELI7
+A1B4MIXYVIKMU2
+A1B6O7SAIYG2N0
+A1B8EJQU73YGL9
+A1BBYSMT9YCODI
+A1BC62X6HZJGZR
+A1BJOHHLG0D965
+A1BT6TL7UCIC5Y
+A1BVE2ZIBKJ7YI
+A1BXVZSQOJE6UE
+A1BZIM4WGZ6DZP
+A1C47ROOK7BSVL
+A1C5TCCR2IGKBU
+A1C5WS021EL3WO
+A1C82BC5GNABOA
+A1CM4HI4S5P0WO
+A1CMD08Z49PGKQ
+A1CMWB7AWQUQH4
+A1CN1P7147QDJC
+A1CPRP3VFJRS1R
+A1CSRR7FCKBL9M
+A1CST2WUA32GP0
+A1CYTBE7LLUQ8F
+A1D27BCSYV7VWH
+A1D9V11QUHXENQ
+A1DB5QPH7WO488
+A1DO9LRCO23EOM
+A1DQHS7MOVYYYA
+A1DSRM2P0WGQNS
+A1DTCJV6KOMJOA
+A1E1LEVQ9VQNK
+A1E55W6ES0FY17
+A1EH2S92FHWZRP
+A1EKSETIBS9ETQ
+A1EOTB1WHLSW6G
+A1EQ5D5JRSW23K
+A1EVV74UQYVKRY
+A1EXGL6L0QQ0M5
+A1F0KPA232MTYC
+A1F1A0QQP2XVH5
+A1F5O1USOUOOXI
+A1F7YU6O5RU432
+A1F9Z42CFF9IAY
+A1FDSZISWIXH1A
+A1FDV3WPOHREY9
+A1FF2PLA84KNAE
+A1FLJCHN5CG5M5
+A1FMU4CJLIDHR9
+A1FOSIV4TWZFR7
+A1FR68QH6Z4YZM
+A1FXT4VNDA25LY
+A1G3DKT38DNZJP
+A1G5MI2KREPEIB
+A1G650TTTHEAL5
+A1GBT4UN2RW7XY
+A1GBU479WXR7UG
+A1GNYV0RA0EQSS
+A1GQRGB8FGSLIZ
+A1GW7V6S6XSXX3
+A1GWG5CWLKJ7ET
+A1GYEGLX3P2Y7P
+A1H0D7635GEEJ1
+A1H4IVXNXWWBLV
+A1H55L0BLPCWYF
+A1H6SBO7R007I8
+A1H7Y5XKPGT0OS
+A1H98YV5K5BUX0
+A1HBEQWSMVQEWJ
+A1HBI9BBQIG1NH
+A1HFT68GJ42LTM
+A1HSM98KUGTHNY
+A1HYH206E18XVC
+A1I96OYAUJ3HQE
+A1IBKN1GXYJ3K4
+A1IDAKX7OM3QIE
+A1IG1I6MR3HAWA
+A1ILWPH1GHUXE2
+A1ITRGMT80D5TK
+A1IU4UAV9QIJAI
+A1IU7S4HCK1XK0
+A1J5HIF41ENSMZ
+A1J75JJ0Q2OEJN
+A1J87SYB3JPQWH
+A1JBEKU5TYIWE7
+A1JUBRIZMO0RJV
+A1JWSDDIH5Z7DV
+A1JZFGZEZVWQPY
+A1K4G5YJDJQI6Q
+A1KD8NJPZ01R37
+A1KDUQ2HU0WD68
+A1KI7YHQEOS1RB
+A1KKE6VX8VPWZK
+A1KSNK256G46GX
+A1KWPIORLG2QV
+A1KXJCXS6HFRQZ
+A1KY5G5FP31F2F
+A1L0P1ZP5FD6EC
+A1L1N3J6XNABO2
+A1L5TA5UQF7EWE
+A1L64KDYO5BOJA
+A1LA4K5JF78BER
+A1LAGS8H4A2DR7
+A1LD5SE8IZ1H70
+A1LHMSY3Q46PJS
+A1LYMYNURB9EWW
+A1M7HP5CHDXXOU
+A1MBXP3NZM2BUO
+A1MCH5RXDOH87H
+A1MEISNED4NP7U
+A1MFAPVBW9BEGD
+A1MFPAM9TTRTXN
+A1MFVAHTT2BHM0
+A1MJMYLRTZ76ZX
+A1MNN0ZMHYPJDU
+A1MQQEM7W77L62
+A1MRPX3RM48T2I
+A1MRRMHGV3PN5W
+A1MZL91Z44RN06
+A1N3EH28S4DI8L
+A1N5FSCYN4796F
+A1NAA1R38JSNHV
+A1NGFGBX2VCQS8
+A1NJHKPHD4YWZV
+A1NMM0RDRF6R84
+A1NNMOD9H36Q8E
+A1NQFT941TOTT7
+A1NRMTQ5SZPZA
+A1NZLRAZJGD99W
+A1O229NVVDJUX2
+A1OA2ZW406NQXM
+A1ODOGXEYECQQ8
+A1OES7R7FDAT2L
+A1OGCPMSIVK7G4
+A1OH33MR6K4G5J
+A1OMXVXXP07F05
+A1OO9N1MRNQ7K0
+A1P0JSFW184ZXJ
+A1P3DDFL423B3C
+A1P4XD7IORSEFN
+A1PAGHECG401K1
+A1PEXTGNF36I1Q
+A1PI8VBCXXSGC7
+A1PL7QILVQV3IF
+A1PM7HH4F77NEH
+A1PN2U0AWXGVML
+A1PPS91NLI7KEH
+A1PS4OYWUB0VX
+A1PSVZBM894R5H
+A1PV5T5S4D5NPI
+A1PVJICI412IN4
+A1PVX61PRPVX27
+A1Q5P5ML3176C0
+A1QJ10LEINDRWW
+A1QLQCJVGCQPP0
+A1QNYLBG73QRNF
+A1QOIHVQC5XWCJ
+A1QOK9LU90ACF7
+A1QQA7Y92L4F9R
+A1QRST0A3IQIEF
+A1QVFHPY8418HC
+A1R19YYR5OR26T
+A1R377IPZOKLMM
+A1R3GN9MEJFXM3
+A1R6RKKE44AYA8
+A1R76R4E6A8S3B
+A1RCGK44YXNBBB
+A1RDHBBZE1NPS3
+A1REY92IEZJUSX
+A1RJKTYC03L0JY
+A1RL1OTV8IJMVD
+A1ROUMJOGO4QMB
+A1RPJHUVVSI98A
+A1RPTVW5VEOSI
+A1S27P7KJO9I96
+A1S7BFT0HDF3HA
+A1SB9BNNGKNX2Z
+A1SC5OXLQNGPLN
+A1SDPA1J98UP4L
+A1SFPA80X7TRBR
+A1SHHQSPOWR00F
+A1SX9PHJWTDMF9
+A1T1YSCDW0PD25
+A1T7EHCMZ92TKC
+A1T9MILRRZ00F8
+A1TDR7Y90SVCHL
+A1TFDMY4YNTV97
+A1TQBAHI3M4ZBQ
+A1TQZUSOU22E9M
+A1TR1R2QKWRSRA
+A1TY97ZGQT5FGF
+A1U11IP6K6NHAK
+A1U4GOVZWL8ZTL
+A1U5IJHJK84S54
+A1U5NWJOYH2QQH
+A1UCAVBNJUZMPR
+A1UEL5C1N6E5SE
+A1UL2JH7XOUGM5
+A1UMSB7LAW0RIR
+A1UNJ46NSB352E
+A1UQBFCERIP7VJ
+A1UQUDT2Q0YENM
+A1URXSRV6WDHVY
+A1USYP4AXF5I1D
+A1UTM65Y3G9HUL
+A1V3TRGWOMA8LC
+A1V4A5U5O3TMMD
+A1V4VVBQBFXRHC
+A1V5TRJXTI6F01
+A1VEELTKS8NLZB
+A1VFX417XDNWIU
+A1VGXHHR08G044
+A1VHCO8RQFIGQJ
+A1VJ0V58N0698J
+A1VLE2SH9J8WYS
+A1VLVWTLV3LVHR
+A1VOFY3QFT9WCG
+A1VQBEW0G4IH1J
+A1VQHH85U7PX0
+A1VR1HIOVQWN09
+A1VRANSQ0WF1YS
+A1VS1LL905P5L5
+A1VTCSCH8FFC76
+A1VUN4JU731CBH
+A1VVRA3P6G1TWH
+A1VYFEJM12ZP11
+A1W415JP5WEAJK
+A1W4F91DH3XPB2
+A1WF4QNIE2Z3I7
+A1WG97A0EFHYXN
+A1WJ3P43SZUNDM
+A1WUQF5HWBAQJU
+A1WXG10FJ353K0
+A1X1CEGHTHMBL1
+A1X2LENOF84LCQ
+A1X3DA7C61WZLQ
+A1X3ESYZ79H59E
+A1XB7JGJ459ERP
+A1XE3M22N91451
+A1XEQGYY1IL8CD
+A1XK4VP74IB9TQ
+A1XXMNLOLKNO0I
+A1Y051MQ2SVPFI
+A1Y4EWMUTW73GD
+A1Y85GQ09Y95JL
+A1YE1IK0JYSIIE
+A1YEPFLLH42OU1
+A1YN5I4FINMBTI
+A1YVO5V1SO18DZ
+A1Z16630QMH8Q6
+A1Z3598J0371ND
+A1Z4GII5CHCDG7
+A1Z7SC7HH1BJKA
+A1Z7U9K6X3FEOU
+A1ZA5SXZS8Z3CK
+A1ZBEIL78MLR9Z
+A1ZCSSCAGBCD49
+A1ZM846Y7AUYD
+A1ZPUEHF4AES86
+A1ZPY91VE3IDN1
+A1ZTR0FR5AW9B4
+A1ZU55TM45Y2R8
+A1ZVFCPHCWFV71
+A1ZXMMQPYC3Z9I
+A200DY76VXVGP9
+A200RY2ELZL2Q3
+A203OCQQ12MAVT
+A204K1OFE8OB9Y
+A206CGM6J75UJY
+A20951I210L0IB
+A209G57KXCBF4C
+A20DDH4NT6Q1E8
+A20DZX38KRBIT8
+A20G074MWH9U7O
+A20H1M28WLI9J2
+A20L63B48RPSOH
+A20OBCQWBKCGZT
+A20UU20K7M9ZPF
+A20VG5W98SX99L
+A20WUUD9EDWY4N
+A20ZM879PCQQEZ
+A212MDP6K4VJS5
+A213J54E63SYOP
+A214W7SK2DJQ99
+A215IN14OKAE2T
+A215WH6RUDUCMP
+A21GW4L8FO307V
+A21I62TCDL4754
+A21INUA35HX4XQ
+A21KNRUAA5RK5E
+A21NS06GDEA3V0
+A21Q9JVG4SII51
+A21S26XYPGXJZX
+A21T0D2F7SKG5S
+A21VM9WVF8EOSJ
+A225G2TFM76GYX
+A226VGZWOEBPGL
+A2294LS59GC5K7
+A22CW0ZHY3NJH8
+A22I55P15NSAOX
+A22MANL4US4RMY
+A22NKFOH9RATRC
+A22R9L5DAVYYWR
+A22S7D0LP8GRDH
+A231WM2Z2JL0U3
+A233TZONT1OGR0
+A23D13HKTA95WX
+A23E9QQHJLNGUI
+A23GFTVIETX7DS
+A23NSKTMSPPBTR
+A23ONMGKEWDG4M
+A23QII83UGZP5U
+A23R3EOZ837242
+A23WPWLYT3P1CZ
+A23ZNGL704AW7O
+A23ZXHFLC6TBLD
+A240FRPD4MEXND
+A247L282PID4PE
+A24ARANWS5E3T8
+A24HWYHR28JJ7A
+A24J2Y1O22JYZX
+A24P4E3RJ6AX94
+A24QFMD1RXLJMB
+A24RCBRDXRXR0Y
+A2503LT8PZIHAD
+A250AXLRBVYKB4
+A253IOATGMT2UP
+A257X1MQJO82P2
+A259MPG6SOL02P
+A25C2M3QF9G7OQ
+A25FL6VLD7S23S
+A25HBO5V8S8SEA
+A25KKXUQQ0OLWB
+A25QJBK33C4O0R
+A25RTRAPQAJBDJ
+A25TNBMJ4ZO7RD
+A25TQLMIAPI1T6
+A25UZ7MA72SMKM
+A25WJCAP606YMP
+A267FU71Z01CIH
+A26877IWJGISYM
+A26BDXG9KVH7SU
+A26CPEEWB2WKRE
+A26EQ8U96JA92T
+A26KXNN6H1IL0I
+A26LD9FQHTM8ZH
+A26SO3TOT2TLJE
+A274MXTX3DYLUV
+A274X54O9CN2SR
+A27ADCSD15F3GL
+A27AF4DLLOBQDQ
+A27B1U3OWCU14J
+A27GITTN6AVW5I
+A27H0T39U3FZB5
+A27H61OHW44XA7
+A27M75LRSJ788H
+A27QXQQOLAMRRR
+A27T4RQ3XA661C
+A27TN8D0CZ8LUY
+A27Y4OEC9MD9PA
+A28525P0S5ZVJ3
+A2858RV2VLI14X
+A28621TSIR5EOG
+A28BX3MM90A6FI
+A28CCQNXWV6WA2
+A28I5UM0FT3I6T
+A28J3123I1QDKI
+A28LUOEY0ECT9G
+A28N2AWOVO2PB
+A28P7V9KI7MXP
+A28RSMADFCBJDT
+A28UMA3GW9L124
+A28X0LT2100RL1
+A291XTI6NO7DEG
+A292TRC6DX2GKK
+A294BKN913UOGP
+A296QED1MV1V0J
+A298GL2D0BHGKZ
+A29GWIJL72GXXZ
+A29KJ32G75L7G9
+A2A4X545ERLS7H
+A2AC6GQ24S45GA
+A2AEZQ3DGBBLPR
+A2AF0NOCM71J0B
+A2AFTRU43PY9P5
+A2ALRZ0ENQLYY5
+A2ARDVMUGDFED6
+A2AX2UGB167J31
+A2AY4YUOX2N1BQ
+A2B7BUH8834Y6M
+A2BCDZO1XQLDH
+A2BGZ52M908MJY
+A2BIJMB2BITQUM
+A2BLFCOPSMBOZ9
+A2BMZRO0H7TFCS
+A2BUQ240COLAOP
+A2BX8DDQGCCG2J
+A2BYV7S1QP2YIG
+A2C8I2RQ0WG940
+A2CIQEY05SPHTZ
+A2CL818RN52NWN
+A2CPP7BZKOF9TP
+A2CWIYIETNBAK3
+A2CWUM49ZWMGEY
+A2D0CO1OA6DSWY
+A2D1LPEUCTNT8X
+A2D1ZQEFS1NBH2
+A2DF62DP20RIXF
+A2DG63DN704LOI
+A2DIQTZPF26T1L
+A2DKQQIZ793AV5
+A2DS9DLMSU2M2Z
+A2DXENZNO2JT4F
+A2E1EFNIZL2FVA
+A2ED50E3KWKUKW
+A2EF8N7ZE7ONWX
+A2EHYCA29NSQLU
+A2EMUM49CE0JV4
+A2EN82VBJT44QP
+A2ER8G4JJJ7XER
+A2EW01G2LNJN06
+A2EZTM9WY5B5IL
+A2F2F7N94SR1KQ
+A2F2GLVFRNV7JJ
+A2F4HP0J5VNOYR
+A2F7CSE6KT7NI4
+A2F92M62KN324B
+A2FHTXLKY1XJDB
+A2FRKEXDXDN1KI
+A2FSOHSM9X13JT
+A2FWZ58M6IQMD7
+A2FXBWR4T4OFQ
+A2FZQF0MH29VYN
+A2G563AC1HME2R
+A2GKMXRLI7KLFP
+A2GMZZ6TDYOHY7
+A2GOHNFBHUU3UI
+A2GYV87WW0DMSN
+A2H4OMJLE7JFM2
+A2HBOG4LVIY15L
+A2HDTOF8222KN3
+A2HJY7418G1KV1
+A2HKUM9OEBQKDW
+A2HMF8ZR67BNZS
+A2HNH4PKE5DPSI
+A2HPJKM7L4EOQB
+A2HRHF83I3NDGT
+A2HV76MYH7UL3S
+A2HXE29CU1I24Y
+A2HXEJXEQQTM1D
+A2I18AO597DSDI
+A2I2KPNJDQ9SL0
+A2I357I10ZY7CI
+A2I5LVVQ7WXEH6
+A2I6GN7OHB9JKF
+A2IFGGXG3YV3Y6
+A2IFKH3TJ10387
+A2IIAQ7VVAHXTD
+A2IMLOJ2Z2QEU2
+A2IT7S59GSASN7
+A2IXK5LB4Y0NYV
+A2J0IBS4PFRO2C
+A2J3VCGBNDLAKF
+A2J4XMWKR8PPD0
+A2J7FHZFKOKGZ6
+A2J8DE8R94ZB02
+A2J8T58Z4X15IO
+A2J96FILPQA01
+A2JAEZ0FMAMJVW
+A2JCJJNY43QQIV
+A2JE071UW97J2A
+A2JKM8KF3296CW
+A2JMJVNTBL7K7E
+A2JOPUWVV0XQJ3
+A2JP9E1H0SF392
+A2JRDFIGWTX50J
+A2JWF9IG8PJAOA
+A2JXS1JII6SAUD
+A2K5RRMPICZ606
+A2K6CDQ9HZ359G
+A2KHG3JOFXQ4CE
+A2KIJBT9HRIOM8
+A2KOV8XWZOZ0FQ
+A2KYRPDKVBI2R4
+A2KZOIOFXXMC1H
+A2L0F2T1DLTNT8
+A2L36AGL8CKY3D
+A2L42QEWR77PKZ
+A2L4W1M5YU5QX3
+A2L4ZGN7GZJ95T
+A2L90SGUP36KGA
+A2L9OPJAAEK08Q
+A2LB4FLRZG6CUV
+A2LCE1D0TW2XY0
+A2LEIANN1UZTHP
+A2LF07KCXDR70D
+A2LF16F0KX9L7P
+A2LFWJ8X817QGX
+A2LLSFQO8O8XNW
+A2LTYEYGKBYXRR
+A2LW5AL0KQ9P1M
+A2LXX47A0KMJVX
+A2M14CFAMF8J7I
+A2M9ME0N2S3R39
+A2MCRCK1V61FWQ
+A2ME89MSWVG9NF
+A2MIP3AQVSF2SS
+A2MJ8OL2FYN7CW
+A2MOD50IHEDH3G
+A2MOJANFPX353G
+A2MR696ZU17F12
+A2MSBIA18RXYQC
+A2N3JSOIQ6ZNFL
+A2N75ADJSRW0AH
+A2NB2E5DXE319Z
+A2NJQF2UI60VGT
+A2NLI1M5K2MQ5E
+A2NN1KIYEM2SKS
+A2NOIWPJDD7WIQ
+A2NOW4U7W3F7RI
+A2NP9CGUSFP22E
+A2NPN06SYI5VL3
+A2NQMVTQ4PVLL
+A2NSMJVQY0RV9S
+A2NSXY5L42ZUGO
+A2NT3W1F1XYBFZ
+A2NU9H8H5MJZSL
+A2NVQZ4Y7Y0J1R
+A2NX6MFZP8TM6S
+A2NX6PABLIJLP1
+A2NXRD80LWHUOP
+A2NYK9KWFMJV4Y
+A2NYOY6H42SORF
+A2O6HZ2B9YSRXR
+A2OBDNQ5ZYU1L8
+A2OKRGHIYTBQ6P
+A2OOLI2WFY4L2
+A2OOXVZ6B1VZ9A
+A2OS3TIVAKUAHG
+A2OT3PDH1AWLTG
+A2OTQMC69J8MUI
+A2OWR5G2OAQF7C
+A2PB325LKXYDOL
+A2PC9ZZIFV31B1
+A2PICNZWHEINQC
+A2PJH18W4XHTZW
+A2PK64OVZA1U8Z
+A2PL06HW6KZH2
+A2PMR2PIGWKCQ9
+A2POXR5VS3PHKR
+A2PREU4LOFQRB1
+A2PSC7LUNIDEAH
+A2PSD2R9A1CXG7
+A2PY5ED630H0QJ
+A2PZXXPGLXXKZU
+A2Q204DY2L7YRP
+A2Q2A6JKY95RTP
+A2Q7OJTVPIO2XH
+A2QAOP52OEB5EV
+A2QDOJFFLFGF18
+A2QI2JHSIQ3SN3
+A2QI2NTDTMK2FV
+A2QIC4G483SQQA
+A2QNS95WGN35G9
+A2QRXQPHDMFCQV
+A2R1HUYHXV7H18
+A2R6RA8FRBS608
+A2RG1B0K8YBJ4A
+A2RGA7UGAN3UL7
+A2RGWCT6K2C3EZ
+A2RIL2NXHE00AQ
+A2RIXSMGE9VIBG
+A2RN2AO4BE6F4K
+A2ROZACRW31PC2
+A2RS66Y79Q8X0W
+A2RTVGR9B1M600
+A2RU4U1JZ3DMP5
+A2RW587355CMVA
+A2RWHTNM5P3I8Y
+A2S26YGSVXBCFL
+A2SATO5BNKWY3Y
+A2SGAJWXG65464
+A2SH6A32BE6NEV
+A2SH7OWE8QJYNC
+A2SKEQT0WTB954
+A2SL5IW096Z2BL
+A2SNE4QQGVP13U
+A2SPV96SGOEO2
+A2SR7S6ZJJDGNB
+A2SYAQXJGRY3XE
+A2SZLNSI5KOQJT
+A2T24Z5QP2OMXU
+A2T3S3VTW65VO5
+A2T689YVOAYGGD
+A2TA40MV2H4O6F
+A2THQCHKR89E16
+A2TKWMX4563NR6
+A2TMFC9O3ZCNKE
+A2TN0U8173HM7A
+A2TRXEZYU9GYY8
+A2TVH2OBNXYXHV
+A2TVJ0YDW3QO63
+A2U3OEIK1CUPIK
+A2UCDLO7V7DG6
+A2UEB48LAWFUCW
+A2UKE7GIVC7XFW
+A2ULZRSHXS3HL7
+A2UOHALGF2X77Q
+A2UQK3DAZ8NO2T
+A2UTZ4O5E2W4DK
+A2UWPPU5GZLMQZ
+A2V0I904FH7ABY
+A2V1J3JT5OOZFO
+A2V2URLB31HG59
+A2V5M5EJPOD2IU
+A2V7EO331SFUF6
+A2V9DTXTQ5YIMK
+A2VAD79S4A06DD
+A2VALCFTOWFYXZ
+A2VC48WIMY6L6E
+A2VCXIAWCPQ13P
+A2VH0UT5EQFB6P
+A2VIYTWXANL343
+A2VJ5ALN1BIV3B
+A2VODABWSVHV8E
+A2W0XCWOK3MW6F
+A2W2ODLRQ2L8LE
+A2W9GX82SLKROQ
+A2W9I628I6SE1U
+A2WA8TDCTGUADI
+A2WB7LZ595CR50
+A2WBVO6X3KPMDT
+A2WC9NFLG57W4H
+A2WCFDOCS73PNB
+A2WDCAMKCCP1UR
+A2WF58BAWLVI95
+A2WJ5XSE4I9F55
+A2WLNSZ9U0T1S3
+A2WPL6Y08K6ZQH
+A2WW57XX2UVLM6
+A2WXURU33RBGQS
+A2WYF4POBUXL2O
+A2X06FP2PQ6EK0
+A2X3L31KCXBHCL
+A2X61KKXXR6WNP
+A2X695AM08AIN1
+A2X78O6G89CB30
+A2X8KN82L07RSK
+A2XA8CW5DF4MNZ
+A2XAKGRUHIE2ZA
+A2XCCN239AR1XK
+A2XHOLOLKGV1FE
+A2XJMQ2COPGWJH
+A2XPK6XCL0UH1S
+A2XQYE6TJYROHQ
+A2XRIU3SOYZ0ZC
+A2XRMQA6PJ5ZJ8
+A2XU6J41ZQOJ2V
+A2XX2A4OJCDNLZ
+A2XXBZPQT5EXHV
+A2Y1WNETD9AYHO
+A2Y29IRSI08F0I
+A2Y3WWPUKIJ59I
+A2Y4H3PXB07WQI
+A2Y739CRM15WDL
+A2YEOR4XJ8N3QE
+A2YEZ8Z3BW2SKG
+A2YHXGPCTENZY3
+A2YRX8J4WM5BRX
+A2YW6XOID7GV6G
+A2YYHSORXIHZCS
+A2Z1R98M2XOCEJ
+A2Z2MUP8JRJXEU
+A2Z9S2RQD542CP
+A2ZDY0V4Q1SZD7
+A2ZFBTGPDP6PH6
+A2ZFFSJ0VM6KSJ
+A2ZGDHLJ85T6AD
+A2ZR3YTMEEIIZ4
+A2ZRG5NOFZ47RK
+A2ZRMCRLDSUX6R
+A2ZWJVKITA32OV
+A2ZY3S7SD3QO8Z
+A2ZY49IDE6TY5I
+A303SNZ4AR7TDQ
+A3077MQTAKOVFZ
+A307Y3LMCVEZS1
+A3094EPI56GKZ6
+A30ADSBTWCORYC
+A30C8WHQ2CYFO4
+A30J7WQV0ZNRXG
+A30JPZ9TZ7I61U
+A30KPB2ILF6K6J
+A30R8VFR16RE32
+A30UP2KKD5IQEP
+A30X750M8V1XXW
+A30XZK10EZN9V4
+A313H6238N589
+A314KKDIJWCNMV
+A316XO4RWX21YN
+A319Y83RT0MRVR
+A31BD4RXCON7QO
+A31HE83MU98GBV
+A31HOWJKEIY037
+A31ICLWQ9CSHRS
+A31N0XY2UTB25C
+A31RULW0KNYJ5H
+A31RZMVAFMLB8B
+A3223W5IROMYTY
+A32482Z7XIKDQX
+A324X7RVDAV3FT
+A3284KYDZ00BZA
+A328GLDSDNFYII
+A328S9RN3U5M68
+A32AFX2PUJ82HG
+A32AK8FOAZEPE2
+A32HSNCNPRUMTR
+A32JCI4AK2JTTG
+A32LX4XJ2LU740
+A32NEDX6UVV8DE
+A32O5FZH994CNY
+A32O98PFC3OP7K
+A32QOZWIKQDNZX
+A32T2H8150OJLU
+A33152QEGO2MZN
+A335QXPTV1RIV1
+A33775AIB1A664
+A33CNFK776MTWR
+A33GNK4YENACDJ
+A33HIV8RXRDM88
+A33PVCHCQ2BTN0
+A33SX0AD5PYD9B
+A33XMCG1UFDSY2
+A33YZNZIRA3H97
+A33ZYFE8XMKKR1
+A341HCMGNZCBIT
+A34BZM6S9L7QI4
+A34C9AFFZOI45T
+A34CKIMZ969UW7
+A34CSXOGVYF94S
+A34DQINHT6NYJU
+A34JKODTSKCGEN
+A34LQ791ACZ0JC
+A34UVV757IKPVB
+A34VRVI4CSI5RQ
+A353U0L2HAMSHV
+A356RFKNIG043B
+A357B3PUHSVQA
+A359MYLPLEOF7N
+A35A2RWUMC737N
+A35C2IVVQR1HTK
+A35HNL2VEDK9Z1
+A35HOUWHAYZZN6
+A35HUT8MQMT21L
+A35IX2GE0VC0JP
+A35KBAQ4VBNQ6L
+A35OIWPVTGW3UC
+A35Q0RBM3YNQNF
+A35SNSDRNE9P8Q
+A35W3JQYP0M655
+A35X2JJI49OBZP
+A361M14PU2GUEG
+A361U4SXK7FCQE
+A362FM6FYA1SYS
+A3639Z6O5JBLIZ
+A365PBEOWM7EI7
+A368IPE6EW0GZL
+A36A1ZYZH8568P
+A36IHC0K68NS2
+A36K2N527TXXJN
+A36MP37DITBU6F
+A370XYLIZCSK1Y
+A376OJHLE6SU9Q
+A3775OP5VTX5ON
+A377LPVLLAI42D
+A379DLIAF0MFM5
+A37CEYB95LK6R6
+A37D1ZP8GBHE38
+A37IRE9GZ0CZ7I
+A37PV5GMP2ILJC
+A386LG0LRWKJZP
+A3872Y2XH0YDX1
+A38C12950IM24P
+A38CHSS1ZAE51B
+A38KK0SZYEH5UD
+A38NELQT98S4H8
+A38NHXL5257E3B
+A38QEATH3NODFM
+A38RMU1Y5TDP9
+A38V76R24EJSHA
+A38Z6QG6988WS7
+A39137LW12KK7B
+A3963R7EPE3A7E
+A3977M5S0GIG5H
+A39K52QDP4C3ZS
+A3A15L96IYUO6V
+A3A4ZAIBQWKOZS
+A3AG5QAT8L0I3R
+A3AGQAXTX6VRJ3
+A3AVJCB1ZD6ZY5
+A3AYSYSLHU26U9
+A3AZI828WJN1CD
+A3B20R4ZAH0Y2Y
+A3BACUOZV1M0WM
+A3BI8BKIHESDNQ
+A3BKNXX8QFIXIV
+A3BNMHRW2R35LK
+A3BVN2QBNPBHCR
+A3BY5KCNQZXV5U
+A3CEUT263RNUDO
+A3CFU12GS5CZCN
+A3CG93783LP0FO
+A3CIET1UO3G51E
+A3CJ7MHAS9IMAM
+A3CJOB7CHOSZUG
+A3CKI6VEH0HBMJ
+A3CLWR1UUZT6TG
+A3CMO216CWOF5N
+A3CP3J7OEGQMD5
+A3CW0ZLUO5X2B1
+A3D01HLSUFEZQY
+A3D0UM4ZD2CMAW
+A3D1TZH619NKHN
+A3D2VIUT2HWP0Z
+A3D5B2CBFNJB0K
+A3D6OI36USYOU1
+A3D7BGK0P5QY0X
+A3D822N1K2IAQD
+A3DGJMO6VPG6FJ
+A3DL29NLZ7SXXG
+A3DOPYDOS49I3T
+A3DQWFWINN3V5A
+A3DWO5RJDA430F
+A3E049PVKG7NDK
+A3E3EQ39FZTZEK
+A3E68EBGXTWDNP
+A3E9O1VNJ3U324
+A3EFSLEMHNPP6A
+A3EHJ5519LG7TR
+A3EK2KTYHJCPB9
+A3EM243NDJ4DF3
+A3EP26M3QHINXT
+A3EPJSPH03AS29
+A3EQQHWJ1EEYEU
+A3ER6ARJ23CIN8
+A3EWJX7W1X7E79
+A3EX8ZFNVDHGPM
+A3EXWV8FNSSFL6
+A3EZEP0FX5BC1P
+A3EZFFPVS34AMO
+A3F3B1JPACN215
+A3F3B6HY9RJI04
+A3F7F7QKQP2FKT
+A3F7USIDJBR8WU
+A3F8T3BRXRX5P3
+A3F9CBHV4OHFBS
+A3F9CMU8KNAY1M
+A3FBM0RMCMAABV
+A3FEGTOLCWXSV4
+A3FEJ8H2VTN0OJ
+A3FFZQKCA7UOYY
+A3FKQQTSMHOCE0
+A3FOSLM5G1BO63
+A3FPSY1M6G7XIB
+A3FS3FJPD3RJTD
+A3G007LQX6KGOD
+A3G5MOHY1U635N
+A3G7BEJJCPD6DS
+A3GFQHHVMEAIO
+A3GQY0TFRG0MPZ
+A3GVXKCTFN3YDN
+A3GX0FAMEXV6FB
+A3H4S6YO9VNGDZ
+A3H6NNGCINPLEC
+A3HC7NWLKCPX4X
+A3HCMJOGRRSAF2
+A3HH340REI4J47
+A3HPCRD9RX351S
+A3HQAPXAJV7PRX
+A3HR0ZZOFKQ97N
+A3HRDRQ5VAFPQS
+A3HSDV9Y0TV5Z2
+A3HXGSMCIOZEW8
+A3IJ4Z18FTIIP
+A3IJL9A50KVVZ1
+A3IK2VCQ007CJ
+A3IMALU0RM8UT9
+A3INN916E4VION
+A3IOQ7NVVLAUEE
+A3IRA0BHI9NE9U
+A3IUW081KXD3PE
+A3IY316DRNF5F2
+A3J029KBNG5MNP
+A3J2YU2D9BH2J7
+A3J3ZHGDUDPCFL
+A3J6Q0Y0SKY7AR
+A3J8A5L5AF5TX9
+A3JAH5WW61N2EK
+A3JLOIXFM75QNV
+A3JNBO7H2SPL44
+A3JU16JTNLVK1J
+A3JU990UTN5RQP
+A3JUHP1E3WUHEA
+A3JV071KO43Q5X
+A3K91X9X2ARDOK
+A3KCETSIJNOK56
+A3KCKECEO3E2AN
+A3KNGMX2RVQG91
+A3KTWUXXB8KKC7
+A3KZ7OH4VRL048
+A3KZEGBTPH6MMF
+A3L1VJMHFWONCB
+A3L6L5O89JTX2T
+A3L9E0YI7C5G0W
+A3LDFTSXU3UPBO
+A3LDLV1GWQJLEQ
+A3LGT6UZL99IW1
+A3LPL35P7FH78Y
+A3LQUEB84IR3VO
+A3LSEIG2PIJYBL
+A3LWC833HQIG7J
+A3LZA698SQPCXE
+A3M7BCQKSQAK4L
+A3M7R4PD0FEPUB
+A3M82NO6OU1FHS
+A3MFORLOKIOEQY
+A3MMR2WDKAK0PA
+A3MQ15651KGVLJ
+A3MQAQT8C6D1I7
+A3MU9G6YWKTGTA
+A3MUSWDCTZINQZ
+A3MV1KKHX51FYT
+A3N0P5AAMP6XD2
+A3N4I2KRSMACW8
+A3N4VTNFPMTHEF
+A3N8O68DOEQ2FE
+A3NCIN6TNL0MGA
+A3NEAETOSXDBOM
+A3NG7X4APIV649
+A3NGOG8Z78AZSD
+A3NHUQ33CFH3VM
+A3NKRH3TJ4DPVI
+A3NOBH42C7UI5M
+A3NVZTGPORNPRW
+A3NXJDNTQK2YJL
+A3NYBI5VMVEEIK
+A3O1FVLUD9X1XC
+A3O4OIBCML0683
+A3O5ASFUXC32UA
+A3OA4DV4L81N1D
+A3OIMUR42XIOFQ
+A3OXHLG6DIBRW8
+A3OYO7B6SS7QLH
+A3OZA8HNJM26DC
+A3P1508PZ0UADD
+A3P4T1DKRWTL36
+A3P69DTOXII004
+A3PCEB9ND82AGE
+A3PD8JD9L4WEII
+A3PDWA32BAMB2Y
+A3PGVJF37JSHFO
+A3PJJTAKISAFI9
+A3PPO2X5PJE1L9
+A3PU3EDJ2FG1AW
+A3Q1J68QY1MZQ9
+A3Q4TYJVAM4IRM
+A3Q6ZPW60CVF2L
+A3QAO3QBCQF89T
+A3QD59N3M7O7KB
+A3QDMDSANPYGUX
+A3QDY9I0CNMD2W
+A3QJU4FEN8PQSZ
+A3QKIR8J56EUI1
+A3QMJMTLJC34QC
+A3QNQQKJTL76H0
+A3QNX5KWHDV0GD
+A3QQCEQ33O0GJU
+A3QQGPI3CTV9SX
+A3QRR8PSCBI07C
+A3QRW0UJPKIAX7
+A3QU3O79AGNWCY
+A3QUDXLOJTKEP9
+A3QX0ERX4D03TF
+A3R19YKNL641X3
+A3R1GJY2MY8041
+A3R1WFO4KIUQXZ
+A3R33KMESG0XGQ
+A3R4794K2RVU1S
+A3REK3OFONWB1Q
+A3RGHO0Q938FRS
+A3RGJ1FXOB1ZLL
+A3RMEU4GNP60BM
+A3RR2P5IS3DGPR
+A3S0DBBR693O06
+A3S0EHEIR52HP1
+A3S3R88HA0HZG3
+A3S3VSXEFXBMRC
+A3S5EXYZDEBF3K
+A3S5WYWYKSAI9C
+A3SDJ70H00OQCJ
+A3SL0HA6422W4M
+A3SMD3T0QTN109
+A3SOJO7Z7R9WIA
+A3SP7T2PZ3HSDE
+A3SQCTNYQFVBWM
+A3SRDVCD2ATIIS
+A3SU7JSTPH9CC9
+A3SVYWA9O1KUQV
+A3SX5MZTCZRQLF
+A3T4OHEAHOJ700
+A3T7V207KRDE2O
+A3T8WOFS5RD2IR
+A3TA1UJWRJF9NC
+A3TAS1AG6FMBQW
+A3TBMAWIIHKHFN
+A3TBMGNSEQBWIL
+A3TCMJ6GKZJFBQ
+A3TNM3C9ENUCFW
+A3TP31S61PPE3G
+A3TPNC3TKGCCEI
+A3TR3KLL5PXSZ8
+A3TRY87JJCA5Y8
+A3U029B8Z5WGI2
+A3U41ZL33SS92P
+A3U5HKDHPYBAK3
+A3U6J0DLLDEWM2
+A3UKWQS8SRW6IO
+A3UQSOJW51UU9T
+A3UR2N0ATGBCU8
+A3UW0PQLDUACMH
+A3UW23DBF2KHWC
+A3UXW18DP4WSD6
+A3V0YR50F1XSKP
+A3V15SFD7918WZ
+A3V2EZ6MA32FF6
+A3V5F050GVZ56Q
+A3V6QSTG2T9MIO
+A3V6Z4RCDGRC44
+A3V7D0LH8L7BG0
+A3V8P0O224OBDB
+A3VBXQKRM7A4JR
+A3VBZDYGHF4NK8
+A3VC74TJ06WDDD
+A3VI2VETB90ZG5
+A3VL4RXCWNSR3H
+A3VONQL7YW8UPM
+A3VTOLNB5N6FVP
+A3VVMIMMTYQV5F
+A3VZH0PWLQ9BB1
+A3W4D8XOGLWUN5
+A4D5B7Q8A7PA6
+A4GGT6O0GQNV2
+A4GHPW9AAH1NY
+A4H4KYSM2KQ85
+A4IEUHNRFZO0
+A4IL0CLL27Q33
+A4S2WAQVQR6PI
+A4U27URFECK1U
+A4UGMKUSX9XHI
+A4WEZJOIZIV4U
+A506HOOCVL8GW
+A51OFQVC6O5YL
+A54S9CIUV5VNB
+A54SG05AV6S4H
+A57Q87B0TC9IJ
+A5A4374R8I7NB
+A5CDMTW6JKV5G
+A5GPH59NDWJRB
+A5JLAU2ARJ0BO
+A5KMMY627T3W
+A5MCDQ60DWUEV
+A5Q1FK0FWU7DH
+A5QDZEOIMQ4LW
+A64LEAZ2QF8L2
+A680RUE1FDO8B
+A6FIAB28IS79
+A6KL17KKN0A5L
+A6TBR6L2D4XKC
+A6VPK7X53QNAQ
+A6VXZ1EEPRTLV
+A6XDZ1MJ0B1A2
+A6XLG77BC9R8R
+A74UT8IQCM0I2
+A781ITP3HE2N5
+A7EJERNB7IK3Z
+A7EU2BWLLCJY2
+A7FDGFK0KN7QG
+A7KBAXO177NND
+A7QMQBGJ2TCQG
+A7UPJYPAH73NC
+A7Y6AVS576M03
+A7Z2J9V37ABCO
+A84FLVDK2R5JF
+A87CILADRIZW0
+A87N6UTYA6NOB
+A8CKH8XB33XGN
+A8FKL1DHTHC12
+A8P6GIIQ6YQV8
+A8WEXFRWX1ZHH
+A8X478DM3KAWM
+A8X8D4BUY5DFU
+A95PWI4S6WHGL
+A96JD9312DHWC
+A9BWUH9XKZ2DQ
+A9DYWY9VOSP1P
+A9ELHLPXF7JKD
+A9J4UURM4OSDW
+A9LNWA25IM2DX
+A9Y5O2R4D6EH5
+AA3FTJYJYX55C
+AA8RBTN3J2F5H
+AA91O96C1Z18W
+AA95DWUI3ODU
+AAA0TUKS5VBSA
+AAEVGE52KL0DJ
+AAK6SOEJY30YG
+AAQ9NJ480N9W5
+AAR7CEPXYJA0T
+AATWFX0ZZSE6C
+AAW7X3GRD8GY9
+AAXAKFQEAQPWC
+AB094YABX21WQ
+ABAPF3XY1W6JX
+ABDR6IJ93HFIO
+ABE5E8B3J7MKY
+ABH9D1TEOJ56E
+ABIVKBMSIPEDY
+ABMF4UC4Z00NT
+ABMN74TBW5UWE
+ABMNX856X89CS
+ABQWMANK4AR63
+ABSYIF0ONC2AF
+ABUE0ALHKWKHC
+ABVYGB2TKBO8F
+ABXANRX4GPYRZ
+AC1YLEFC9AN5X
+AC6Z7DP1Z5GHD
+AC9QEWWN4W9MC
+ACH055GTTIGC9
+ACHTDPEQYSEQL
+ACJT8MUC0LRF0
+ACP9S40H3SHY1
+ACQYIC13JXAOI
+ACSX5AIZE3MJ9
+ACY9QYNDFLVBI
+ACYZXQ2JKPZKT
+AD0J5KK4WQXNS
+AD8DLOGHAXL
+AD9ZL63H0VKCZ
+ADHA1W879JNT0
+ADKGE078JK8K7
+ADKZOXAOV8EXD
+ADLVFFE4VBT8
+ADOR3TR7GDF68
+ADPKRJ2BSFJ0I
+ADZF3QDGSZE7K
+AE88D7OM7YU99
+AEAFHD09X8044
+AEFTIUQHSVUFX
+AEIB3UR05OP7A
+AEJAGHLC675A7
+AEL6CQNQXONBX
+AELK0E5DK7LIZ
+AEN44U6T9R93
+AENULRBQ2IE5I
+AETQIN7OH0RL9
+AEWYUPCNDV7HY
+AEZJTA4KDIWY8
+AFFVUZEGP1FDQ
+AFH97KY1SBP2C
+AFHYEO3Y1IIDD
+AFICF7DKHTQ87
+AFM2J3HJNPIHV
+AFM7FK7NFEKFZ
+AFNG8O2DXRCUV
+AFQBS241UKPAZ
+AFR9GYKAHM37U
+AFXTKAO0CB354
+AG0PM9IAHQ06C
+AG2YXYIQ8TLTA
+AG35JCCQWDRCS
+AG5WSXI52FPKH
+AG6TX1ZJHLMO7
+AG7EF0SVBQOUX
+AG8YP2XTC5X1I
+AGATRDOFW48DK
+AGEKVD8JPZQMT
+AGEWOMQ90BV8R
+AGFSSC5DBY2HU
+AGGAQLXPVGM5D
+AGHZXQL9F94T9
+AGILRZOT49R0V
+AGJRUK27RBVYS
+AGLT3L7ALL4O4
+AGOH8N902URMW
+AGR1V15L6FLMA
+AGVWTYW0ULXHT
+AGX2K0FMS0IVL
+AGXMC3ITWZASE
+AGXV8E7XK9J6H
+AGYH5U11ZKPFB
+AH3LF9RAD1O2V
+AH5BCMZELZSKG
+AHD3NZHDUZ5I6
+AHF4I1FSIHABC
+AHIK7BUXFRMT8
+AHNHLGKIZ2N3B
+AHQRU3MRORIWQ
+AHR86ZEYETLJI
+AHROSV6WJOEGY
+AHS6PX6H22WW1
+AI0BCEWRE04G0
+AI2AOCTC8BQVZ
+AI8EMB0HUC6Z5
+AIBRTGBN07D6A
+AIFLY2HF8NS8U
+AIJQU979J6UFY
+AJCR7L4AXL2OG
+AJEOFP6ZWY0MK
+AJL3U764D7NI3
+AJX9A4Q19UTJU
+AK3GKIV8DEY8B
+AK9BXHEXOOM6Z
+AKBVYIIHWI04B
+AKCZIJ6ZHE41D
+AKSFZ4G1AXYFC
+AKSQNMIKOU01H
+AKT8TGIT6VVZ5
+AKX9EQ37PAYMY
+AL1XV4L25FZ2S
+AL42PIIG5DXYD
+AL5CUWBFBMWYQ
+AL9WKVMRI6GFB
+ALDAF4VVLFRHP
+ALHC64J88LVWO
+ALNE7Q71JFC0F
+ALQ4USPEQ9L5N
+ALRCAGJOJ9583
+ALUNVOQRXOZIA
+AM0QLU79O05JR
+AM3XNQU9TZBD8
+AM8W6Y3HVXLZT
+AM9APPMIE1BHZ
+AMFXXAOVV4CPJ
+AMKNPIDFLRFMP
+AMO1MLSIJSQOF
+AMRMK86X3PKXD
+AMS2CPERWN7JV
+AMUP8DYE7EAN2
+AMVXR3NPL0GWX
+AMWL7XIWIPXEZ
+AMZCZBK1EF1PV
+AN0JK8OQLUC55
+AN2IZT80ZUNJN
+AN81JUYW2SL24
+AN9CP6J4JF91X
+AN9WA4C5E7YY5
+ANEDXRFDZDL18
+ANEXFROORI6F6
+ANFJYYQ0P35CW
+ANRS196NKFVUU
+ANSVB7OYSXZSL
+ANTGGAQYPSWHF
+ANTN61S4L7WG9
+ANW6EGY12V5XS
+ANXEW7IDYDJEH
+ANYC38I00IRVK
+AO09RWV40IX78
+AO2EURP2Y4JZM
+AO8NH0BV82XIE
+AOEAD7DPLZE53
+AOEDWQLH2WKKW
+AOJA1LC8PN7K1
+AOMEH9W6LHC4S
+AONUCJBC85BL
+AOQLV2LSI9B2W
+AOTZOHB2LZGYR
+AOVTLYTHVDNUX
+AOWF9T81XMX2S
+AP2NZAALUQKF5
+AP53MVRC8ZEW2
+APBB297H3ZA5E
+APBDZ88BBTN4F
+APG2BHOAXPNEQ
+APGQTZZ4ZFPHO
+APMYPD97EHUUZ
+APOGXH3A74CM3
+APQQK1V695AUE
+AQ2FC1DLKVD8H
+AQ3IN3MRXQ5KH
+AQ55H30MZSV0Q
+AQB4DH57MSZSC
+AQCJWSMSURQI2
+AQIJ3ZEEVCIKU
+AQM0K7MBBT4AY
+AQNSQW4495SG0
+AQR4HPVSOPS08
+AQSV34W54L0VO
+AR18DH5SL9F73
+AR1T36GLLAFFX
+AR3EVUQF0AC7R
+AR6APXLK7TJU2
+AR74YY08IP2WE
+AR8LWDT6TUKNZ
+ARBKYIVNYWK3C
+ARC5ASW9CUAGP
+ARIDN94LOCQFD
+AROQO2VDODT7
+ARTA78TP6H73D
+ARW8VGT10JG60
+ARX0KOX5Q01BJ
+ARX7Z3NI6O0F7
+ARXU3FESTWMJJ
+AS269J1OGZT1V
+AS2II0671KT2C
+AS7J4952JB5XR
+AS8C336DDLSO4
+ASCBJEPXTOU0V
+ASF3J4UYV34KA
+ASFP250F22MDZ
+ASFW4ZMNZJKDA
+ASHJAZC9OA9NS
+ASJLXOX1VD4DF
+ASJSX783R5HTZ
+ASJZT7DM51QEM
+ASRA2UZ3JV87B
+AT09WGFUM934H
+AT28RL25Q2OLK
+AT2J7H5TRZM8Z
+AT53ZTTO707MB
+AT6CZDCP4TRGA
+AT8V3JOZD3KWK
+ATDE9JYCPI0L1
+ATDQ9CGCWTT8D
+ATFBVUXDIRXT6
+ATMQEI1LKR6VB
+ATNOI7E8GTIVE
+ATOKT8QYK967L
+ATS2855497V0I
+ATZJNEXX7LWD3
+AU2UJF4I7KAWL
+AU3GYRAKBUAEU
+AU627A4UGIW6V
+AUBEFRFHJR64Y
+AUCIFMWP3DU8R
+AUCISQA1YXX86
+AUITG1DJ3QUGK
+AUK79PXTAOJP9
+AULFLNWJP1QXY
+AUUV3XDYB16X5
+AV10H5K6VPQIJ
+AV8MDYLHHTUOY
+AV9PIER7NE448
+AVBLGXSWRN666
+AVFJ327UXPXLF
+AVJORH3ACR2A5
+AVPNQUVZWMDSX
+AVSMRPI23DQI2
+AVTJEWTCJ3PBE
+AVU1ILDDYW301
+AW5JSQCHC2ZJO
+AW63IRQWH10GF
+AW68KVDV7BBRS
+AW6A4PPENVZY3
+AW6FQE5QRF2LM
+AW6J9IILGOZY3
+AWH2AY17ZU7W2
+AWHL379EE14K7
+AWJWCKB92RJX2
+AWNBZSEZ9P8BE
+AWNJAY0M5UI70
+AWPN47SSWK1JV
+AWPODHOB4GFWL
+AWSK1ZAEU1KFL
+AWZR0O65DL2Q
+AX05DBU8IRUWY
+AX7317G153T8W
+AXP8GO5Q3AXSA
+AXR3CV6A4FMBG
+AXU3VKZE848IY
+AXU8RH1DEV21H
+AXYM52DNK6NDF
+AY3D7DG5L5WCK
+AY3XPKRAMKKY7
+AY4EXFOO43C3S
+AY6A8KPYCE6B0
+AYB4ELCS5AM8P
+AYCAIHABPYWVJ
+AYGEKID3G7DPW
+AYLLSFYS3UP1H
+AYMD77ITD15PT
+AYNAH993VDECT
+AYO1146CBIV5C
+AYOMAHLWRQHUG
+AYOTEJ617O60K
+AYP0YPLSP9ISM
+AZ515FFZ7I2P7
+AZ8XSDMIX04VJ
+AZAC8O310IK4E
+AZBXKUH4AIW3X
+AZCE11PSTCH1L
+AZMY6E8B52L2T
+AZNUHQSHZHSUE
+AZOK5STV85FBJ
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell">* It can be observed from the above list that <strong>user "A34BZM6S9L7QI4" has not seen the product with productId "1400501466"</strong> as this userId is a part of the above list.</div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><strong>Below we are predicting rating for <code>userId=A34BZM6S9L7QI4</code> and <code>prod_id=1400501466</code>.</strong></div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre># Predicting rating for a sample user with a non interacted product
+sim_user_user_baseline.predict('A34BZM6S9L7QI4','1400501466').est</pre></div>
+                <div class="output-area">
+                    <div class="output-wrapper">
+                        <div class="cell-prompt output-prompt"></div>
+                        <div class="output-content">
+                            <div class="output-result"><pre>1.991150442477876</pre></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><strong>Write your observations here:</strong><br>The user has a very low rating for the product</div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><h3><strong>Improving similarity-based recommendation system by tuning its hyperparameters</strong></h3></div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell">Below, we will be tuning hyperparameters for the <code>KNNBasic</code> algorithm. Let's try to understand some of the hyperparameters of the KNNBasic algorithm:<br><br>- <strong>k</strong> (int) – The (max) number of neighbors to take into account for aggregation. Default is 40.<br>- <strong>min_k</strong> (int) – The minimum number of neighbors to take into account for aggregation. If there are not enough neighbors, the prediction is set to the global mean of all ratings. Default is 1.<br>- <strong>sim_options</strong> (dict) – A dictionary of options for the similarity measure. And there are four similarity measures available in surprise -<br>    - cosine<br>    - msd (default)<br>    - Pearson<br>    - Pearson baseline</div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre># Setting up parameter grid to tune the hyperparameters
+param_grid = {'k': [10, 20, 30],
+              'min_k': [3, 6, 9],
+              'sim_options': {'name': ['msd', 'cosine'],
+                              'user_based': [True]}
+              }
+
+# Performing 3-fold cross-validation to tune the hyperparameters
+gs = GridSearchCV(KNNBasic,param_grid, measures = ['rmse'], cv = 3, n_jobs =-1 )
+
+# Fitting the data
+gs.fit(rating)
+
+# Best RMSE score
+print(gs.best_score['rmse'])
+
+# Combination of parameters that gave the best RMSE score
+print(gs.best_params['rmse'])</pre></div>
+                <div class="output-area">
+                    <div class="output-wrapper">
+                        <div class="cell-prompt output-prompt"></div>
+                        <div class="output-content">
+                            <div class="output-stream">0.9721529939834532
+{'k': 30, 'min_k': 6, 'sim_options': {'name': 'cosine', 'user_based': True}}
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell">Once the grid search is <strong>complete</strong>, we can get the <strong>optimal values for each of those hyperparameters</strong>.</div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell">Now, let's build the <strong>final model by using tuned values of the hyperparameters</strong>, which we received by using <strong>grid search cross-validation</strong>.</div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre># Using the optimal similarity measure for user-user based collaborative filtering
+sim_options= {'name': 'cosine',
+              'user_based': True}
+
+# Creating an instance of KNNBasic with optimal hyperparameter values
+sim_user_user_optimized= KNNBasic(sim_options= sim_options, k= 30, min_k= 6, random_state=1)
+
+
+# Training the algorithm on the trainset
+sim_user_user_optimized.fit(trainset)
+
+# Let us compute precision@k and recall@k also with k =10
+precision_recall_at_k(sim_user_user_optimized)
+
+</pre></div>
+                <div class="output-area">
+                    <div class="output-wrapper">
+                        <div class="cell-prompt output-prompt"></div>
+                        <div class="output-content">
+                            <div class="output-stream">Computing the cosine similarity matrix...
+Done computing similarity matrix.
+RMSE: 0.9760
+Precision:  0.834
+Recall:  0.897
+F_1 score:  0.864
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><strong>Write your observations here:</strong><br>After tuning our algorithm;s hyperparameters we have noticed some changes.<br><br>*   An RMSE score of 0.9760, our RMSE score decreased by 0.05 which shows that there isnt so much difference in the actual and predicted ratings.<br>*   A recall score of 0.897 showing that out of the relevant items 89% were actually recommended.<br>*   A precision score of 0.834 shows that that out of all the recommended items, 83% were relevant<br>*   F1 score of 0.864 shows that out of all the relevant items 86% were recommended and out of all the recommended items 86% were relevant. Our F1 score improved by 0.011.<br><br>Overall with this improvements, our model is better at recommending relevant products as compared to our baseline model.<br><br><br></div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><h3><strong>Steps:</strong></h3><br>- <strong>Predict rating for the user with <code>userId="A3LDPF5FMB782Z"</code>, and <code>prod_id= "1400501466"</code> using the optimized model</strong><br>- <strong>Predict rating for <code>userId="A34BZM6S9L7QI4"</code> who has not interacted with <code>prod_id ="1400501466"</code>, by using the optimized model</strong><br>- <strong>Compare the output with the output from the baseline model</strong></div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre># Use sim_user_user_optimized model to recommend for userId "A3LDPF5FMB782Z" and productId 1400501466
+sim_user_user_optimized.predict("A3LDPF5FMB782Z", "1400501466")
+</pre></div>
+                <div class="output-area">
+                    <div class="output-wrapper">
+                        <div class="cell-prompt output-prompt"></div>
+                        <div class="output-content">
+                            <div class="output-result"><pre>Prediction(uid='A3LDPF5FMB782Z', iid='1400501466', r_ui=None, est=3.3333333333333335, details={'actual_k': 6, 'was_impossible': False})</pre></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre># Use sim_user_user_optimized model to recommend for userId "A34BZM6S9L7QI4" and productId "1400501466"
+sim_user_user_optimized.predict("A34BZM6S9L7QI4", "1400501466")
+</pre></div>
+                <div class="output-area">
+                    <div class="output-wrapper">
+                        <div class="cell-prompt output-prompt"></div>
+                        <div class="output-content">
+                            <div class="output-result"><pre>Prediction(uid='A34BZM6S9L7QI4', iid='1400501466', r_ui=None, est=4.296427477408486, details={'was_impossible': True, 'reason': 'Not enough neighbors.'})</pre></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><strong>Write your observations here:</strong><br>*   Comparing uid = A3LDPF5FMB782Z and its rating on iid= 1400501466 between the baseline model and the tuned model, the estimated rating did not change<br>*   Comparing uid= A34BZM6S9L7QI4 and its rating on iid= 1400501466  between the baseline model and the tuned model. The users rating on the item went from 1.99 to 4.296<br><br></div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><h3><strong>Identifying similar users to a given user (nearest neighbors)</strong></h3></div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell">We can also find out <strong>similar users to a given user</strong> or its <strong>nearest neighbors</strong> based on this KNNBasic algorithm. Below, we are finding the 5 most similar users to the first user in the list with internal id 0, based on the <code>msd</code> distance metric.</div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre># 0 is the inner id of the above user
+sim_user_user_optimized.get_neighbors(0, 5)</pre></div>
+                <div class="output-area">
+                    <div class="output-wrapper">
+                        <div class="cell-prompt output-prompt"></div>
+                        <div class="output-content">
+                            <div class="output-result"><pre>[1, 10, 17, 18, 28]</pre></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><h3><strong>Implementing the recommendation algorithm based on optimized KNNBasic model</strong></h3></div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell">Below we will be implementing a function where the input parameters are:<br><br>- data: A <strong>rating</strong> dataset<br>- user_id: A user id <strong>against which we want the recommendations</strong><br>- top_n: The <strong>number of products we want to recommend</strong><br>- algo: the algorithm we want to use <strong>for predicting the ratings</strong><br>- The output of the function is a <strong>set of top_n items</strong> recommended for the given user_id based on the given algorithm</div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre>def get_recommendations(data, user_id, top_n, algo):
+
+    # Creating an empty list to store the recommended product ids
+    recommendations = []
+
+    # Creating an user item interactions matrix
+    user_item_interactions_matrix = data.pivot(index = 'user_id', columns = 'prod_id', values = 'rating')
+
+    # Extracting those product ids which the user_id has not interacted yet
+    non_interacted_products = user_item_interactions_matrix.loc[user_id][user_item_interactions_matrix.loc[user_id].isnull()].index.tolist()
+
+    # Looping through each of the product ids which user_id has not interacted yet
+    for item_id in non_interacted_products:
+
+        # Predicting the ratings for those non interacted product ids by this user
+        est = algo.predict(user_id, item_id).est
+
+        # Appending the predicted ratings
+        recommendations.append((item_id, est))
+
+    # Sorting the predicted ratings in descending order
+    recommendations.sort(key = lambda x: x[1], reverse = True)
+
+    return recommendations[:top_n] # Returing top n highest predicted rating products for this user</pre></div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><strong>Predicting top 5 products for userId = "A3LDPF5FMB782Z" with similarity based recommendation system</strong></div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre># Making top 5 recommendations for user_id "A3LDPF5FMB782Z" with a similarity-based recommendation engine
+recommendations = get_recommendations(df_final, 'A3LDPF5FMB782Z', 5, sim_user_user_optimized)
+recommendations
+</pre></div>
+                <div class="output-area">
+                    <div class="output-wrapper">
+                        <div class="cell-prompt output-prompt"></div>
+                        <div class="output-content">
+                            <div class="output-result"><pre>[('B000067RT6', 5),
+ ('B001TH7GUU', 5),
+ ('B001UI2FPE', 5),
+ ('B001V9KG0I', 5),
+ ('B00316263Y', 5)]</pre></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre># Building the dataframe for above recommendations with columns "prod_id" and "predicted_ratings"
+datf = pd.DataFrame(recommendations, columns = ['prod_id', 'predicted_ratings'])
+print(datf)</pre></div>
+                <div class="output-area">
+                    <div class="output-wrapper">
+                        <div class="cell-prompt output-prompt"></div>
+                        <div class="output-content">
+                            <div class="output-stream">      prod_id  predicted_ratings
+0  B000067RT6                  5
+1  B001TH7GUU                  5
+2  B001UI2FPE                  5
+3  B001V9KG0I                  5
+4  B00316263Y                  5
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><h3><strong>Item-Item Similarity-based Collaborative Filtering Recommendation System</strong></h3></div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell">* Above we have seen <strong>similarity-based collaborative filtering</strong> where similarity is calculated <strong>between users</strong>. Now let us look into similarity-based collaborative filtering where similarity is seen <strong>between items</strong>.</div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre># Declaring the similarity options
+sim_options = {'name': 'cosine',
+                'user_based' : False}
+
+# KNN algorithm is used to find desired similar items. Use random_state=1
+sim_item_item_baseline = KNNBasic(sim_options = sim_options, random_state = 1, verbose=False)
+
+# Train the algorithm on the trainset, and predict ratings for the test set
+sim_item_item_baseline.fit(trainset)
+
+# Let us compute precision@k, recall@k, and f_1 score with k = 10
+precision_recall_at_k(sim_item_item_baseline)
+</pre></div>
+                <div class="output-area">
+                    <div class="output-wrapper">
+                        <div class="cell-prompt output-prompt"></div>
+                        <div class="output-content">
+                            <div class="output-stream">RMSE: 1.0147
+Precision:  0.826
+Recall:  0.853
+F_1 score:  0.839
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><strong>Write your observations here:</strong><br>*   An RMSE score of 1.0147 shows how far our predicted ratings are from our actual ratings.<br>*   A precision score of 0.826 tells us that out of all the items recommended to the users only 82.6% of them were actually  relevant<br>*   A recall score of 0.853 tells us that out of all the items that were actually relevant to users, the systemm successfully recommended approximately 85.3% of them.<br>*   An F1-score is a harmonic mean between precision and recall.<br><br><br><br></div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell">Let's now <strong>predict a rating for a user with <code>userId = A3LDPF5FMB782Z</code> and <code>prod_Id = 1400501466</code></strong> as shown below. Here the user has already interacted or watched the product with productId "1400501466".</div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre># Predicting rating for a sample user with an interacted product
+sim_item_item_baseline.predict('A3LDPF5FMB782Z', '1400501466').est</pre></div>
+                <div class="output-area">
+                    <div class="output-wrapper">
+                        <div class="cell-prompt output-prompt"></div>
+                        <div class="output-content">
+                            <div class="output-result"><pre>4.3</pre></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><strong>Write your observations here:</strong> The user with uid 'A3LDPF5FMB782Z' has a good rating on iid '1400501466' this means the user likes the product.</div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell">Below we are <strong>predicting rating for the <code>userId = A34BZM6S9L7QI4</code> and <code>prod_id = 1400501466</code></strong>.</div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre># Predicting rating for a sample user with a non interacted product
+sim_item_item_baseline.predict('A34BZM6S9L7QI4', '1400501466').est</pre></div>
+                <div class="output-area">
+                    <div class="output-wrapper">
+                        <div class="cell-prompt output-prompt"></div>
+                        <div class="output-content">
+                            <div class="output-result"><pre>4.0</pre></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><strong>Write your observations here:</strong> The user with uid 'A34BZM6S9L7QI4' gave a 4.0 rating on item id '1400501466'. this means the user likes the product</div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><h3><strong>Hyperparameter tuning the item-item similarity-based model</strong></h3><br>- Use the following values for the param_grid and tune the model.<br>  - 'k': [10, 20, 30]<br>  - 'min_k': [3, 6, 9]<br>  - 'sim_options': {'name': ['msd', 'cosine']<br>  - 'user_based': [False]<br>- Use GridSearchCV() to tune the model using the 'rmse' measure<br>- Print the best score and best parameters</div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre># Setting up parameter grid to tune the hyperparameters
+param_grid = {'k': [10, 20, 30],
+              'min_k': [3, 6, 9],
+              'sim_options': {'name': ['msd', 'cosine'],
+                              'user_based': [False]}
+              }
+
+# Performing 3-fold cross validation to tune the hyperparameters
+gs = GridSearchCV(KNNBasic,param_grid, measures = ['rmse'], cv = 3, n_jobs =-1 )
+
+# Fitting the data
+gs.fit(rating)
+
+# Find the best RMSE score
+print(gs.best_score['rmse'])
+
+# Find the combination of parameters that gave the best RMSE score
+print(gs.best_params['rmse'])</pre></div>
+                <div class="output-area">
+                    <div class="output-wrapper">
+                        <div class="cell-prompt output-prompt"></div>
+                        <div class="output-content">
+                            <div class="output-stream">0.9758373035662536
+{'k': 30, 'min_k': 6, 'sim_options': {'name': 'msd', 'user_based': False}}
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell">Once the <strong>grid search</strong> is complete, we can get the <strong>optimal values for each of those hyperparameters as shown above.</strong></div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell">Now let's build the <strong>final model</strong> by using <strong>tuned values of the hyperparameters</strong> which we received by using grid search cross-validation.</div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><h3><strong>Use the best parameters from GridSearchCV to build the optimized item-item similarity-based model. Compare the performance of the optimized model with the baseline model.</strong></h3></div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre># Using the optimal similarity measure for item-item based collaborative filtering
+sim_options= {'name': 'cosine',
+              'user_based': False}
+
+# Creating an instance of KNNBasic with optimal hyperparameter values
+sim_item_item_optimized= KNNBasic(sim_options= sim_options, k= 30, min_k= 6, random_state=1)
+
+# Training the algorithm on the trainset
+sim_item_item_optimized.fit(trainset)
+
+# Let us compute precision@k and recall@k, f1_score and RMSE
+precision_recall_at_k(sim_item_item_optimized)
+</pre></div>
+                <div class="output-area">
+                    <div class="output-wrapper">
+                        <div class="cell-prompt output-prompt"></div>
+                        <div class="output-content">
+                            <div class="output-stream">Computing the cosine similarity matrix...
+Done computing similarity matrix.
+RMSE: 0.9802
+Precision:  0.827
+Recall:  0.891
+F_1 score:  0.858
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><strong>Write your observations here:</strong><br>*   Comparing the RMSE score of our optimized and baseline model, the RMSE score is 0.9802 which indicates how far our predicted ratings are from our actual ratings. There was a reduction in the output by 0.0345 which signifies there is an improvement in our model<br>*   While there was not so much difference in our precision score, our Recall score improved by 4.5%. This means that out of all the items that were relevant to the user, approximately 89% of them were recommended.  <br>*   The F-1 score improved by 2.3%,this means that out of all the items that were recommended to the user 86% were recommended and out of all the items that were relevant to the user 86% of these items were recommended.<br><br><br>Overall the optimized model improved.<br><br><br></div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><h3><strong>Steps:</strong></h3><br>- <strong>Predict rating for the user with <code>userId="A3LDPF5FMB782Z"</code>, and <code>prod_id= "1400501466"</code> using the optimized model</strong><br>- <strong>Predict rating for <code>userId="A34BZM6S9L7QI4"</code> who has not interacted with <code>prod_id ="1400501466"</code>, by using the optimized model</strong><br>- <strong>Compare the output with the output from the baseline model</strong></div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre># Use sim_item_item_optimized model to recommend for userId "A3LDPF5FMB782Z" and productId "1400501466"
+sim_item_item_optimized.predict("A3LDPF5FMB782Z", "1400501466")
+</pre></div>
+                <div class="output-area">
+                    <div class="output-wrapper">
+                        <div class="cell-prompt output-prompt"></div>
+                        <div class="output-content">
+                            <div class="output-result"><pre>Prediction(uid='A3LDPF5FMB782Z', iid='1400501466', r_ui=None, est=4.3, details={'actual_k': 20, 'was_impossible': False})</pre></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre># Use sim_item_item_optimized model to recommend for userId "A34BZM6S9L7QI4" and productId "1400501466"
+sim_item_item_optimized.predict("A34BZM6S9L7QI4", "1400501466")</pre></div>
+                <div class="output-area">
+                    <div class="output-wrapper">
+                        <div class="cell-prompt output-prompt"></div>
+                        <div class="output-content">
+                            <div class="output-result"><pre>Prediction(uid='A34BZM6S9L7QI4', iid='1400501466', r_ui=None, est=4.296427477408486, details={'was_impossible': True, 'reason': 'Not enough neighbors.'})</pre></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><strong>Write your observations here:</strong><br>*   Comparing the estimated ratings for userID = A34BZM6S9L7QI4 with rating on productID = 1400501466. The optimized model predicted its rating to be 4 while with the baseline model,the rating is 4,<br>*   Comparing the estimated ratings for userID = A3LDPF5FMB782Z with rating on productID = 1400501466. The optimized model predicted its rating to be 4.29 while the baseline model predicted its rating to be 4.0.<br><br></div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><h3><strong>Identifying similar items to a given item (nearest neighbors)</strong></h3></div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell">We can also find out <strong>similar items</strong> to a given item or its nearest neighbors based on this <strong>KNNBasic algorithm</strong>. Below we are finding the 5 most similar items to the item with internal id 0 based on the <code>msd</code> distance metric.</div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre>nearest_neighbors = sim_item_item_optimized.get_neighbors(0, 5)
+nearest_neighbors</pre></div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><strong>Predicting top 5 products for userId = "A1A5KUIIIHFF4U" with similarity based recommendation system.</strong><br><br><strong>Hint:</strong> Use the get_recommendations() function.</div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre># Making top 5 recommendations for user_id A1A5KUIIIHFF4U with similarity-based recommendation engine.
+def get_recommendations(data, user_id, top_n,algo) :
+
+    # Creating an empty list to store the recommended product ids
+    recommendations = []
+
+    # Creating an user item interactions matrix
+    user_item_interactions_matrix = data.pivot(index = 'user_id', columns = 'prod_id', values = 'rating')
+
+    # Extracting those product ids which the user_id has not interacted yet
+    non_interacted_products = user_item_interactions_matrix.loc[user_id][user_item_interactions_matrix.loc[user_id].isnull()].index.tolist()
+
+    # Looping through each of the product ids which user_id has not interacted yet
+    for item_id in non_interacted_products:
+
+        # Predicting the ratings for those non interacted product ids by this user
+        est = algo.predict(user_id, item_id).est
+
+        # Appending the predicted ratings
+        recommendations.append((item_id, est))
+
+    # Sorting the predicted ratings in descending order
+    recommendations.sort(key = lambda x: x[1], reverse = True)
+
+    return recommendations[:top_n] # Returing top n highest predicted rating products for this user
+</pre></div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre>recommendations = get_recommendations(df_final, 'A1A5KUIIIHFF4U', 5, sim_item_item_optimized)
+recommendations</pre></div>
+                <div class="output-area">
+                    <div class="output-wrapper">
+                        <div class="cell-prompt output-prompt"></div>
+                        <div class="output-content">
+                            <div class="output-result"><pre>[('1400532655', 4.296427477408486),
+ ('1400599997', 4.296427477408486),
+ ('9983891212', 4.296427477408486),
+ ('B00000DM9W', 4.296427477408486),
+ ('B00000J1V5', 4.296427477408486)]</pre></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre># Building the dataframe for above recommendations with columns "prod_id" and "predicted_ratings"
+recommendations_df = pd.DataFrame(recommendations, columns = ['prod_id', 'predicted_ratings'])
+print(recommendations_df)</pre></div>
+                <div class="output-area">
+                    <div class="output-wrapper">
+                        <div class="cell-prompt output-prompt"></div>
+                        <div class="output-content">
+                            <div class="output-stream">      prod_id  predicted_ratings
+0  1400532655           4.296427
+1  1400599997           4.296427
+2  9983891212           4.296427
+3  B00000DM9W           4.296427
+4  B00000J1V5           4.296427
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell">Now as we have seen <strong>similarity-based collaborative filtering algorithms</strong>, let us now get into <strong>model-based collaborative filtering algorithms</strong>.</div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><h3><strong>Model 3: Model-Based Collaborative Filtering - Matrix Factorization</strong></h3></div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell">Model-based Collaborative Filtering is a <strong>personalized recommendation system</strong>, the recommendations are based on the past behavior of the user and it is not dependent on any additional information. We use <strong>latent features</strong> to find recommendations for each user.</div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><h3>Singular Value Decomposition (SVD)</h3></div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell">SVD is used to <strong>compute the latent features</strong> from the <strong>user-item matrix</strong>. But SVD does not work when we <strong>miss values</strong> in the <strong>user-item matrix</strong>.</div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre># Using SVD matrix factorization. Use random_state = 1
+svd = SVD(random_state=1)
+
+# Training the algorithm on the trainset
+svd.fit(trainset)
+
+# Use the function precision_recall_at_k to compute precision@k, recall@k, F1-Score, and RMSE
+precision_recall_at_k(svd)</pre></div>
+                <div class="output-area">
+                    <div class="output-wrapper">
+                        <div class="cell-prompt output-prompt"></div>
+                        <div class="output-content">
+                            <div class="output-stream">RMSE: 0.9104
+Precision:  0.837
+Recall:  0.88
+F_1 score:  0.858
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><strong>Write your observations here:</strong><br>1.   An RMSE score of 0.9104 tells us how far our predicted ratings are far from our actual ratings. The models predictions are off by 0.9104 rating points indicating a reasonable level of accuracy in predicting user ratings.<br>2.   A precision score of 0.837 tells us that out of all the items recommended to the user,about 83.7% of them were actually relevant.<br>3.  A recall score of 0.88 means that out of all the items that were actually relevant to the user , the system recommended approximately 88% of them.<br>4.  An F1- score provides a balanced measure of models performance showing a good balance between recommending relevant items ( precision) and capturing a large proportion of relevant items (recall).<br><br></div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><strong>Let's now predict the rating for a user with <code>userId = "A3LDPF5FMB782Z"</code> and <code>prod_id = "1400501466</code>.</strong></div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre># Making prediction
+svd.predict('A3LDPF5FMB782Z', '1400501466').est</pre></div>
+                <div class="output-area">
+                    <div class="output-wrapper">
+                        <div class="cell-prompt output-prompt"></div>
+                        <div class="output-content">
+                            <div class="output-result"><pre>4.094312160755627</pre></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><strong>Write your observations here:</strong><br>The predicted rating for a user with userID A3LDPF5FMB782Z on rating of item with productID 1400501466 is 4.09. This indicates that the user likes the item and would purchase it.</div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><strong>Below we are predicting rating for the <code>userId = "A34BZM6S9L7QI4"</code> and <code>productId = "1400501466"</code>.</strong></div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre># Making prediction
+svd.predict('A34BZM6S9L7QI4','1400501466')</pre></div>
+                <div class="output-area">
+                    <div class="output-wrapper">
+                        <div class="cell-prompt output-prompt"></div>
+                        <div class="output-content">
+                            <div class="output-result"><pre>Prediction(uid='A34BZM6S9L7QI4', iid='1400501466', r_ui=None, est=4.051141373805704, details={'was_impossible': False})</pre></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><strong>Write your observations here:</strong><br>The predicted rating for a user with userID A34BZM6S9L7QI4 on rating of item with productID 1400501466 is 4.05. This indicates that the user likes the item and would purchase it.</div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><h3><strong>Improving Matrix Factorization based recommendation system by tuning its hyperparameters</strong></h3></div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell">Below we will be tuning only three hyperparameters:<br>- <strong>n_epochs</strong>: The number of iterations of the SGD algorithm.<br>- <strong>lr_all</strong>: The learning rate for all parameters.<br>- <strong>reg_all</strong>: The regularization term for all parameters.</div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre># Set the parameter space to tune
+param_grid = {'n_epochs': [5, 10],
+              'lr_all': [0.002, 0.005],
+              'reg_all': [0.4, 0.6]}
+
+# Performing 3-fold gridsearch cross-validation
+gs = GridSearchCV(SVD,param_grid, measures = ['rmse'], cv = 3, n_jobs =-1 )
+
+# Fitting data
+gs.fit(rating)
+
+# Best RMSE score
+print(gs.best_score['rmse'])
+
+# Combination of parameters that gave the best RMSE score
+print(gs.best_params['rmse'])
+</pre></div>
+                <div class="output-area">
+                    <div class="output-wrapper">
+                        <div class="cell-prompt output-prompt"></div>
+                        <div class="output-content">
+                            <div class="output-stream">0.9146788040088804
+{'n_epochs': 10, 'lr_all': 0.005, 'reg_all': 0.4}
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell">Now, we will <strong>the build final model</strong> by using <strong>tuned values</strong> of the hyperparameters, which we received using grid search cross-validation above.</div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre># Build the optimized SVD model using optimal hyperparameter search. Use random_state=1
+svd_algo_optimized = SVD(n_epochs= 10, lr_all= 0.005, reg_all= 0.4, random_state=1)
+
+# Train the algorithm on the trainset
+svd_algo_optimized.fit(trainset)
+
+# Use the function precision_recall_at_k to compute precision@k, recall@k, F1-Score, and RMSE
+precision_recall_at_k(svd_algo_optimized)</pre></div>
+                <div class="output-area">
+                    <div class="output-wrapper">
+                        <div class="cell-prompt output-prompt"></div>
+                        <div class="output-content">
+                            <div class="output-stream">RMSE: 0.9177
+Precision:  0.838
+Recall:  0.903
+F_1 score:  0.869
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><strong>Write your observations here:</strong><br>1.   An RMSE score of 0.9177 indicates a reasonable level of accuracy of the model. This RMSE score indicates how far the actual ratings are far from the predicted ratings.<br>2.   A precision score of 0.838 indicates that out of all the items that were recommended to the user, only 83.8% were actually relevant.<br>3.  A recall score of 0.903 indicates that out of all the items that are relevant, 90% were actually recommended.<br>4.  F1-score of 0.869 indicates a good balance between capturing a large proportion of relevant items (recall)  and  recommending relevant items(precision).<br></div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><h3><strong>Steps:</strong></h3><br>- <strong>Predict rating for the user with <code>userId="A3LDPF5FMB782Z"</code>, and <code>prod_id= "1400501466"</code> using the optimized model</strong><br>- <strong>Predict rating for <code>userId="A34BZM6S9L7QI4"</code> who has not interacted with <code>prod_id ="1400501466"</code>, by using the optimized model</strong><br>- <strong>Compare the output with the output from the baseline model</strong></div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre># Use svd_algo_optimized model to recommend for userId "A3LDPF5FMB782Z" and productId "1400501466"
+svd_algo_optimized.predict('A3LDPF5FMB782Z', '1400501466').est
+</pre></div>
+                <div class="output-area">
+                    <div class="output-wrapper">
+                        <div class="cell-prompt output-prompt"></div>
+                        <div class="output-content">
+                            <div class="output-result"><pre>4.097300193683638</pre></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre># Use svd_algo_optimized model to recommend for userId "A34BZM6S9L7QI4" and productId "1400501466"
+svd_algo_optimized.predict('A34BZM6S9L7QI4', '1400501466').est
+</pre></div>
+                <div class="output-area">
+                    <div class="output-wrapper">
+                        <div class="cell-prompt output-prompt"></div>
+                        <div class="output-content">
+                            <div class="output-result"><pre>4.25557977036286</pre></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><strong>Observations</strong><br>* Comparing the estimated ratings for userID = A34BZM6S9L7QI4 with rating on productID =1400501466.The optimized model predicted its rating to be 4.23 while the baseline model predicted its rating to be 4.05.The rating predicted by svd optimized is higher than svd baseline.<br><br>*   Comparing the estimated ratings for<br>userID = A3LDPF5FMB782Z with rating on productID =1400501466. The optimized model predicted its rating to be 4.09 while with the baseline model,the rating is 4.09. There is no difference between the prediction of the svd baseline and optimized model.<br><br>    </div>
+            </div>
+        </div>
+        <div class="cell cell-code">
+            <div class="cell-prompt input-prompt">In [ ]:</div>
+            <div class="cell-content">
+                <div class="input-area"><pre>from surprise import Reader, Dataset
+from surprise.model_selection import train_test_split
+from surprise.prediction_algorithms.matrix_factorization import SVD
+
+# Assuming df_final is your DataFrame with user_id, prod_id, and rating
+
+# 1. Product Frequency and Recency
+threshold = 50  # Set a suitable threshold for recent products (e.g., products rated more than 50 times)
+product_frequency = df_final['prod_id'].value_counts()
+recent_products = product_frequency[product_frequency &gt; threshold].index
+
+# 2. Subset Data for Recent Products
+recent_data = df_final[df_final['prod_id'].isin(recent_products)]
+
+# 3. Apply SVD to Recent Data
+reader = Reader(rating_scale=(1, 5))
+dataset = Dataset.load_from_df(recent_data[['user_id', 'prod_id', 'rating']], reader)
+trainset, testset = train_test_split(dataset, test_size=0.2, random_state=1)
+
+svd = SVD(random_state=1, n_factors=50) # Adjust n_factors (number of latent features) as needed
+svd.fit(trainset)
+
+# 4. Accessing Latent Features
+# The way you access latent features depends on the library implementation.
+# For Surprise, you can typically access them through the 'pu' (user features) and 'qi' (item features) attributes of the SVD object.
+
+user_features = svd.pu  # User latent features (shape: num_users x n_factors)
+item_features = svd.qi  # Item latent features (shape: num_items x n_factors)
+
+# 5. Understanding Latent Features (Example)
+# To understand a specific latent feature (e.g., feature 0), you can examine its values for different items:
+
+feature_0_values = item_features[:, 0]  # Get values for feature 0 for all items
+
+# You can then sort items based on their feature 0 values to see which items have high or low values for that feature:
+sorted_items_by_feature_0 = np.argsort(feature_0_values) # Indices of items sorted by feature 0 values
+
+# Print the top 10 items with the highest values for feature 0:
+print("Top 10 items with highest values for feature 0:")
+for item_index in sorted_items_by_feature_0[-10:]:
+    item_id = recent_data['prod_id'].unique()[item_index]
+    print(item_id, feature_0_values[item_index])</pre></div>
+                <div class="output-area">
+                    <div class="output-wrapper">
+                        <div class="cell-prompt output-prompt"></div>
+                        <div class="output-content">
+                            <div class="output-stream">Top 10 items with highest values for feature 0:
+B00BOHNYTW 0.13359284295388787
+B0063705PE 0.14446838095010586
+B00829TIEK 0.1466754628673808
+B00834SJNA 0.151790384017005
+B0074BW614 0.15274241280659442
+B004CLYEE6 0.15510932240040562
+B005CLPP84 0.21465857102070773
+B009NHWVIA 0.21498317308032425
+B0002L5R78 0.2219045118894246
+B009SYZ8OC 0.30327885680017297
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><h3><strong>Conclusion and Recommendations</strong></h3></div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><strong>Write your conclusion and recommendations here</strong></div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><strong>Conclusions</strong><br><br>1.   <strong>SVD</strong>: A strong foundation for personalization, but let's go deeper: SVD delivers impressive performance, but it primarily focuses on user-item interactions. As data science leaders, we can elevate personalization by integrating user demographics, purchase history, and browsing behavior. This contextual enrichment will enable us to deliver even more relevant recommendations, enhancing the customer experience and driving engagement.<br><br>2. <strong>Sparsity</strong>: A challenge we can strategically address: Data sparsity is a familiar hurdle in collaborative filtering, but we have the tools and expertise to overcome it. By strategically incorporating content-based filtering, knowledge graphs, or hybrid models, we can expand our recommendation coverage to include less popular or newly introduced products. This approach ensures a wider selection of relevant suggestions for our diverse customer base.<br><br>3.  <strong>Positive ratings</strong>: A valuable signal, but nuance is key: Abundant 5-star ratings reflect a positive customer sentiment, but we must delve deeper to understand the nuances behind those ratings. By analyzing product reviews and incorporating implicit feedback signals, we can unlock a richer understanding of user preferences. This deeper insight empowers us to refine our recommendations and personalize product descriptions, further enhancing the customer journey.<br><br>4.  <strong>Timestamps</strong>: Unlocking the power of temporal dynamics: Incorporating timestamps into our recommendation models unlocks a valuable understanding of how user behavior and preferences evolve over time. This temporal dimension enables us to build dynamic systems that adapt to trends and provide timely suggestions, leading to a more engaging and personalized shopping experience.<br><br>5. <strong>Transparency</strong>: Building trust and empowering customers: As we develop increasingly sophisticated recommendation systems, transparency is paramount. By providing clear and concise explanations for our recommendations, we empower customers to understand and control their personalized experiences. This transparency fosters trust and deepens their engagement with Amazon.<br><br></div>
+            </div>
+        </div>
+        <div class="cell cell-markdown">
+            <div class="cell-prompt prompt-empty">&nbsp;</div>
+            <div class="cell-content">
+                <div class="markdown-cell"><strong>Recommendations</strong><br><br>1.   <strong>Elevate personalization with contextual intelligence</strong>: Prioritize the integration of user demographics, purchase history, browsing behavior, and other relevant contextual data to deliver truly personalized recommendations. This strategic approach will significantly enhance the customer experience and drive engagement.<br>Strategically address sparsity with diverse data sources: Invest in incorporating content-based filtering, knowledge graphs, or hybrid approaches to mitigate data sparsity and ensure comprehensive recommendation coverage across our vast product catalog.<br><br>2.   <strong>Unlock nuanced user preferences</strong>: Leverage sentiment analysis of product reviews and implicit feedback signals to gain a deeper understanding of user preferences, enabling more targeted and personalized recommendations.<br><br>3. <strong>Embrace the temporal dimension for dynamic recommendations</strong>: Integrate timestamp information to capture the dynamics of user behavior and product interactions, leading to the development of more context-aware and adaptive recommendation systems.<br><br>4. <strong>Strategically balance accuracy with exploration</strong>: Develop strategies to balance the delivery of highly accurate recommendations with the introduction of diverse and serendipitous suggestions, creating a more engaging and explorative shopping experience.<br><br>5. <strong>Foster transparency and empower customers</strong>: Prioritize transparency by providing clear and concise explanations for recommendations, empowering customers to understand and control their personalized experiences and build trust in our platform.<br><br>6. <strong>Establish a culture of continuous learning and adaptation</strong>: Foster a data-driven culture that emphasizes continuous monitoring, evaluation, and adaptation of recommendation systems based on user feedback and performance metrics to ensure ongoing effectiveness and relevance.<br><br><br><br><br><br><br><br><br><br><br></div>
+            </div>
+        </div>
+    </div>
+    <footer class="export-footer">
+        Exported with <a href="https://www.runcell.dev/tool/ipynb-to-html">runcell</a> — convert notebooks to HTML or PDF anytime at runcell.dev.
+    </footer>
+</body>
+</html>

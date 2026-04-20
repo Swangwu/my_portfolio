@@ -1,41 +1,33 @@
-# Airlens
-
-A premium single-page portfolio template with a dark forest theme, cinematic scroll animations, and photography-focused design.
+# Exvia
 
 ## Language
-
 If the user has not specified a language of the website, then the language of the website (the content you insert into the template) must match the language of the user's query.
 If the user has specified a language of the website, then the language of the website must match the user's requirement.
 
 ## Content
-
 The actual content of the website should match the user's query.
 
 ## Features
-
-- Full-screen parallax layered hero with large background text, cutout model image, and overlay tagline
-- Masonry image grid with per-image directional clip-path reveals, Ken Burns zoom, and varied-depth parallax
-- Two-column services section with icon-mapped cards in a 2x2 grid
-- Feature cards with clip-path reveal, animated stat counters, and wide landscape image with center-expand reveal
-- Alternating layout featured project cards with viewfinder overlays, clip-path reveals, and staggered text
-- Auto-playing Swiper testimonials carousel with hover color-invert effect
-- Radix UI FAQ accordion with staggered reveal animations and CTA
-- Footer with massive SVG logo, three-column layout (contact, navigation, social links)
-- Each section has null check - renders nothing when config is empty
+- Cinematic full-screen hero with blurred background and sharp mouse-tracking image window (crosshair cursor, role labels on sides)
+- Scroll-triggered reveal animations using Intersection Observer with staggered timing
+- Mouse parallax hover images on service cards
+- Auto-advancing testimonial slider with star ratings, dot navigation, and arrow controls
+- Page load overlay with animated progress bar
+- Fixed navigation bar with transparent-to-white scroll transition and animated mobile hamburger menu
+- Animated buttons with text slide effect on hover
+- Bento grid portfolio layout with featured projects and inline CTA card
+- Full footer with link columns, social icons, and newsletter subscription
+- All content driven by a single config.ts file with null checks for empty sections
 
 ## Tech Stack
-
 - React 19 + TypeScript
-- Vite
-- Tailwind CSS 3
-- GSAP + ScrollTrigger (scroll-driven animations, parallax)
-- Lenis (smooth scroll)
-- Swiper (testimonials carousel)
-- Radix UI (accordion)
-- Lucide React (icons)
+- Vite 7
+- Tailwind CSS 3 with custom Exvia design system tokens
+- Lucide React icons (dynamically resolved by PascalCase name)
+- Geist font family (Regular 400, Medium 500, Mono 500) via CDN
+- shadcn/ui component primitives
 
 ## Quick Start
-
 ```bash
 npm install
 npm run dev
@@ -43,155 +35,142 @@ npm run dev
 
 ## Configuration
 
-All content is in `src/config.ts`. Each section has a typed config object with empty placeholder values.
-
-**Note:** The example values below (e.g. "YOUR VISION", "Featured Work") are English placeholders for illustration only. The actual content and language should match the user's query (user's language or their specified language).
+All content is in `src/config.ts`. Each config export controls one section. Empty values cause the section to return null (not rendered).
 
 ### siteConfig
-
 ```ts
 {
-  language: "",           // HTML lang attribute (e.g. "en", "zh", "ja")
-  siteTitle: "",          // Browser tab title
-  siteDescription: "",    // Meta description
+  language: "",      // site language code (e.g. "en", "zh", "ja")
+  title: "",         // site title shown in page overlay and browser tab
+  description: "",   // site meta description
+}
+```
+
+### navigationConfig
+```ts
+{
+  logo: "",            // logo text in navbar
+  links: [],           // array of { label: string, href: string } for nav links
+  contactLabel: "",    // contact button text
+  contactHref: "",     // contact button href
 }
 ```
 
 ### heroConfig
-
 ```ts
 {
-  backgroundText: "",     // Large text behind the hero image (e.g. "YOUR VISION")
-  heroImage: "",          // MUST be transparent-background PNG (e.g. "/hero-model.png")
-  heroImageAlt: "",       // Alt text for hero image
-  overlayText: "",        // Italic text in bottom-right (e.g. "Snagged by AirLens")
-  brandName: "",          // Top-left brand name in nav
-  navLinks: [],           // Array of { label: string, href: string }
+  name: "",              // Large hero heading at bottom of screen. Prefer a studio/brand name (not a personal name) unless the user specifically requests otherwise.
+  roles: [],             // array of role strings displayed on left and right sides of hero
+  backgroundImage: "",   // path to hero background image — should be a portrait/people photography for best visual effect with the mouse-tracking reveal (e.g. "/images/hero-bg.jpg")
 }
 ```
 
-### introGridConfig
-
+### aboutConfig
 ```ts
 {
-  titleLine1: "",         // First line of title (bold sans-serif)
-  titleLine2: "",         // Second line (italic serif)
-  description: "",        // Paragraph text below title
-  portfolioImages: [],    // Array of { src: string, alt: string } (5 images for masonry grid)
-  accentText: "",         // Small uppercase text bottom-right (e.g. "Selected Works - 2024")
-}
-```
-
-### featuredProjectsConfig
-
-```ts
-{
-  subtitle: "",           // Small uppercase label (e.g. "Featured Work")
-  titleRegular: "",       // Bold part of heading (e.g. "Selected")
-  titleItalic: "",        // Italic part of heading (e.g. "Projects")
-  viewAllText: "",        // "View All Projects" link text
-  viewAllHref: "",        // Link href for view all
-  viewProjectText: "",    // Per-project link text (e.g. "View Project")
-  projects: [],           // Array of { id, title, category, year, image, description }
+  label: "",              // section label (e.g. "About")
+  description: "",        // about paragraph text
+  experienceValue: "",    // large number/text (e.g. "10")
+  experienceLabel: "",    // label below experience value (e.g. "Years of\nExperience")
+  stats: [],              // array of { value: string, label: string }
+  images: [],             // array of { src: string, alt: string } - 4 images for 2x2 grid
 }
 ```
 
 ### servicesConfig
-
 ```ts
 {
-  subtitle: "",           // Small uppercase label (e.g. "What I Offer")
-  titleLine1: "",         // First line of heading
-  titleLine2Italic: "",   // Italic second line
-  description: "",        // Paragraph below heading
-  services: [],           // Array of { iconName, title, description }
-                          // iconName: "Camera" | "Diamond" | "Users" | "Sparkles"
+  label: "",      // section label (e.g. "Services")
+  heading: "",    // section heading
+  services: [],   // array of { iconName: string, title: string, description: string, image: string }
 }
 ```
+Icon names use Lucide PascalCase: `Compass`, `PenTool`, `Layout`, `Code`, `Palette`, `Monitor`, `Camera`, `Layers`, etc.
 
-### whyChooseMeConfig
-
+### portfolioConfig
 ```ts
 {
-  subtitle: "",           // Small uppercase label
-  titleRegular: "",       // Bold part of heading
-  titleItalic: "",        // Italic part of heading
-  statsLabel: "",         // Label above stats (e.g. "By The Numbers")
-  stats: [],              // Array of { value: number, suffix: string, label: string }
-  featureCards: [],        // Array of { image, imageAlt, title, description } (2 cards)
-  wideImage: "",          // Wide landscape image path
-  wideImageAlt: "",       // Alt text for wide image
-  wideTitle: "",          // Title overlay on wide image
-  wideDescription: "",    // Description overlay on wide image
+  label: "",          // section label (e.g. "Portfolio")
+  heading: "",        // section heading
+  description: "",    // section description paragraph
+  projects: [],       // array of { title: string, category: string, year: string, image: string, featured?: boolean }
+  cta: {              // inline CTA card in the portfolio grid
+    label: "",        // small label text
+    heading: "",      // CTA heading
+    linkText: "",     // link text
+    linkHref: "",     // link href
+  },
+  viewAllLabel: "",   // "View All Projects" button text
 }
 ```
+The grid layout uses: project[0] spans 2 cols, project[1] single, project[2] single, project[3] single, CTA card single, project[4] spans full 3 cols.
 
 ### testimonialsConfig
-
 ```ts
 {
-  subtitle: "",           // Small uppercase label (e.g. "Client Stories")
-  titleRegular: "",       // Bold part of heading
-  titleItalic: "",        // Italic part of heading
-  testimonials: [],       // Array of { id, name, role, image, quote }
+  label: "",          // section label (e.g. "Testimonials")
+  heading: "",        // section heading
+  testimonials: [],   // array of { quote: string, author: string, role: string, company: string, image: string, rating: number }
 }
 ```
 
-### faqConfig
-
+### ctaConfig
 ```ts
 {
-  subtitle: "",           // Small uppercase label (e.g. "Common Questions")
-  titleRegular: "",       // Bold part of heading
-  titleItalic: "",        // Italic part of heading
-  ctaText: "",            // Text above CTA button (e.g. "Still have questions?")
-  ctaButtonText: "",      // CTA button text (e.g. "Get in Touch")
-  ctaHref: "",            // CTA link href
-  faqs: [],               // Array of { id: string, question: string, answer: string }
+  tags: [],              // array of tag strings (e.g. ["UI/UX Designer", "Brand Designer"])
+  heading: "",           // main CTA heading
+  description: "",       // CTA description text
+  buttonText: "",        // primary button text
+  buttonHref: "",        // primary button href (e.g. "mailto:...")
+  email: "",             // email address displayed as secondary link
+  backgroundImage: "",   // path to CTA background image
 }
 ```
 
 ### footerConfig
-
 ```ts
 {
-  logoText: "",           // Large SVG text logo (e.g. "AIRLENS")
-  contactLabel: "",       // Label above email (e.g. "Get in Touch")
-  email: "",              // Contact email address
-  locationText: "",       // Location text (supports newlines with \n)
-  navigationLabel: "",    // Label above nav links (e.g. "Navigation")
-  navLinks: [],           // Array of { label: string, href: string }
-  socialLabel: "",        // Label above social icons (e.g. "Follow Along")
-  socialLinks: [],        // Array of { iconName, href, label }
-                          // iconName: "Instagram" | "Twitter" | "Linkedin" | "Mail"
-  tagline: "",            // Small text below social links (supports \n)
-  copyright: "",          // Copyright text in bottom bar
-  bottomLinks: [],        // Array of { label, href } for bottom bar links
+  logo: "",                    // footer logo text
+  description: "",             // footer brand description
+  columns: [],                 // array of { title: string, links: { label: string, href: string }[] }
+  socialLinks: [],             // array of { iconName: string, href: string, label: string }
+  newsletterHeading: "",       // newsletter section heading
+  newsletterDescription: "",   // newsletter description
+  newsletterButtonText: "",    // subscribe button text
+  newsletterPlaceholder: "",   // email input placeholder
+  copyright: "",               // copyright line text
+  credit: "",                  // credit/attribution line text
 }
 ```
+Social icon names use Lucide PascalCase: `Dribbble`, `Twitter`, `Linkedin`, `Instagram`, `Github`, `Facebook`, `Youtube`, etc.
 
 ## Required Images
 
-Place in `public/` directory:
+Place all images in `public/images/`:
 
-- **Hero**: 1 cutout image (**MUST be a transparent-background PNG**; it is layered between background text and overlay, so non-transparent backgrounds will look broken; ~500px wide recommended)
-- **Portfolio Grid**: 5 images (various aspect ratios, for masonry layout)
-- **Featured Projects**: 1 image per project (4:3 aspect ratio)
-- **Why Choose Me**: 2 portrait images (3:4), 1 wide landscape (21:9 or 3:1)
-- **Testimonials**: 1 square avatar per testimonial
+| Image | Usage | Recommended Size |
+|-------|-------|-----------------|
+| `hero-bg.jpg` | Hero background (full-screen) — should be a portrait/people photography for best effect with the mouse-tracking reveal | 1920x1080+ |
+| `about-1.jpg` to `about-4.jpg` | About section 2x2 grid | 800x1000 (4:5) |
+| `service-1.jpg` to `service-4.jpg` | Service card hover previews | 640x400 |
+| `portfolio-1.jpg` to `portfolio-5.jpg` | Portfolio project thumbnails | 1200x900 (4:3) |
+| `testimonial-1.jpg` to `testimonial-3.jpg` | Testimonial author photos | 600x750 (4:5) |
+| `cta-bg.jpg` | CTA section background | 1920x1080+ |
 
-## Design
+## Design System
 
-- **Theme**: Deep forest charcoal (#0d1310) alternating with off-white (#f4f4f4) sections
-- **Typography**: Manrope (headings), Playfair Display (italic accents), DM Sans (body text)
-- **Animations**: GSAP ScrollTrigger clip-path reveals, parallax, scale, staggered entrances
-- **Layout**: Dark/light alternating sections, max-width 7xl container
-- **Special Effects**: Viewfinder corner overlays on images, crosshair hover on projects, hover color-invert on testimonial cards
+- **Colors**: Black (#131313), White (#FFFFFF), Base Black (#1D1D1D), Subtle (#EAEAEA), Border (#EFEFF2), Blue (#0082F3), Focus (#4D65FF)
+- **Typography**: Geist font (400 regular, 500 medium), GeistMono (500 medium) for labels and monospace
+- **Easing**: Custom timing functions - out-quad, out-cubic, out-quart, out-circ, in-out-quad
+- **Layout**: Full-width sections, container-large (80rem max), responsive grid layouts
 
 ## Notes
 
-- Service icons use `iconName` field mapped to Lucide components: `Camera`, `Diamond`, `Users`, `Sparkles`
-- Footer social icons use `iconName` mapped to: `Instagram`, `Twitter`, `Linkedin`, `Mail`
-- Lenis smooth scroll is connected to GSAP ticker for synchronized animations
-- Swiper carousel auto-plays with responsive breakpoints (1.2 to 3 slides visible)
-- All sections return `null` when their config objects are empty (no title and no array items)
+- The hero section has a unique mouse-tracking effect: a sharp image window follows the cursor over a blurred background, with a white border frame and crosshair
+- All animations use CSS transitions and Intersection Observer (no animation libraries)
+- Services section uses mouse parallax for hover image positioning
+- Testimonials auto-advance every 6 seconds with slide transitions
+- The page overlay shows during initial load and fades out after content is ready
+- Navigation transitions from transparent to white background on scroll
+- Icons in services and footer are dynamically resolved from Lucide by PascalCase name string
+- Portfolio grid uses a bento-style layout with the first project spanning 2 columns and the last spanning full width
